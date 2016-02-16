@@ -17,7 +17,7 @@
                 <li><a class="pointer m-signup" title="Sign up" href="{{ url('/register') }}">Sign up</a></li>
                 <li><a class="pointer m-login" title="Log in" href="{{ url('/login') }}">Log in</a></li>
             @else  
-                <li><a href="#" title="">Hi! {{ Auth::user()->firstname }} <span class="genericon genericon-user icon-user"></span></a></li> 
+                <li><a href="#" title="">Hi! {{ $profile->firstname }} <img src="{{ $profile->photo }}" class="img-circle" width="20" /></a></li> 
             @endif 
                 <li><a class="drawer-toggle genericon genericon-menu pull-left pointer" title="Menu"><label>Menu</label></a></li>                        
             </ul>

@@ -14,16 +14,11 @@ class TaumbayanUsers extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('type');
-            $table->string('firstname');
-            $table->string('lastname');
+            $table->string('user_role');
             $table->string('email')->unique();
+            $table->string('fb_id');
             $table->string('password');
-            $table->string('gender', 1);
-            $table->date('birthday');
-            $table->dateTime('lastlogin');
-            $table->boolean('isverified');
-            $table->string('verificationkey');
+            $table->text('fb_token');
             $table->rememberToken();
             $table->timestamps();
         });

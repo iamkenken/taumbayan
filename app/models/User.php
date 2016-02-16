@@ -16,13 +16,17 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $table = 'users';
 
-	protected $fillable = array('type', 'firstname', 'lastname', 'email', 'password', 'gender', 'birthday', 'isverified', 'verificationkey');
+	protected $fillable = array('user_role', 'firstname', 'lastname', 'email', 'password', 'fb_id', 'gender', 'birthday', 'isverified', 'verificationkey', 'photo');
 
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
 	 * @var array
 	 */
-	protected $hidden = array('type', 'password', 'remember_token');
+	protected $hidden = array('user_role', 'password', 'remember_token');
+
+	public function profile(){
+		return $this->hasOne('Profile');
+	}
 
 }

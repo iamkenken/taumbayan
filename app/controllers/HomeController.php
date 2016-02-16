@@ -15,7 +15,15 @@ class HomeController extends BaseController {
 	|
 	*/
 
-
+	public function index(){
+		if(Auth::check()){
+			$user = User::with('profile')->find(Auth::user()->id); //Show authenticated user own profile details.
+			$profile = $user->profile;
+			return View::make('pages.home')->with('profile', $profile)->with('user',$user);
+		}else{
+			return View::make('pages.home');
+		}
+	}
 
 	public function showLogin()
 	{
@@ -104,17 +112,19 @@ class HomeController extends BaseController {
     	$confirmation_code = str_random(30);
 		$user = User::create([
 			'type' => 'taumbayan',
-			'firstname' => Input::get('firstname'),
-			'lastname' => Input::get('lastname'),
 			'email' => Input::get('email'),
-			'username' => Input::get('username'),
-			'password' => Hash::make(Input::get('password')),
-			'gender' => Input::get('gender'),
-			'birthday' => Input::get('birthday'),
-            'verificationkey' => $confirmation_code,
+			'password' => Hash::make(Input::get('password'))
 		]);
 
-		$user->save();
+		$profile = new Profile([
+			'firstname' => Input::get('firstname'),
+			'lastname' => Input::get('lastname'),
+			'gender' => Input::get('gender'),
+			'birthday' => Input::get('birthday'),
+            'verificationkey' => $confirmation_code
+		]);
+
+		$user->profile()->save($profile);
 
 		$credentials = array(
 	    'email' => Input::get('email'),
@@ -129,16 +139,18 @@ class HomeController extends BaseController {
 		}
 	}
 
-
 	public function dashboard()
 	{
-		return View::make('pages.dashboard');
+		$user = User::with('profile')->find(Auth::user()->id); //Show authenticated user own profile details.
+		$profile = $user->profile;
+    	return View::make('pages.dashboard')->with('profile', $profile)->with('user',$user);
 	}
-
 
 	public function submit_poll()
 	{
-		return View::make('pages.submit-poll');
+		$user = User::with('profile')->find(Auth::user()->id); //Show authenticated user own profile details.
+		$profile = $user->profile;
+		return View::make('pages.submit-poll')->with('profile', $profile)->with('user',$user);
 	}
 
 }

@@ -12,6 +12,13 @@ class DatabaseSeeder extends Seeder {
 		Eloquent::unguard();
 
 		// $this->call('UserTableSeeder');
+
+        DB::table('users')->insert([
+        	'type' => 'taumbayan',
+            'email' => str_random(10).'@gmail.com',
+            'password' => Hash::make('secret'),
+        ]);
+  
 	}
 
 }
