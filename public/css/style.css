@@ -1,0 +1,512 @@
+html,
+body {
+  height: 100%; 
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  /* The html and body elements cannot have any padding or margin. */
+}
+
+h1{
+	font-family:  "Oswald Regular", Helvetica, Arial, sans-serif;
+	font-size: 30px;
+	display: inline-block;
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -40px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+  height: 40px;
+}
+
+
+/* Custom CSS
+-------------------------------------------------- */
+a, a:hover, a:active, a:visited{
+	text-decoration: none !important;
+}
+
+button:focus {outline:0;}
+
+.container {
+  
+  max-width: 990px;
+  padding: 0 15px;
+}
+p.footer-menu {
+  margin: 10px 0 3px 0;
+  text-align: center;
+  font-size: 12px;
+  color: #FFF;
+}
+
+p.footer-menu a{
+	color: #FFF;
+	text-decoration: none;	
+}
+
+.navbar-default, #footer{
+	background-color: #0e0e0e;	
+}
+
+.navbar-brand, .navbar-default .navbar-brand, .navbar-default .navbar-nav>li>a{
+	color: #FFF;	
+}
+
+.navbar-brand{
+	padding: 0px; /* firefox bug fix */
+	font-family: "Oswald Regular", Helvetica, Arial, sans-serif;
+}
+
+.navbar-brand>img {
+	display: inline-block;
+	height: 100%;
+	padding: 10px; /* firefox bug fix */
+	width: auto;
+	margin-right: -5px;
+}
+
+.navbar-toggle{
+	border: none;
+	margin-top: 0;
+	padding-top: 15px;
+	
+}
+
+.header-custom{
+	border-bottom: 4px solid #ddd;
+	border-top: none;
+	border-left: none;    
+    border-right: none;
+	border-radius: 0;
+}
+
+.footer-custom{
+	border-top: 4px solid #ddd;
+}
+
+a.drawer-toggle label{
+	display: none;
+}
+
+.navbar-brand:hover, p.footer-menu a:hover, .navbar-right a:hover{
+	color: #AAA !important;
+}
+
+.icon-user{
+	border: 1px solid #fff;
+    border-radius: 100px;
+    background: #fff;
+    color: #848080;
+	font-size: 18px !important;
+}
+
+.pointer{
+	cursor: pointer;
+}
+
+.m-login-dialog{
+	margin-top: 70px;
+}
+
+.m-login-header{
+	padding: 0;
+	text-align:center;
+	border-bottom: none;	
+}
+
+.m-login-custom{
+	border: 4px solid #DDD;
+	border-radius: 10px;
+}
+
+.m-login-custom button{
+	width: 50%;
+	margin: 0 auto;
+    background: #3579dc;
+	border: none;
+	border-radius: 0;
+	height: 40px;	
+}
+
+.m-login-custom button:hover{
+	 background: #5083CE;
+}
+
+.m-login-container-left{
+	width: 50%;
+    float: left;
+    height: 40px;
+    background: black;
+    border-radius: 5px 0 0 0;
+}
+
+.m-login-container-right{
+	width: 50%;
+    float: right;
+    height: 40px;
+	color: #FFF;
+    background: black;
+    border-radius: 0 5px 0 0;
+}
+
+.social-login-icons{	
+	text-align:center;	
+}
+
+.social-login-icons img{	
+	margin: 15px 5px 0 5px;	
+	width: 24px;
+	height: 24px;
+}
+
+.m-signup-dialog{
+	margin-top: 70px;
+}
+
+.form-control::-webkit-input-placeholder { color: #555; }
+.form-control:-moz-placeholder { color: #555; }
+.form-control::-moz-placeholder { color: #555; }
+.form-control:-ms-input-placeholder { color: #555; }
+
+div.datepicker {
+	font-size:12px;
+}
+
+.prev_big,
+.next_big {
+font-family: OpenSans-Reg;
+color: gray;
+font-size: 60px;
+height: 100px;
+line-height: 100px;
+position: fixed;
+text-shadow: 0 1px 0 #FFF;
+top: 40%;
+z-index: 3;
+text-decoration:none;
+-moz-transition-duration: 0.2s;
+-webkit-transition-duration: 0.2s;
+-o-transition-duration: 0.2s;
+transition-duration: 0.2s;
+}
+
+.next_big {
+border-bottom-left-radius: 15px;
+border-top-left-radius: 15px;
+padding: 0 0 15px 20px;
+right: 120px;
+}
+
+.prev_big {
+border-bottom-right-radius: 15px;
+border-top-right-radius: 15px;
+padding: 0 20px 15px 0;
+left: 120px;
+}
+
+.prev_big:hover,
+.next_big:hover {
+text-decoration:none;
+color: black;
+font-size:80px;
+text-shadow:none;
+}
+
+
+/* Poll */
+p.poll-question{
+	font-size: 32px;
+	font-weight: 700;
+	color: black;
+	line-height:45px;
+}
+
+.poll-question-section, .poll-content-section{
+	margin-top: 5%;
+}
+
+.cat-count{
+	font-size: 16px; 
+	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+	vertical-align: middle;
+}
+
+.poll-ans-count{
+	position: relative;
+	bottom: -80px;
+}
+
+
+button.share-this{	
+	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    background: #3579dc;	
+	color: #FFF;
+	font-size: 14px;
+	padding: 8px 14px;  
+    vertical-align: top;
+    border: 0;
+	margin-left: 10px;
+}
+
+.m-share-content{	
+    border: 4px solid #ddd;
+}
+
+.m-share-body{
+	padding: 60px;
+}
+
+.m-share-back{
+	position: absolute;
+	bottom: 7px;
+	left: 7px;
+	cursor: pointer;
+}
+
+.social-share-icons{
+	text-align: center;
+	margin: 30px;	
+}
+
+.img-responsive{
+	display: initial;
+	margin: 5px 0;
+}
+
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 100%;
+    pointer-events:none; /* This makes sure that we can still click outside of the modal to close it */
+}
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events:none;
+}
+
+.modal-content {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width:inherit;
+    height:inherit;
+    /* To center horizontally */
+    margin: 0 auto;
+    pointer-events: all;
+}
+
+hr.cmt{
+	margin-top: 0;
+    border-top: 1px solid #ddd;
+}
+
+/* Submit Poll */
+.submit-poll-buttons{
+	background: #DDD;
+}
+
+a.submit-poll-btn {
+	font-size: 14px;
+	border-radius: 8px;	
+	padding: 2px 40px;
+	margin: 5px;
+	vertical-align:top;
+    line-height:40px;
+	background: rgba(53, 121, 220, 0.5) !important;
+	color: white;
+}
+
+a.submit-poll-btn.active{
+	background: #3579dc !important;
+}
+
+a.submit-poll-btn:hover {
+	color: #ddd;
+	background: #3579dc !important;
+}
+
+a.submit-poll-content-btn{	
+	font-size: 14px;	
+	border-radius: 8px;	
+	line-height:20px;	
+	vertical-align:top;    
+	background: #3579dc;	
+	color: #0e0e0e;
+	margin-top: 10px;
+}
+
+a.submit-poll-content-btn:hover{
+	color: #FFF;
+}
+
+.submit-poll-content{
+	background: #DDD;
+	margin-top: 15px;
+	padding: 15px;
+}
+
+img.mood{
+	margin: 0px 2px;
+}
+
+img.mood:hover{
+	width: 53px;
+	height:53px;
+}
+
+
+/* Additional Responsive */
+
+@media screen and (max-width: 499px){
+   #footer{
+		height: 60px;
+	}
+	
+	p.footer-menu{
+		font-size: 11px;
+	}
+	
+	#wrap {
+		margin: 0 auto -60px;
+	}
+	
+	.m-share-body{
+		padding: 40px;	
+	}
+	
+	.m-share-back{
+		font-size: 10px;
+	}
+		
+	.prev_big, .next_big{
+		font-size: 30px;
+	} 
+
+	.prev_big:hover, .next_big:hover {		
+		font-size:40px;		
+	}
+	
+	.poll-question-section, .poll-content-section{
+		margin-top: 0;
+		padding: 0 10px;
+	}
+		
+	p.poll-question{
+		font-size: 20px;
+		line-height:1.5;
+	}
+	
+	h1{
+		font-size: 22px;
+	}
+	
+	.cat-count{
+		font-size: 12px;
+	}
+	
+	button.share-this{
+		font-size: 12px;
+		padding: 5px;  
+	}
+	
+	.social-share-icons img{
+		width: 50px;
+		height: 50px;
+	}
+		
+	.poll-ans-count{
+		bottom: 0px;
+	}
+	
+	a.submit-poll-btn {
+		display: block;
+	}
+}
+
+@media (min-width: 768px){
+	.m-login-dialog, .m-signup-dialog{
+		width: 450px;
+		margin: 70px auto;
+	}
+}
+
+@media (max-width: 768px) and (min-width: 500px){
+	.m-login-dialog, .m-signup-dialog{
+		width: 450px;
+		margin: 70px auto;
+	}	
+	
+	.m-share-body{
+		padding: 50px;	
+	}
+	
+	.prev_big, .next_big{
+		font-size: 40px;
+	} 
+
+	.prev_big:hover, .next_big:hover {		
+		font-size: 50px;		
+	}
+		
+	.poll-question-section, .poll-content-section{
+		margin-top: 0;
+		padding: 0 20px;
+	}
+		
+	p.poll-question{
+		font-size: 28px;
+		line-height:1.5;
+	}
+	
+	.poll-ans-count{
+		bottom: 0px;
+	}
+	
+	h1{
+		font-size: 24px;
+	}
+	
+	.cat-count{
+		font-size: 12px;
+	}
+		
+	button.share-this{
+		font-size: 12px;
+		padding: 5px;  
+	}
+	
+	a.submit-poll-btn {
+		display: block;
+	}
+	
+	
+	
+}
+
+@media (max-width: 1220px){
+	
+	.m-share-content{	
+		width: 60%;		
+	}
+		
+	
+	.prev_big{
+		left: 5px;
+	}
+	
+	.next_big{
+		right:5px;
+	}
+
+}
+
+
+
