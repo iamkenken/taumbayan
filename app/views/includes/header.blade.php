@@ -8,7 +8,7 @@
                   <span class="icon-bar"></span>
             </button>
             <!-- Site Logo and name -->
-            <a class="navbar-brand" href="{{ url('/') }}" title="Taumbayan"><img src="img/TLogo32.png" >Taumbayan</a>
+            <a class="navbar-brand" href="{{ url('/') }}" title="Taumbayan">{{ HTML::image('img/TLogo32.png') }}Taumbayan</a>
           </div>                  
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse">            

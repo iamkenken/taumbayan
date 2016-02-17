@@ -14,8 +14,9 @@
 <!-- Placed at the end of the document so the pages load faster -->	
 <!-- Drawer -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/iScroll/5.1.3/iscroll.min.js"></script>
-<script src="js/drawer.min.js" charset="utf-8"></script>	
+	
+{{ HTML::script('js/drawer.min.js') }}
 <!-- Datepicker -->
-<script src="js/bootstrap-datepicker.js" type="text/javascript"></script>	
+{{ HTML::script('js/bootstrap-datepicker.js') }}
 <!-- Custom -->	
-<script src="js/custom.js" type="text/javascript"></script>	
+{{ HTML::script('js/custom.js') }}

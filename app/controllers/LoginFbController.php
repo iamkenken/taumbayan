@@ -24,7 +24,7 @@ class LoginFbController extends \BaseController {
 			return Redirect::to('/')->with("message", "Failed to retrieve data from facebook");
 		}
 
-		//$user = User::whereFbuserid($fb_user->getProperty('id'))->first();
+		$user = User::whereFbId($fb_user->getProperty('id'))->first();
 
 		if(empty($user)){
 			$user = User::create([

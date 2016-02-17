@@ -15,13 +15,13 @@
 
  <link href="css/normalize.css" rel="stylesheet">
 <!-- Custom styles for this template -->
-<link href="css/style.css" rel="stylesheet">
+{{HTML::style('css/style.css')}}
 <!-- Genericons -->
-<link href="css/genericons.css" rel="stylesheet"> 
+{{HTML::style('css/genericons.css')}}
 <!-- Drawer -->
-<link href="css/drawer.min.css" rel="stylesheet">
+{{HTML::style('css/drawer.min.css')}}
 <!-- Datepicker -->
-<link href="css/datepicker.css" rel="stylesheet">
+{{HTML::style('css/datepicker.css')}}
 <!-- Favicon -->
 <link rel="icon" href="img/favicon.png" type="image/x-icon" />
 
