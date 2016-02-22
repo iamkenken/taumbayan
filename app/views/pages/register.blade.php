@@ -146,9 +146,9 @@
                     {{ Form::close() }}
 
                     <div class="social-login-icons">                
-                    <a href="#"><img src="img/g-plus-icon.png" /></a>
-                    <a href="#"><img src="img/fb-icon.png" /></a>
-                    <a href="#"><img src="img/tw-icon.png" /></a>               
+                    <a href="{{ url('login/gplus/') }}">{{ HTML::image('img/g-plus-icon.png') }}</a>
+                    <a href="{{ url('login/facebook/') }}">{{ HTML::image('img/fb-icon.png') }}</a>
+                    <a href="{{ url('login/twitter/') }}">{{ HTML::image('img/tw-icon.png') }}</a>               
                     </div>   
                     
                 </div>

@@ -32,8 +32,6 @@ Route::get('login/fb/callback', 'LoginFbController@callback');
 
 //Social Auth Routes
 
-//Route::get('login/{action?}', array("as" => "hybridauth", "uses" => 'SocialAuthController@twitterLogin'));
-
 Route::get('login/facebook/{process?}',
     array('as' => 'hybridauth', 'before' => 'guest', "uses" => 'SocialAuthController@facebookLogin')
 );
@@ -42,10 +40,12 @@ Route::get('login/twitter/{process?}',
     array('as' => 'hybridauth', 'before' => 'guest', "uses" => 'SocialAuthController@twitterLogin')
 );
 
-
 Route::get('login/gplus/{process?}',
     array('as' => 'hybridauth', 'before' => 'guest', "uses" => 'SocialAuthController@gplusLogin')
 );
 
-
+Route::get('register/verify/{confirmationCode}', [
+    'as' => 'confirmation_path',
+    'uses' => 'HomeController@confirm'
+]);
 

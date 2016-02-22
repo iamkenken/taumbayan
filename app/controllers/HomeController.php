@@ -66,7 +66,7 @@ class HomeController extends BaseController {
 	    } else {        
 
 	        // validation not successful, send back to form 
-	        return Redirect::to('login');
+	        return Redirect::to('login')->with("message", "Invalid Login");
 
 	    }
 
@@ -111,7 +111,7 @@ class HomeController extends BaseController {
     	} else {
     	$confirmation_code = str_random(30);
 		$user = User::create([
-			'type' => 'taumbayan',
+			'user_role' => 'taumbayan',
 			'email' => Input::get('email'),
 			'password' => Hash::make(Input::get('password'))
 		]);
@@ -125,24 +125,59 @@ class HomeController extends BaseController {
 		]);
 
 		$user->profile()->save($profile);
+		$pass = Input::get('password');
+		$email = Input::get('email');
+		$fname = Input::get('firstname');
+		$lname = Input::get('lasttname');
+		$subject = 'Welcome to the Taumbayan Polls!';
+		$data = array("firstname" => $fname, "confirmation_code" => $confirmation_code);
+
+
+		Mail::send('emails.welcome', $data, function($message) use ($email, $fname, $lname, $subject, $confirmation_code)
+		{
+		    $message->to($email, $fname.' '.$lname)->subject($subject);
+		});
 
 		$credentials = array(
-	    'email' => Input::get('email'),
-	    'password' => Input::get('password')
+	    'email' => $email,
+	    'password' => $pass
 		);
 
 		if (Auth::attempt($credentials))
 		{
 		    return Redirect::intended('dashboard');
+		}else{
+			return Redirect::to('login');
 		}
 
 		}
 	}
 
+	public function confirm($confirmation_code)
+    {
+        if( ! $confirmation_code)
+        {
+            throw new InvalidConfirmationCodeException;
+        }
+
+        $profile = Profile::whereVerificationkey($confirmation_code)->first();
+
+        if ( ! $profile)
+        {
+            throw new InvalidConfirmationCodeException;
+        }
+
+        $profile->isverified = 1;
+        $profile->save();
+
+        return Redirect::to('login');
+    }
+
 	public function dashboard()
 	{
 		$user = User::with('profile')->find(Auth::user()->id); //Show authenticated user own profile details.
 		$profile = $user->profile;
+
     	return View::make('pages.dashboard')->with('profile', $profile)->with('user',$user);
 	}
 
