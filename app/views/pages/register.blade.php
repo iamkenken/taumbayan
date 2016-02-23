@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.auth')
 
 @section('content')
 <div class="container">
@@ -8,8 +8,8 @@
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
                     {{ Form::open(array('url' => '/register', 'class' => 'form-horizontal')) }}
-                        @if ($message)
-                            <div class="alert alert-danger alert-small">$message</div>
+                        @if ($errors->first('g-recaptcha-response'))
+                            <div class="alert alert-danger alert-small">Please confirm that you are not a robot.</div>
                         @endif
 
                         <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
@@ -137,6 +137,13 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <div class="col-md-12 text-center">
+                            <center>
+                                {{ Form::captcha() }} 
+                            </center>
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <div class="col-md-12 text-center">

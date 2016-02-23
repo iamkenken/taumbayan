@@ -30,7 +30,8 @@ class AjaxController extends \BaseController {
 			'email' => 'required|email|unique:users',     // required and must be unique in the ducks table
 	        'password' => 'required',
 	        'password_confirmation' => 'required|same:password',
-	        'gender' => 'required' 
+	        'gender' => 'required',
+	        'g-recaptcha-response' => 'required|captcha' 
 	        //'birthday' => 'required'   
 			);
 

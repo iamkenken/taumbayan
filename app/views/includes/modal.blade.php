@@ -98,7 +98,16 @@
 					</div>
 					<div class="help-block with-errors"></div>
 				</div>
-			</div>					
+			</div>	
+
+			<div class="row" style="margin-bottom: 12px;">
+                <div class="col-md-12 text-center">
+                <center>
+                    {{ Form::captcha() }}  
+                </center>
+                </div>
+            </div>
+
 			 <button type="submit" id="signupButton" class="btn btn-primary btn-block">SIGN UP</button>
 		  </form>				
 		  	<div class="social-login-icons">                

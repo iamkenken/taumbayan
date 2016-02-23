@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.auth')
 
 @section('content')
 <div class="container">
@@ -13,7 +13,7 @@
                             {{ $errors->first('invalid') }}
                         </div>
                         @endif
-                        <div class="form-group">
+                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             {{ Form::label('email', 'Email Address', array('class' => 'col-md-4 control-label')) }}
                             <div class="col-md-6">
                             {{ Form::text('email', Input::old('email'), array('class' => 'form-control')) }}
@@ -26,7 +26,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                              {{ Form::label('password', 'Password', array('class' => 'col-md-4 control-label')) }}
 
                             <div class="col-md-6">

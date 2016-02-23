@@ -103,7 +103,19 @@ $(document).ready(function() {
 					}else if(e['status'] == 'failed'){
 						window.location.href = baseUrl + '/login';
 					}else{
-						$('.signup-error').append('<div class="alert alert-danger">'+e['email']+'</div>').hide().fadeIn();
+						/*if(e.length != 0){
+						var errorMsg = '<div class="alert alert-danger">';
+						$.each(e, function(i, msg){
+							errorMsg += e[i]+'<br />';
+						});
+						errorMsg += '</div>';*/
+						if(e['email'] != undefined){
+							$('.signup-error').append('<div class="alert alert-danger">'+e['email']+'</div>').hide().fadeIn();
+						}else if(e['g-recaptcha-response'] != undefined){
+							$('.signup-error').append('<div class="alert alert-danger">Please confirm that you are not a robot.</div>').hide().fadeIn();
+						}else{
+							$('.signup-error').append('<div class="alert alert-danger">Something went wrong. Please reload the page</div>').hide().fadeIn();
+						}
 						$('.signupspin').remove();
 					}
 				}

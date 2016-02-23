@@ -92,8 +92,9 @@ class HomeController extends BaseController {
 			'email' => 'required|email|unique:users',     // required and must be unique in the ducks table
 	        'password' => 'required',
 	        'password_confirmation' => 'required|same:password',
-	        'gender' => 'required' 
+	        'gender' => 'required' ,
 	        //'birthday' => 'required'   
+	        'g-recaptcha-response' => 'required' 
 		);
 
 		$validator = Validator::make(Input::all(), $rules);
@@ -105,7 +106,8 @@ class HomeController extends BaseController {
 
         // redirect our user back to the form with the errors from the validator
         return Redirect::to('/register')
-            ->withErrors($validator);
+            ->withErrors($validator)
+            ->withInput(Input::except('password'));
 
     	} else {
     	$confirmation_code = str_random(30);

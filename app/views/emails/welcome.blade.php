@@ -4,4 +4,4 @@
 
 <p>Please click the link below to verify your account and be able to submit your own poll.</p>
 
-{{ URL::to('register/verify/'. $confirmation_code) }}
+<a href="{{ URL::to('register/verify/'. $confirmation_code) }}">{{ URL::to('register/verify/'. $confirmation_code) }}</a>
