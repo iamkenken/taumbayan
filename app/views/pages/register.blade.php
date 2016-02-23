@@ -8,6 +8,9 @@
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
                     {{ Form::open(array('url' => '/register', 'class' => 'form-horizontal')) }}
+                        @if ($message)
+                            <div class="alert alert-danger alert-small">$message</div>
+                        @endif
 
                         <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">First Name</label>
@@ -121,7 +124,7 @@
 
                             <div class="col-md-6">
                                 <div class="input-group date" data-provide="datepicker" style="z-index:1151 !important;">
-                                    <input type="text" class="form-control" name="birthday" id="birthday" readonly="readonly">
+                                    <input type="text" class="form-control" name="birthday" id="bod" readonly="readonly">
                                     <div class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </div>

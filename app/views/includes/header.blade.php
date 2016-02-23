@@ -14,8 +14,11 @@
           <div class="collapse navbar-collapse">            
             <ul class="nav navbar-nav navbar-right">
             @if (Auth::guest())
-                <li><a class="pointer m-signup" title="Sign up" href="{{ url('/register') }}">Sign up</a></li>
-                <li><a class="pointer m-login" title="Log in" href="{{ url('/login') }}">Log in</a></li>
+                <!-- <li><a class="pointer m-signup" title="Sign up" href="{{ url('/register') }}">Sign up</a></li>
+                <li><a class="pointer m-login" title="Log in" href="{{ url('/login') }}">Log in</a></li> -->
+
+                <li><a class="pointer m-signup" title="Sign up" href="#">Sign up</a></li>
+                <li><a class="pointer m-login" title="Log in" href="#">Log in</a></li>
             @else  
                 <li><a href="#" title="">Hi! {{ $profile->firstname }} 
                 @if ($profile->photo)

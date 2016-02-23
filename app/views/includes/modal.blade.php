@@ -16,25 +16,26 @@
 			  </div>		  
 			</div>
 			<div class="modal-body" style="padding:20px 30px;">
-			  <form role="form">
+			  <form role="form" id="loginForm" data-toggle="validator">
+			  <div class="login-error"></div>
 				<div class="form-group">					  
-				  <input type="text" class="form-control" id="login_email" name="email" placeholder="Email">
+				  <input type="email" class="form-control" id="login_email" name="email" placeholder="Email" required>
+				  <div class="help-block with-errors"></div>
 				</div>
 				<div class="form-group">					  
-				  <input type="password" class="form-control" id="login_pw" name="password" placeholder="Password">
+				  <input type="password" class="form-control" id="login_pw" name="password" placeholder="Password" required>
 				</div>
 				<div class="checkbox">
 				  <label><input type="checkbox" name="remember" value="" >Remember me</label>
 				  <a href="{{ url('/password/reset') }}" class="pull-right">Forgot password?</a>
 				</div>
-				 {{ csrf_field() }}
-				  <button type="button" id="loginbtn" class="btn btn-primary btn-block">SIGN IN</button>
+				  <button type="submit" id="loginbtn" class="btn btn-primary btn-block">SIGN IN</button>
 			  </form>				
-			  <div class="social-login-icons">				
-				<a href="#"><img src="img/g-plus-icon.png" /></a>
-				<a href="#"><img src="img/fb-icon.png" /></a>
-				<a href="#"><img src="img/tw-icon.png" /></a>				
-			  </div>			
+			  <div class="social-login-icons">                
+	            <a href="{{ url('login/gplus/') }}">{{ HTML::image('img/g-plus-icon.png') }}</a>
+	            <a href="{{ url('login/facebook/') }}">{{ HTML::image('img/fb-icon.png') }}</a>
+	            <a href="{{ url('login/twitter/') }}">{{ HTML::image('img/tw-icon.png') }}</a>             
+	            </div> 			
 			</div>			
 		  </div>
 		  
@@ -57,29 +58,36 @@
 		  </div>		  
 		</div>
 		<div class="modal-body" style="padding:20px 30px;">
-		  <form role="form" method="POST" action="{{ url('/') }}">
+		  <form role="form" id="signupForm" data-toggle="validator">
+		    <div class="signup-error"></div>
 			<div class="form-group">					
-			  <input type="text" class="form-control" name="firstname" id="fname" placeholder="First Name *" required>					   
+			  <input type="text" class="form-control" name="firstname" id="fname" placeholder="First Name *" required>	
+			  <div class="help-block with-errors"></div>				   
 			</div>
 			<div class="form-group">				
-			  <input type="text" class="form-control" name="lastname" id="lname" placeholder="Last Name *">
+			  <input type="text" class="form-control" name="lastname" id="lname" placeholder="Last Name *" required>
+			  <div class="help-block with-errors"></div>
 			</div>
 			<div class="form-group">				
-			  <input type="text" class="form-control" name="email" id="signup_email" placeholder="Email *">
+			  <input type="email" class="form-control" name="email" id="signup_email" placeholder="Email *" required>
+			  <div class="help-block with-errors"></div>
 			</div>
 			<div class="form-group">				
-			  <input type="text" class="form-control" name="password" id="signup_pw" placeholder="Password *">
+			  <input type="password" data-minlength="6" class="form-control" name="password" id="signup_pw" placeholder="Password *" required>
+			  <div class="help-block with-errors"></div>
 			</div>
 			<div class="form-group">				
-			  <input type="text" class="form-control" name="confirmation_password" id="signup_cpw" placeholder="Confirm Password *">
+			  <input type="password" class="form-control" data-match="#signup_pw" name="password_confirmation" id="signup_cpw" placeholder="Confirm Password *" required>
+			  <div class="help-block with-errors"></div>
 			</div>				
 			<div class="row" style="margin-bottom: 12px;">
 				<div class="col-xs-5 col-sm-4 col-lg-4" style="padding-right:0;">						
-					<select class="form-control" name="gender" id="sex">
+					<select class="form-control" name="gender" id="sex" required>
 						<option value="" selected disabled style="display: none">Sex</option>
-						<option value="">Male</option>
-						<option value="">Female</option>							
+						<option value="M">Male</option>
+						<option value="F">Female</option>							
 					</select>	
+					<div class="help-block with-errors"></div>
 				</div>							
 				<div class="col-xs-7 col-sm-8 col-lg-8">
 					<div class="input-group date" data-provide="datepicker" style="z-index:1151 !important;">
@@ -88,15 +96,16 @@
 							<span class="glyphicon glyphicon-calendar"></span>
 						</div>
 					</div>
+					<div class="help-block with-errors"></div>
 				</div>
 			</div>					
-			  <button type="submit" class="btn btn-primary btn-block">SIGN UP</button>
+			 <button type="submit" id="signupButton" class="btn btn-primary btn-block">SIGN UP</button>
 		  </form>				
-		  <div class="social-login-icons">				
-			<a href="#"><img src="img/g-plus-icon.png" /></a>
-			<a href="#"><img src="img/fb-icon.png" /></a>
-			<a href="#"><img src="img/tw-icon.png" /></a>				
-		  </div>			
+		  	<div class="social-login-icons">                
+            <a href="{{ url('login/gplus/') }}">{{ HTML::image('img/g-plus-icon.png') }}</a>
+            <a href="{{ url('login/facebook/') }}">{{ HTML::image('img/fb-icon.png') }}</a>
+            <a href="{{ url('login/twitter/') }}">{{ HTML::image('img/tw-icon.png') }}</a>             
+            </div>  			
 		</div>			
 	  </div>
 	  

@@ -49,3 +49,6 @@ Route::get('register/verify/{confirmationCode}', [
     'uses' => 'HomeController@confirm'
 ]);
 
+/*AJAX ROutes*/
+Route::post('auth/login', array('before'=>'csrf', 'uses' => 'AjaxController@doLogin'));
+Route::post('auth/register', array('beore' => 'csrf', 'uses' => 'AjaxController@doRegister'));

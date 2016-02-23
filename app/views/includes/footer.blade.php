@@ -18,5 +18,7 @@
 {{ HTML::script('js/drawer.min.js') }}
 <!-- Datepicker -->
 {{ HTML::script('js/bootstrap-datepicker.js') }}
+<!-- Validator -->
+{{ HTML::script('js/validator.js') }}
 <!-- Custom -->	
 {{ HTML::script('js/custom.js') }}

@@ -8,16 +8,21 @@
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
                     {{ Form::open(array('url' => 'login', 'class' => 'form-horizontal')) }}   
-                         <?php 
-                         if($errors->first('email') || $errors->first('password')){
-                            echo '<div class="alert alert-danger alert-small">Invalid User</div>';
-                         }
-                         ?>
-
+                        @if ($errors->has('invalid'))
+                        <div class="alert alert-danger alert-small"> 
+                            {{ $errors->first('invalid') }}
+                        </div>
+                        @endif
                         <div class="form-group">
                             {{ Form::label('email', 'Email Address', array('class' => 'col-md-4 control-label')) }}
                             <div class="col-md-6">
                             {{ Form::text('email', Input::old('email'), array('class' => 'form-control')) }}
+
+                            @if ($errors->has('email'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </span>
+                            @endif
                             </div>
                         </div>
 
@@ -26,6 +31,11 @@
 
                             <div class="col-md-6">
                                 {{ Form::password('password', array('class' => 'form-control')) }}
+                                @if ($errors->has('password'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
 

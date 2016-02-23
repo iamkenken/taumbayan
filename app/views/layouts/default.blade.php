@@ -5,6 +5,7 @@
 </head>
 <body class="drawer drawer--right">
 
+@include('includes.modal')
 
 @include('includes.drawer')
 

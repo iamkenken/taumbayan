@@ -175,7 +175,7 @@ class SocialAuthController extends \BaseController {
 				$user = User::create([
 				'user_role' => 'taumbayan',
 				'email' => $userProfile->email,
-				'twitter_id' => $userProfile->identifier
+				'gplus_id' => $userProfile->identifier
 				]);
 
 				$profile = new Profile;

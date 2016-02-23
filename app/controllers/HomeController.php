@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\MessageBag;
+
 class HomeController extends BaseController {
 
 	/*
@@ -34,8 +36,9 @@ class HomeController extends BaseController {
 	{
 	// validate the info, create rules for the inputs
 	$rules = array(
-	    'email'    => 'required|email|unique:users', // make sure the email is an actual email
-	    'password' => 'required|alphaNum|min:3' // password can only be alphanumeric and has to be greater than 3 characters
+	    'email'    => 'required|email', // make sure the email is an actual email
+	   // 'password' => 'required|alphaNum|min:3' // password can only be alphanumeric and has to be greater than 3 characters
+	    'password' => 'required'
 	);
 
 	// run the validation rules on the inputs from the form
@@ -56,18 +59,14 @@ class HomeController extends BaseController {
 
 	    // attempt to do the login
 	    if (Auth::attempt($userdata)) {
-
-	        // validation successful!
-	        // redirect them to the secure section or whatever
-	        // return Redirect::to('secure');
-	        // for now we'll just echo success (even though echoing in a controller is bad)
 	        return Redirect::intended('dashboard');
 
 	    } else {        
-
+	    	 $validator = new MessageBag(['invalid' => ['Email and/or password invalid.']]);
 	        // validation not successful, send back to form 
-	        return Redirect::to('login')->with("message", "Invalid Login");
-
+	        return Redirect::to('login')
+	        ->withErrors($validator)
+	        ->withInput(Input::except('password'));
 	    }
 
 	}
@@ -93,13 +92,13 @@ class HomeController extends BaseController {
 			'email' => 'required|email|unique:users',     // required and must be unique in the ducks table
 	        'password' => 'required',
 	        'password_confirmation' => 'required|same:password',
-	        'gender' => 'required',  
-	        'birthday' => 'required'   
+	        'gender' => 'required' 
+	        //'birthday' => 'required'   
 		);
 
 		$validator = Validator::make(Input::all(), $rules);
 
-		 if ($validator->fails()) {
+		if ($validator->fails()) {
 
         // get the error messages from the validator
         $messages = $validator->messages();
