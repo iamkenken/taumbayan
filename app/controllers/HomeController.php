@@ -182,11 +182,5 @@ class HomeController extends BaseController {
     	return View::make('pages.dashboard')->with('profile', $profile)->with('user',$user);
 	}
 
-	public function submit_poll()
-	{
-		$user = User::with('profile')->find(Auth::user()->id); //Show authenticated user own profile details.
-		$profile = $user->profile;
-		return View::make('pages.submit-poll')->with('profile', $profile)->with('user',$user);
-	}
 
 }

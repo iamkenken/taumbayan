@@ -22,7 +22,59 @@
 {{HTML::style('css/drawer.min.css')}}
 <!-- Datepicker -->
 {{HTML::style('css/datepicker.css')}}
-<!-- Favicon -->
-<link rel="icon" href="img/favicon.png" type="image/x-icon" />
+<!-- File Input -->
+{{HTML::style('css/fileinput.css')}}
+
+<!-- Horizontal Scroll -->
+{{HTML::style('css/jquery.fullPage.css')}}
+
+<!-- Star Rating -->
+{{HTML::style('css/star-rating.css')}}
+
+<!-- Star Rating -->
+{{HTML::style('css/checkbox.css')}}
+
+{{HTML::style('css/custom.css')}}
 
 {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
+
+<!-- Favicon -->
+<link rel="icon" href="{{ asset('img/favicon.png') }}" type="image/x-icon" />
+
+
+
+<!-- JavaScripts -->
+{{ HTML::script('https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js') }}
+{{ HTML::script('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js') }}
+
+<!-- Horizontal Scroll -->
+{{ HTML::script('js/jquery.fullPage.js') }}
+
+<!-- Drawer -->
+{{ HTML::script('https://cdnjs.cloudflare.com/ajax/libs/iScroll/5.1.3/iscroll.min.js') }}
+{{ HTML::script('js/drawer.min.js') }}
+
+<!-- Datepicker -->
+{{ HTML::script('js/bootstrap-datepicker.js') }}
+<!-- Validator -->
+{{ HTML::script('js/validator.js') }}
+
+<!-- 3d Carousel -->
+{{ HTML::script('js/carrousel.js') }}
+
+<!-- Masonry -->
+{{ HTML::script('js/masonry.pkgd.min.js') }}
+
+<!-- File Input -->
+{{ HTML::script('js/fileinput.js') }}
+
+<!-- Star Rating -->
+{{ HTML::script('js/star-rating.js') }}
+
+<!-- Ranking/Sorting -->
+{{ HTML::script('js/sortable.js') }}
+
+<!-- Custom -->	
+{{ HTML::script('js/custom.js') }}
+
+{{-- <script src="{{ elixir('js/app.js') }}"></script> --}}

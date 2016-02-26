@@ -52,3 +52,12 @@ Route::get('register/verify/{confirmationCode}', [
 /*AJAX ROutes*/
 Route::post('auth/login', array('before'=>'csrf', 'uses' => 'AjaxController@doLogin'));
 Route::post('auth/register', array('beore' => 'csrf', 'uses' => 'AjaxController@doRegister'));
+
+/*Val Routes*/
+Route::get('categories', array('uses' => 'CategoriesController@viewCategories'));
+Route::get('category/{id}', array('as'=>'category', 'uses' => 'CategoriesController@viewCategory'));
+
+Route::get('polls-types', array('uses' => 'PollsController@polls_types'));
+Route::get('trending-polls', array('uses' => 'PollsController@trending_polls'));
+Route::get('new-polls', array('uses' => 'PollsController@new_polls'));
+Route::get('answered-polls', array('uses' => 'PollsController@answered_polls'));
