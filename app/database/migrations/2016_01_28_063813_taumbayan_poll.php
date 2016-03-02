@@ -13,18 +13,17 @@ class TaumbayanPoll extends Migration
     public function up()
     {
         //
-        Schema::create('poll', function(Blueprint $table){
+        Schema::create('polls', function(Blueprint $table){
             $table->increments('id');
             $table->string('title');
             $table->string('question');
             $table->string('type');
-            $table->integer('categoryid');
+            $table->string('categoryid');
             $table->dateTime('startdate');
             $table->dateTime('end_date');
             $table->string('status');
             $table->integer('submittedbyid');
-            $table->dateTime('submitted_date');
-            $table->dateTime('lastmodified');
+            $table->timestamps();
         });
     }
 
@@ -35,6 +34,6 @@ class TaumbayanPoll extends Migration
      */
     public function down()
     {
-        Schema::drop('poll');
+        Schema::drop('polls');
     }
 }

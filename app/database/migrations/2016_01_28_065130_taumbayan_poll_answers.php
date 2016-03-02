@@ -18,6 +18,7 @@ class TaumbayanPollAnswers extends Migration
             $table->integer('userid');
             $table->integer('choiceid');
             $table->dateTime('answerdate');
+            $table->timestamps();
         });
     }
 

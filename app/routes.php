@@ -22,7 +22,7 @@ Route::post('login', array('uses' => 'HomeController@doLogin'));
 //Restricted Routes
 Route::group(['before' => 'auth'], function(){
 	Route::get('/dashboard', 'HomeController@dashboard');
-	Route::get('/submit-poll', 'HomeController@submit_poll');
+	Route::get('/submit-poll', 'PollsController@submit_poll');
 });
 
 Route::get('logout', array('uses' => 'HomeController@doLogout'));
@@ -52,6 +52,10 @@ Route::get('register/verify/{confirmationCode}', [
 /*AJAX ROutes*/
 Route::post('auth/login', array('before'=>'csrf', 'uses' => 'AjaxController@doLogin'));
 Route::post('auth/register', array('beore' => 'csrf', 'uses' => 'AjaxController@doRegister'));
+
+Route::post('poll/add/mc', array('before' => 'auth', 'uses' => 'AjaxPollController@addPollMc'));
+Route::post('poll/add/thumbs', array('before' => 'auth', 'uses' => 'AjaxPollController@addPollThumb'));
+Route::post('poll/add/mood', array('before' => 'auth', 'uses' => 'AjaxPollController@addPollMood'));
 
 /*Val Routes*/
 Route::get('categories', array('uses' => 'CategoriesController@viewCategories'));

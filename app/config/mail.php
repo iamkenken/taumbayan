@@ -94,7 +94,7 @@ return array(
 	|
 	*/
 
-	'password' => 'ClashOfClans',
+	'password' => 'authorizedOnly',
 
 	/*
 	|--------------------------------------------------------------------------

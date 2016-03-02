@@ -9,7 +9,8 @@ class PollsController extends BaseController{
 		if(Auth::check()){
 			$user = User::with('profile')->find(Auth::user()->id); //Show authenticated user own profile details.
 			$profile = $user->profile;
-			return View::make('pages.submit-poll')->with('profile', $profile)->with('user',$user);
+			$categories = Category::orderby('Name', 'asc')->get();
+			return View::make('pages.submit-poll')->with('profile', $profile)->with('user',$user)->with('categories', $categories);
 		}else{
 			return View::make('pages.submit-poll');
 		}

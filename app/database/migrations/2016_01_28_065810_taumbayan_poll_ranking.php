@@ -19,6 +19,7 @@ class TaumbayanPollRanking extends Migration
         $table->integer('choiceid');
         $table->integer('rank');
         $table->dateTime('answerdate');
+        $table->timestamps();
         });
     }
 

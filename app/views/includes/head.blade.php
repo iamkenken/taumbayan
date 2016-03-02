@@ -14,7 +14,10 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 
  <link href="css/normalize.css" rel="stylesheet">
+{{HTML::style('css/bootstrap-select.min.css')}}
+
 <!-- Custom styles for this template -->
+
 {{HTML::style('css/style.css')}}
 <!-- Genericons -->
 {{HTML::style('css/genericons.css')}}
@@ -73,6 +76,9 @@
 
 <!-- Ranking/Sorting -->
 {{ HTML::script('js/sortable.js') }}
+
+<!-- Bootstrap Select -->
+{{ HTML::script('js/bootstrap-select.min.js') }}
 
 <!-- Custom -->	
 {{ HTML::script('js/custom.js') }}

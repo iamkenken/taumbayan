@@ -3,276 +3,199 @@
 @section('content')
 <div class="section container">            
 <div class="row">
+
+    <div class="poll-tabs">
     <div class="col-md-12 text-center">
-        <div class="submit-poll-buttons container">
-            <?php
-                if(isset($_GET['a'])){
-                    if($_GET['a']==1){
-            ?>
-                        <a href="?a=1" class="submit-poll-btn btn btn-lg active">Thumbs</a>
-                        <a href="?a=2" class="submit-poll-btn btn">Multiple Choice</a>
-                        <a href="?a=3" class="submit-poll-btn btn">Mood Meter</a>
-                        <a href="?a=4" class="submit-poll-btn btn">Ranking</a>
-                        <a href="?a=5" class="submit-poll-btn btn">Rating</a>
-                        <a href="?a=6" class="submit-poll-btn btn">uPick</a>                        
-            <?php
-                    }else if($_GET['a']==2){
-            ?>
-                        <a href="?a=1" class="submit-poll-btn btn">Thumbs</a>
-                        <a href="?a=2" class="submit-poll-btn btn active">Multiple Choice</a>
-                        <a href="?a=3" class="submit-poll-btn btn">Mood Meter</a>
-                        <a href="?a=4" class="submit-poll-btn btn">Ranking</a>
-                        <a href="?a=5" class="submit-poll-btn btn">Rating</a>
-                        <a href="?a=6" class="submit-poll-btn btn">uPick</a>
-            <?php
-                    }else if($_GET['a']==3){
-            ?>
-                        <a href="?a=1" class="submit-poll-btn btn">Thumbs</a>
-                        <a href="?a=2" class="submit-poll-btn btn">Multiple Choice</a>
-                        <a href="?a=3" class="submit-poll-btn btn active">Mood Meter</a>
-                        <a href="?a=4" class="submit-poll-btn btn">Ranking</a>
-                        <a href="?a=5" class="submit-poll-btn btn">Rating</a>
-                        <a href="?a=6" class="submit-poll-btn btn">uPick</a>
-            <?php   
-                        
-                    }else if($_GET['a']==4){
-            ?>
-                        <a href="?a=1" class="submit-poll-btn btn">Thumbs</a>
-                        <a href="?a=2" class="submit-poll-btn btn">Multiple Choice</a>
-                        <a href="?a=3" class="submit-poll-btn btn">Mood Meter</a>
-                        <a href="?a=4" class="submit-poll-btn btn active">Ranking</a>
-                        <a href="?a=5" class="submit-poll-btn btn">Rating</a>
-                        <a href="?a=6" class="submit-poll-btn btn">uPick</a>
-            <?php               
-                    }else if($_GET['a']==5){
-            ?>
-                        <a href="?a=1" class="submit-poll-btn btn">Thumbs</a>
-                        <a href="?a=2" class="submit-poll-btn btn">Multiple Choice</a>
-                        <a href="?a=3" class="submit-poll-btn btn">Mood Meter</a>
-                        <a href="?a=4" class="submit-poll-btn btn">Ranking</a>
-                        <a href="?a=5" class="submit-poll-btn btn active">Rating</a>
-                        <a href="?a=6" class="submit-poll-btn btn">uPick</a>
-            <?php               
-                    }else if($_GET['a']==6){
-            ?>
-                        <a href="?a=1" class="submit-poll-btn btn">Thumbs</a>
-                        <a href="?a=2" class="submit-poll-btn btn">Multiple Choice</a>
-                        <a href="?a=3" class="submit-poll-btn btn">Mood Meter</a>
-                        <a href="?a=4" class="submit-poll-btn btn">Ranking</a>
-                        <a href="?a=5" class="submit-poll-btn btn">Rating</a>
-                        <a href="?a=6" class="submit-poll-btn btn active">uPick</a>
-            <?php               
-                    }else{
-                        
-            
-                    }
-                }else{
-                    
-                }
-            ?>
+    <ul class="poll-buttons nav nav-pills" id="myTab">
+        <li><a data-toggle="tab" href="#sectionA" class="">Thumbs</a></li>
+        <li><a data-toggle="tab" href="#sectionB" class="">Multiple Choice</a></li>
+        <li><a data-toggle="tab" href="#sectionC" class="">Mood Meter</a></li>
+        <li><a data-toggle="tab" href="#sectionD" class="">Ranking</a></li>
+        <li><a data-toggle="tab" href="#sectionE" class="">Rating</a></li>
+        <li><a data-toggle="tab" href="#sectionF" class="">uPick</a></li>
+    </ul>
+    </div>
+    <div class="col-md-6 col-md-offset-3">
+    <div class="tab-content poll-content">
+        <div id="sectionA" class="tab-pane fade in active">
+           	<form action="#" id="th_form">
+           	<div class="th-error"></div>
+				<div class="form-group">	
+					<select id="th_cat" class="selectpicker form-control" multiple data-done-button="true" data-max-options="3">
+				    @foreach($categories as $cat)
+				    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+				    @endforeach
+				 	</select>
+				 	<div class="help-block with-errors"></div>
+				</div>				
+				<div class="form-group">				
+				  <input type="text" class="form-control" id="th_title" placeholder="Enter Title">
+				</div>										
+				<div class="form-group">
+				  <textarea class="form-control" rows="5" id="th_question" placeholder="Enter Poll Question"></textarea>
+				</div>
+				<div class="text-right">
+					<input type="hidden" id="th_type" name="type" value="thumbs">
+					<a class="submit-poll-content-btn btn pointer">Preview Poll</a> <a id="submitth" class="submit-poll-content-btn btn pointer">Submit Poll</a>	
+				</div>
+			</form>	
         </div>
+
+        <div id="sectionB" class="tab-pane fade">
+            <form id="mc_form" action="#">
+            <div class="mc-error"></div>
+			<div class="form-group">	
+				<select id="mchoicecat" class="selectpicker form-control" multiple data-done-button="true" data-max-options="3" >
+			    @foreach($categories as $cat)
+			    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+			    @endforeach
+			 	</select>
+			</div>				
+			<div class="form-group">				
+			  <input type="text" class="form-control" id="mc_title" placeholder="Enter Title">
+			  <div class="help-block with-errors"></div>
+			</div>	
+			<div class="form-group">
+			  <textarea class="form-control" rows="5" maxlength="200" id="mc_question" placeholder="Enter Poll Question"></textarea>
+			</div>
+			<div class="form-group">	
+				<select id="numchoice" class="form-control">
+				<option value=''></option>
+				@for($x = 2; $x <= 10; $x++)
+			    <option value="{{ $x }}">{{ $x }}</option>
+			    @endfor
+			 	</select>
+			</div>	
+			<div class="choices">
+				
+			</div>
+			<div class="text-right" style="clear:both;">
+				<input type="hidden" id="mc_type" name="type" value="multiplechoice">
+				<a class="submit-poll-content-btn btn pointer">Preview Poll</a> <a class="submit-poll-content-btn btn pointer" id="submitmc">Submit Poll</a>	
+			</div>
+			</form>	
+        </div>
+
+         <div id="sectionC" class="tab-pane fade">
+            <form action="#" id="moodform">
+             <div class="mm-error"></div>
+			<div class="form-group">	
+				<select id="mm_cat" class="selectpicker form-control" multiple data-done-button="true" data-max-options="3">
+			    @foreach($categories as $cat)
+			    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+			    @endforeach
+			 	</select>
+			</div>				
+			<div class="form-group">				
+			  <input type="text" class="form-control" id="mm_title" placeholder="Enter Title">
+			</div>										
+			<div class="form-group">
+			  <textarea class="form-control" rows="5" id="mm_question" placeholder="Enter Poll Question"></textarea>
+			</div>
+			<div class="text-left">
+				<div class="text-gray">Select Moods</div>
+				<div class="row">
+					<div class="col-md-12 text-center" style="height: 55px;">															
+						<a href="#"><img data-mood="shocked" src="{{ asset("img/moods/mood1.png") }}" class="mood" data-toggle="tooltip" title="Shocked!"/></a>
+						<a href="#"><img  data-mood="angry"src="{{ asset("img/moods/mood2.png") }}" class="mood" data-toggle="tooltip" title="Angry"/></a>
+						<a href="#"><img data-mood="fine" src="{{ asset("img/moods/mood3.png") }}" class="mood" data-toggle="tooltip" title="Fine"/></a>
+						<a href="#"><img data-mood="happy" src="{{ asset("img/moods/mood4.png") }}" class="mood" data-toggle="tooltip" title="Happy"/></a>
+						<a href="#"><img data-mood="sad" src="{{ asset("img/moods/mood5.png") }}" class="mood" data-toggle="tooltip" title="Sad"/></a>
+						<a href="#"><img data-mood="dontcare" src="{{ asset("img/moods/mood6.png") }}" class="mood" data-toggle="tooltip" title="Do not Care"/></a>
+						<a href="#"><img data-mood="nothing" src="{{ asset("img/moods/mood7.png") }}" class="mood" data-toggle="tooltip" title="Nothing"/></a>
+					</div>
+				</div>
+			</div>												
+			<div class="text-right">
+				<input type="hidden" id="mm_type" name="type" value="mood">
+				<a class="submit-poll-content-btn btn pointer">Preview Poll</a> <a id="submitmood" class="submit-poll-content-btn btn pointer">Submit Poll</a>	
+			</div>
+			</form>	
+		</div>
+
+		<div id="sectionD" class="tab-pane fade">
+            <form action="#">
+			<div class="form-group">	
+				<select id="rankcat" class="selectpicker form-control" multiple data-done-button="true" data-max-options="3">
+			    @foreach($categories as $cat)
+			    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+			    @endforeach
+			 	</select>
+			</div>	
+			<div class="form-group">	
+				<select class="form-control" id="rnk_chc">
+					<option value="" selected disabled style="display: none">Choices</option>
+					<option value="">1</option>
+					<option value="">2</option>							
+				</select>
+			</div>	
+			<div class="form-group">				
+			  <input type="text" class="form-control" id="rnk_title" placeholder="Enter Title">
+			</div>										
+			<div class="form-group">
+			  <textarea class="form-control" rows="5" id="rnk_question" placeholder="Enter Poll Question"></textarea>
+			</div>
+			<div class="text-right">											
+				<a class="submit-poll-content-btn btn pointer">Preview Poll</a> <a class="submit-poll-content-btn btn pointer">Submit Poll</a>	
+			</div>		
+			</form>	
+		</div>
+
+		<div id="sectionE" class="tab-pane fade">
+            <form action="#">
+				<div class="form-group">	
+					<select id="ratingcat" class="selectpicker form-control" multiple data-done-button="true" data-max-options="3">
+				    @foreach($categories as $cat)
+				    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+				    @endforeach
+				 	</select>
+				</div>	
+				<div class="text-left">
+					<p>Enter Picture to Rate</p>
+				</div>																					
+				
+					<div class="col-md-6 text-center">		
+						<a href=""><img src="{{ asset("img/upload.png") }}" class="img-responsive"/></a>
+					</div>
+					<div class="col-md-6 text-center">		
+						<a href=""><img src="{{ asset("img/upload.png") }}" class="img-responsive"/></a>
+					</div>
+				
+				<div class="text-right">											
+					<a class="submit-poll-content-btn btn pointer">Preview Poll</a> <a class="submit-poll-content-btn btn pointer">Submit Poll</a>
+				</div>
+			</form>
+		</div>
+
+		<div id="sectionF" class="tab-pane fade">
+            <form action="#">
+				<div class="form-group">	
+					<select id="upickcat" class="selectpicker form-control" multiple data-done-button="true" data-max-options="3">
+				    @foreach($categories as $cat)
+				    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+				    @endforeach
+				 	</select>
+				</div>	
+				<div class="text-left">
+					<p>Enter Picture to Rate</p>
+				</div>																					
+				
+					<div class="col-md-6 text-center">		
+						<a href=""><img src="{{ asset("img/upload.png") }}" class="img-responsive"/></a>
+					</div>
+					<div class="col-md-6 text-center">		
+						<a href=""><img src="{{ asset("img/upload.png") }}" class="img-responsive"/></a>
+					</div>
+				
+				<div class="text-right">											
+					<a class="submit-poll-content-btn btn pointer">Preview Poll</a> <a class="submit-poll-content-btn btn pointer">Submit Poll</a>	
+				</div>
+			</form>	
+	    </div>	
+	    </div>
+		</div>
+		</div>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-6 col-md-offset-3 text-center">
-        <div class="submit-poll-content">
-			<?php
-							if(isset($_GET['a'])){
-								if($_GET['a']==1){ //===== Thumbs
-									echo '	<form action="#">
-												<div class="form-group">	
-													<select class="form-control" id="th_cat">
-														<option value="" selected disabled style="display: none">Select Category</option>
-														<option value="">1</option>
-														<option value="">2</option>							
-													</select>
-												</div>				
-												<div class="form-group">				
-												  <input type="text" class="form-control" id="th_title" placeholder="Enter Title">
-												</div>										
-												<div class="form-group">
-												  <textarea class="form-control" rows="5" id="th_question" placeholder="Enter Poll Question"></textarea>
-												</div>
-												<div class="text-right">
-													<a class="submit-poll-content-btn btn pointer">Preview Poll</a> <a class="submit-poll-content-btn btn pointer">Submit Poll</a>	
-												</div>
-											</form>	
-										';							
-								}
-								if($_GET['a']==2){ // ======= Multiple Choice
-									echo '	<form action="#">
-												<div class="form-group">	
-													<select class="form-control" id="mc_cat">
-														<option value="" selected disabled style="display: none">Select Category</option>
-														<option value="">1</option>
-														<option value="">2</option>							
-													</select>
-												</div>				
-												<div class="form-group">				
-												  <input type="text" class="form-control" id="mc_title" placeholder="Enter Title">
-												</div>	
-												<div class="form-group">
-												  <textarea class="form-control" rows="5" id="mc_question" placeholder="Enter Poll Question"></textarea>
-												</div>
-												<div class="form-group text-left">
-													<input type="text" class="form-control" name="choice1" placeholder="Type Choice Here" style="margin-top: 5px;">';
-																									
-													if(isset($_GET['ch'])){														
-														$ch = $_GET['ch'];														
-														for($cnt=2;$cnt<=$ch;$cnt++){
-															if($cnt<=10){
-																echo '
-																		<input type="text" class="form-control" name="choice' . ($cnt+2) . '" placeholder="Type Choice Here" style="margin-top: 5px;">
-																	';
-															}
-														}
-													}
-									echo '
-													<div style="margin-top:5px;">';
-													if(isset($_GET['ch'])){
-														$ch = $cnt;
-														$re = $cnt - 2;
-														if($ch<12){
-															echo '<a href="submit-poll?a=2&ch=' . $cnt . '" class="text-gray">Add More Choices + </a>';
-															echo '<a href="submit-poll?a=2&ch=' . $re . '" class="text-gray pull-right"> Remove 1 </a>';
-														}else{
-															echo '<a href="submit-poll?a=2&ch=' . $re . '" class="text-gray pull-right" > Remove 1 </a>';
-														}
-													}else{
-														echo '<a href="submit-poll?a=2&ch=2" class="text-gray" style="margin-left: 5px;">Add More Choices + </a>';
-													}
-									echo '
-													</div>
-												</div>
-												<div class="text-right" style="clear:both;">
-													<a class="submit-poll-content-btn btn pointer">Preview Poll</a> <a class="submit-poll-content-btn btn pointer">Submit Poll</a>	
-												</div>
-											</form>	
-										';
-									
-								}
-								if($_GET['a']==3){ //===== Mood Meter
-									echo '	<form action="#">
-												<div class="form-group">	
-													<select class="form-control" id="mm_cat">
-														<option value="" selected disabled style="display: none">Select Category</option>
-														<option value="">1</option>
-														<option value="">2</option>							
-													</select>
-												</div>				
-												<div class="form-group">				
-												  <input type="text" class="form-control" id="mm_title" placeholder="Enter Title">
-												</div>										
-												<div class="form-group">
-												  <textarea class="form-control" rows="5" id="mm_question" placeholder="Enter Poll Question"></textarea>
-												</div>
-												<div class="text-left">
-													<div class="text-gray">Select Moods</div>
-													<div class="row">
-														<div class="col-md-12 text-center" style="height: 55px;">															
-															<a href=""><img src="img/moods/mood1.png" class="mood" data-toggle="tooltip" title="Shocked!"/></a>
-															<a href=""><img src="img/moods/mood2.png" class="mood" data-toggle="tooltip" title="Angry"/></a>
-															<a href=""><img src="img/moods/mood3.png" class="mood" data-toggle="tooltip" title="Fine"/></a>
-															<a href=""><img src="img/moods/mood4.png" class="mood" data-toggle="tooltip" title="Happy"/></a>
-															<a href=""><img src="img/moods/mood5.png" class="mood" data-toggle="tooltip" title="Sad"/></a>
-															<a href=""><img src="img/moods/mood6.png" class="mood" data-toggle="tooltip" title="Do not Care"/></a>
-															<a href=""><img src="img/moods/mood7.png" class="mood" data-toggle="tooltip" title="Nothing"/></a>
-														</div>
-													</div>
-												</div>												
-												<div class="text-right">
-													<a class="submit-poll-content-btn btn pointer">Preview Poll</a> <a class="submit-poll-content-btn btn pointer">Submit Poll</a>	
-												</div>
-											</form>	
-										';
-								}
-								if($_GET['a']==4){ // ======= Ranking
-									echo '	<form action="#">
-												<div class="form-group">	
-													<select class="form-control" id="rnk_cat">
-														<option value="" selected disabled style="display: none">Select Category</option>
-														<option value="">1</option>
-														<option value="">2</option>							
-													</select>
-												</div>	
-												<div class="form-group">	
-													<select class="form-control" id="rnk_chc">
-														<option value="" selected disabled style="display: none">Choices</option>
-														<option value="">1</option>
-														<option value="">2</option>							
-													</select>
-												</div>	
-												<div class="form-group">				
-												  <input type="text" class="form-control" id="rnk_title" placeholder="Enter Title">
-												</div>										
-												<div class="form-group">
-												  <textarea class="form-control" rows="5" id="rnk_question" placeholder="Enter Poll Question"></textarea>
-												</div>
-												<div class="text-right">											
-													<a class="submit-poll-content-btn btn pointer">Preview Poll</a> <a class="submit-poll-content-btn btn pointer">Submit Poll</a>	
-												</div>
-												
-											</form>	
-										';
-									
-								}
-								if($_GET['a']==5){ // == Rating
-									echo '	<form action="#">
-												<div class="form-group">	
-													<select class="form-control" id="rte_cat">
-														<option value="" selected disabled style="display: none">Select Category</option>
-														<option value="">1</option>
-														<option value="">2</option>							
-													</select>
-												</div>	
-												<div class="text-left">
-													<p>Enter Picture to Rate</p>
-												</div>
-												<div class="row mgt-10">
-													<div class="col-md-12 text-center">		
-														<a href=""><img src="img/upload.png" /></a>
-													</div>
-												</div>
-												<div class="text-right">											
-													<a class="submit-poll-content-btn btn pointer">Preview Poll</a> <a class="submit-poll-content-btn btn pointer">Submit Poll</a>	
-												</div>
-											</form>	
-										';
-								
-								}
-								if($_GET['a']==6){ //===== uPick
-									echo '	<form action="#">
-												<div class="form-group">	
-													<select class="form-control" id="up_cat">
-														<option value="" selected disabled style="display: none">Select Category</option>
-														<option value="">1</option>
-														<option value="">2</option>							
-													</select>
-												</div>	
-												<div class="text-left">
-													<p>Enter Picture to Rate</p>
-												</div>																					
-												
-													<div class="col-md-6 text-center">		
-														<a href=""><img src="img/upload.png" class="img-responsive"/></a>
-													</div>
-													<div class="col-md-6 text-center">		
-														<a href=""><img src="img/upload.png" class="img-responsive"/></a>
-													</div>
-												
-												<div class="text-right">											
-													<a class="submit-poll-content-btn btn pointer">Preview Poll</a> <a class="submit-poll-content-btn btn pointer">Submit Poll</a>	
-												</div>
-											</form>	
-										';					
-								}
-								
-							}
-						?>				
-					
-		
-		</div>  
-    </div>
-</div>  
 </div>
 @endsection

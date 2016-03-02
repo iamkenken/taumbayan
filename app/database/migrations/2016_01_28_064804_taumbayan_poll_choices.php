@@ -15,10 +15,13 @@ class TaumbayanPollChoices extends Migration
         //
         Schema::create('pollchoices', function(Blueprint $table){
             $table->increments('id');
-            $table->integer('pollid');
+            $table->integer('polls_id')->unsigned();
             $table->string('choice');
             $table->text('image');
             $table->string('order');
+            $table->timestamps();
+
+            $table->foreign('polls_id')->references('id')->on('polls');
         });
     }
 
