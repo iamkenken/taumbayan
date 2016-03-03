@@ -83,13 +83,13 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
+                        <!-- <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">Gender</label>
-
+                        
                             <div class="col-md-6">
                                 <select id="gender" name="gender" class="form-control">
                                 <option value="{{ Input::old('gender') }}">
-
+                        
                                 @if (Input::old('gender') != "")
                                 @if (Input::old('gender') == "M")
                                     Male
@@ -110,7 +110,7 @@
                                 <option value="F">Female</option>  
                                 @endif                       
                                 </select>  
-
+                        
                                 @if ($errors->has('gender'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('gender') }}</strong>
@@ -118,10 +118,10 @@
                                 @endif
                             </div>
                         </div>
-
-                       <div class="form-group{{ $errors->has('birthday') ? ' has-error' : '' }}">
+                        
+                                               <div class="form-group{{ $errors->has('birthday') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">Birthday</label>
-
+                        
                             <div class="col-md-6">
                                 <div class="input-group date" data-provide="datepicker" style="z-index:1151 !important;">
                                     <input type="text" class="form-control" name="birthday" id="bod" readonly="readonly">
@@ -135,7 +135,7 @@
                                     </span>
                                     @endif
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="form-group">
                             <div class="col-md-12 text-center">
@@ -158,7 +158,7 @@
                     <div class="social-login-icons">                
                     <a href="{{ url('login/gplus/') }}">{{ HTML::image('img/g-plus-icon.png') }}</a>
                     <a href="{{ url('login/facebook/') }}">{{ HTML::image('img/fb-icon.png') }}</a>
-                    <a href="{{ url('login/twitter/') }}">{{ HTML::image('img/tw-icon.png') }}</a>               
+                    <!-- <a href="{{ url('login/twitter/') }}">{{ HTML::image('img/tw-icon.png') }}</a> -->               
                     </div>   
                     
                 </div>

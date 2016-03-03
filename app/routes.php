@@ -16,7 +16,7 @@ Route::get('/', 'HomeController@index');
 //Traditional PHP Reg/Login
 Route::get('/register', array('uses' => 'HomeController@showRegister'));
 Route::post('/register', array('uses' => 'HomeController@doRegister'));
-Route::get('login', array('uses' => 'HomeController@showLogin'));
+Route::get('login', array('before' => 'guest', 'uses' => 'HomeController@showLogin'));
 Route::post('login', array('uses' => 'HomeController@doLogin'));
 
 //Restricted Routes

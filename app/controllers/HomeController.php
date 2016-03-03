@@ -92,7 +92,7 @@ class HomeController extends BaseController {
 			'email' => 'required|email|unique:users',     // required and must be unique in the ducks table
 	        'password' => 'required',
 	        'password_confirmation' => 'required|same:password',
-	        'gender' => 'required' ,
+	        //'gender' => 'required' ,
 	        //'birthday' => 'required'   
 	        'g-recaptcha-response' => 'required' 
 		);
@@ -120,8 +120,8 @@ class HomeController extends BaseController {
 		$profile = new Profile([
 			'firstname' => Input::get('firstname'),
 			'lastname' => Input::get('lastname'),
-			'gender' => Input::get('gender'),
-			'birthday' => Input::get('birthday'),
+			//'gender' => Input::get('gender'),
+			//'birthday' => Input::get('birthday'),
             'verificationkey' => $confirmation_code
 		]);
 

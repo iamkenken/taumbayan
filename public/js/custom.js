@@ -313,6 +313,93 @@ $(document).ready(function() {
 		}
 	});
 
+	/*Ranking*/
+	var rankChoice = $('#rankchoice');
+	rankChoice.selectpicker({
+	 noneSelectedText: 'Select Number of Choices'
+	});
+
+	rankChoice.on('changed.bs.select', function(e){
+	$('.rank_choices').html('');
+	var num = rankChoice.val();
+	if(num != 0){
+	var choices = '';
+	for(var x = 1; x <= num; x++){
+		choices += '<div class="form-group"><input type="text" class="form-control choicevalue" placeholder="Type choice here" name="rankchoices[]" value="" ></div>';
+	}
+	$('.rank_choices').append(choices).hide().fadeIn();
+	}
+	});
+
+	rankChoice.on('refreshed.bs.select', function (e) {
+	  $('.rank_choices').html('');
+	});
+
+	var rankNum = $('#ranknumber');
+	rankNum.selectpicker({
+	 noneSelectedText: 'Select Number of Ranks'
+	});
+
+
+	$('#submitrank').click(function(){
+		var type = $('#rank_type').val();
+		var cats = $('#rank_cat').val();
+		var title = $('#rank_title').val();
+		var question = $('#rank_question').val();
+		var ranknumber = $('#ranknumber').val();
+		var number = $('#rankchoice').val();
+		var rankchoices = $("input[name='rankchoices[]']")
+		.map(function(){
+			if($(this).val() != ''){
+			return $(this).val();
+			}
+		}).get();
+		$('#submitrank').append(' <i class="signupspin fa fa-circle-o-notch fa-spin"></i> ');
+		$('.rank-error .alert').remove();
+		if (cats == null){		
+			$('.rank-error').append('<div class="alert alert-danger">Please select category</div>').hide().fadeIn();
+			$('.signupspin').remove();
+		}else if(title == ''){
+			$('.rank-error').append('<div class="alert alert-danger">Please add a title</div>').hide().fadeIn();
+			$('.signupspin').remove();
+		}else if(question == ''){
+			$('.rank-error').append('<div class="alert alert-danger">Please add a question</div>').hide().fadeIn();
+			$('.signupspin').remove();
+		}else if(ranknumber == ''){
+			$('.rank-error').append('<div class="alert alert-danger">Please add ranking number</div>').hide().fadeIn();
+			$('.signupspin').remove();
+		}else if(number == ''){
+			$('.rank-error').append('<div class="alert alert-danger">Please add choices</div>').hide().fadeIn();
+			$('.signupspin').remove();
+		}else if(rankchoices.length < 2){
+			$('.rank-error').append('<div class="alert alert-danger">Please add more than 1 choices</div>').hide().fadeIn();
+			$('.signupspin').remove();
+		}else{
+			/*$.ajax({
+				url: baseUrl+'/poll/add/ranking',
+				data: {"type": type, "cats": cats, "title": title, "question": question, "number": number, "choices": choices},
+				type: "POST",
+				dataType: "JSON",
+				success: function(e){
+					if(e['status'] == 'success'){
+					$('.rank-error').append('<div class="alert alert-success">Congratulations!You&#39ve successfully submitted a poll question. A notification will be sent to your email once  your poll is published</div>').hide().fadeIn();
+					$('.signupspin').remove();
+					$('form#rank_form').find("input[type=text], textarea").val("");
+					$('#rank_cat').val('').selectpicker('refresh');
+					$('#rankchoice').val('').selectpicker('refresh');
+					$('#ranknumber').val('').selectpicker('refresh');
+					}else if(e['status'] == 'not verified'){
+					$('.rank-error').append('<div class="alert alert-danger">Please verified your email address</div>').hide().fadeIn();
+					$('.signupspin').remove();
+					}else{
+					$('.rank-error').append('<div class="alert alert-danger">Something went wrong. Please try again</div>').hide().fadeIn();
+					$('.signupspin').remove();
+					}
+				}
+			})*/
+		}
+	});
+
 });
 
 

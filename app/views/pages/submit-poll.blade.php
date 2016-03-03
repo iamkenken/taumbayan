@@ -114,30 +114,43 @@
 		</div>
 
 		<div id="sectionD" class="tab-pane fade">
-            <form action="#">
+            <form id="rank_form" action="#">
+            <div class="rank-error"></div>
 			<div class="form-group">	
-				<select id="rankcat" class="selectpicker form-control" multiple data-done-button="true" data-max-options="3">
+				<select id="rank_cat" class="selectpicker form-control" multiple data-done-button="true" data-max-options="3" >
 			    @foreach($categories as $cat)
 			    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
 			    @endforeach
 			 	</select>
+			</div>				
+			<div class="form-group">				
+			  <input type="text" class="form-control" id="rank_title" placeholder="Enter Title">
+			</div>	
+			<div class="form-group">
+			  <textarea class="form-control" rows="5" maxlength="200" id="rank_question" placeholder="Enter Poll Question"></textarea>
+			</div>
+			<div class="form-group">	
+				<select id="ranknumber" class="form-control">
+				<option value=''></option>
+				@for($x = 2; $x <= 10; $x++)
+			    <option value="{{ $x }}">{{ $x }}</option>
+			    @endfor
+			 	</select>
 			</div>	
 			<div class="form-group">	
-				<select class="form-control" id="rnk_chc">
-					<option value="" selected disabled style="display: none">Choices</option>
-					<option value="">1</option>
-					<option value="">2</option>							
-				</select>
+				<select id="rankchoice" class="form-control">
+				<option value=''></option>
+				@for($x = 2; $x <= 10; $x++)
+			    <option value="{{ $x }}">{{ $x }}</option>
+			    @endfor
+			 	</select>
 			</div>	
-			<div class="form-group">				
-			  <input type="text" class="form-control" id="rnk_title" placeholder="Enter Title">
-			</div>										
-			<div class="form-group">
-			  <textarea class="form-control" rows="5" id="rnk_question" placeholder="Enter Poll Question"></textarea>
+			<div class="rank_choices">
 			</div>
-			<div class="text-right">											
-				<a class="submit-poll-content-btn btn pointer">Preview Poll</a> <a class="submit-poll-content-btn btn pointer">Submit Poll</a>	
-			</div>		
+			<div class="text-right" style="clear:both;">
+				<input type="hidden" id="rank_type" name="type" value="ranking">
+				<a class="submit-poll-content-btn btn pointer">Preview Poll</a> <a class="submit-poll-content-btn btn pointer" id="submitrank">Submit Poll</a>	
+			</div>
 			</form>	
 		</div>
 

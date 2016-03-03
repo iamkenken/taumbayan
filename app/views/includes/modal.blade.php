@@ -34,7 +34,7 @@
 			  <div class="social-login-icons">                
 	            <a href="{{ url('login/gplus/') }}">{{ HTML::image('img/g-plus-icon.png') }}</a>
 	            <a href="{{ url('login/facebook/') }}">{{ HTML::image('img/fb-icon.png') }}</a>
-	            <a href="{{ url('login/twitter/') }}">{{ HTML::image('img/tw-icon.png') }}</a>             
+	            <!-- <a href="{{ url('login/twitter/') }}">{{ HTML::image('img/tw-icon.png') }}</a> -->             
 	            </div> 			
 			</div>			
 		  </div>
@@ -80,7 +80,7 @@
 			  <input type="password" class="form-control" data-match="#signup_pw" name="password_confirmation" id="signup_cpw" placeholder="Confirm Password *" required>
 			  <div class="help-block with-errors"></div>
 			</div>				
-			<div class="row" style="margin-bottom: 12px;">
+			<!-- <div class="row" style="margin-bottom: 12px;">
 				<div class="col-xs-5 col-sm-4 col-lg-4" style="padding-right:0;">						
 					<select class="form-control" name="gender" id="sex" required>
 						<option value="" selected disabled style="display: none">Sex</option>
@@ -98,7 +98,7 @@
 					</div>
 					<div class="help-block with-errors"></div>
 				</div>
-			</div>	
+			</div>	 -->
 
 			<div class="row" style="margin-bottom: 12px;">
                 <div class="col-md-12 text-center">
@@ -113,7 +113,7 @@
 		  	<div class="social-login-icons">                
             <a href="{{ url('login/gplus/') }}">{{ HTML::image('img/g-plus-icon.png') }}</a>
             <a href="{{ url('login/facebook/') }}">{{ HTML::image('img/fb-icon.png') }}</a>
-            <a href="{{ url('login/twitter/') }}">{{ HTML::image('img/tw-icon.png') }}</a>             
+            <!-- <a href="{{ url('login/twitter/') }}">{{ HTML::image('img/tw-icon.png') }}</a>   -->           
             </div>  			
 		</div>			
 	  </div>
