@@ -1,25 +1,25 @@
-@extends('layouts.default')
+@extends('layouts.fullpage')
 
 @section('content')
-<div class="section container">			
-	<div class="row cat-header">
+<div class="section container cat-page">			
+	<div class="row mg-btm-10">
 		<div class="col-xs-12 col-sm-6 col-md-6">			
-				<h1 style="margin:0;">{{ $cat->name }} 
-					<div class="btn-group">
-					  <a class="btn dropdown-toggle cat-menu-btn" data-toggle="dropdown" href="#">				   
-					    <span class="genericon genericon-expand"></span>
-					  </a>
-					  <ul class="dropdown-menu cat-menu">
-					  	@foreach($categories as $category)
-							<li>{{ HTML::linkRoute('category', $category->name, array($category->id)) }}</li>
-						@endforeach
-					  </ul>
-					</div>
-					| <span class="cat-count">4579 POLLS</span> 
-				</h1>
-			</div>		
-		<div class="col-xs-12 col-sm-6 col-md-6">
-			<form name="poll-search-by-cat" method="post">
+			<h1>{{ $cat->name }} 
+				<div class="btn-group">
+				  <a class="btn dropdown-toggle cat-menu-btn" data-toggle="dropdown" href="#">				   
+				    <span class="genericon genericon-expand"></span>
+				  </a>
+				  <ul class="dropdown-menu cat-menu">
+				  	@foreach($categories as $category)
+						<li>{{ HTML::linkRoute('category', $category->name, array($category->id)) }}</li>
+					@endforeach
+				  </ul>
+				</div>
+				| <span class="cat-count">4579 POLLS</span> 
+			</h1>
+		</div>		
+		<div class="col-xs-12 col-sm-6 col-md-6">		
+			<form name="poll-search" method="post" class="frm-search-poll">
 		        <div class="input-group">
 		            <input type="text" class="form-control search-query" placeholder="Search Poll" name="srch-term" id="srch-term">
 		            <div class="input-group-btn">

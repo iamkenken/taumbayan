@@ -407,24 +407,13 @@ $(document).ready(function() {
 /*Val's scripts*/
 
 $(document).ready(function() {	
+	'use strict';
+	
 	$('#fullpage').fullpage({
 		anchors: ['poll'],
-		//sectionsColor: ['#C63D0F', '#1BBC9B', '#7E8F7C'],
 		css3: true
 	});
    
-	/*$('.drawer').drawer();	
-
-	$('#birthday').datepicker({
-		format: "dd/mm/yyyy",
-		orientation: "auto",
-	});  */	
-
-	if($(window).width() > 990 ){
-	$('.prev_page').clone().prependTo('body').addClass('prev_big').html('&lsaquo;');
-	$('.next_page').clone().prependTo('body').addClass('next_big').html('&rsaquo;');
-	};
-
 	$( "#regForm" ).submit(function( event ) {    
 	event.preventDefault();
 	var $form = $( this ),
@@ -440,6 +429,7 @@ $(document).ready(function() {
 	  });
 	  $('#successMessage').empty();          
 	} 
+
 	if(data.success) {
 	    $('.register').fadeOut(); //hiding Reg form
 	    var successContent = '<div class="message"><h3>Registration Completed Successfully</h3><h4>Please Login With the Following Details</h4><div class="userDetails"><p><span>Email:</span>'+data.email+'</p><p><span>Password:********</span></p></div></div>';
@@ -448,68 +438,112 @@ $(document).ready(function() {
 	}); //done
 	});
 
-	$(".thumbs").click(function () {
-        var addressValue = $(this).attr("value");
-        alert(addressValue );
-    });
-
-    $("ul#h-mood li").click(function () {
-        alert($(this).val());        
-    });
-
-	$('.kv-gly-star').rating({
-        containerClass: 'is-star'
-    });
-
-	$('.rating,.kv-gly-star,.kv-gly-heart,.kv-uni-star,.kv-uni-rook,.kv-fa,.kv-fa-heart,.kv-svg,.kv-svg-heart').on(
-        'change', function () {
-        alert('Rating selected: ' + $(this).val());
-    });
-	
-});  	
-
-$(function () {
 	$('#dg-container').carrousel({
 		current: 0,
 		autoplay: false,
 		interval: 5000		
 	});	
-});
 
-$(function () {
 	$('.grid').masonry({
 	  itemSelector: '.grid-item',
 	  columnWidth: '.grid-sizer',
 	  percentPosition: true,
 	  gutter: 5
 	});
-});
 
-
-$("#file-3").fileinput({
-		showUpload: false,
-		showCaption: false,
-		browseClass: "btn btn-primary btn-lg",
-		fileType: "any",
-        previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
+	$("#file-3").fileinput({
+			showUpload: false,
+			showCaption: false,
+			browseClass: "btn btn-primary btn-lg",
+			fileType: "any",
+	        previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
+		});
+		$("#file-4").fileinput({
+			uploadExtraData: {kvId: '10'}
 	});
-	$("#file-4").fileinput({
-		uploadExtraData: {kvId: '10'}
-});
 
- $(".btn-warning").on('click', function() {
-    if ($('#file-4').attr('disabled')) {
-        $('#file-4').fileinput('enable');
-    } else {
-        $('#file-4').fileinput('disable');
-    }
-});    
- 
-$(".btn-info").on('click', function() {
-    $('#file-4').fileinput('refresh', {previewClass:'bg-info'});
-});
+	 $(".btn-warning").on('click', function() {
+	    if ($('#file-4').attr('disabled')) {
+	        $('#file-4').fileinput('enable');
+	    } else {
+	        $('#file-4').fileinput('disable');
+	    }
+	});    
+
+	$(".btn-info").on('click', function() {
+	    $('#file-4').fileinput('refresh', {previewClass:'bg-info'});
+	});
+
+	$(".thumbs, .submit-choice-btn, ul.h-mood li, .h-upick .thumbnail a img").click(function () {
+        $(".poll-answer").hide("slow");
+		$(".fb-comments-cnt").hide("slow"); 
+		$(".view-poll-result").hide("slow");
+		$(".poll-result").show("slow");
+		$(".close-poll-result").show("slow");
+    });
+
+	$('.rating-answer, .rating-world').rating('refresh', {disabled: true,  showCaption: false});
+	$('.rating').on('change', function () {     
+        var x = $(this).val();       
+        $('.rating-answer').rating('update', x);       
+        $('.rating-world').rating('update', x);
+        $(".poll-answer").hide("slow");
+		$(".fb-comments-cnt").hide("slow"); 
+		$(".view-poll-result").hide("slow");
+		$(".poll-result").show("slow");
+		$(".close-poll-result").show("slow");
+    });
+		
+	$(".view_comments").click(function() {
+		$(".fb-comments-cnt").toggle("slow"); 
+		$(".view_comments").hide("slow");    
+		$(".poll-answer").hide("slow");  
+		$(".poll-result").hide("slow");  		
+		$(".hide_comments").show("slow");  
+		$(".view-poll-result").show("slow"); 		
+		$(".close-poll-result").hide("slow");
+    });
+
+	$(".hide_comments").click(function() {	  
+		$(".view_comments").show("slow");     
+		$(".fb-comments-cnt").hide("slow"); 
+		$(".poll-answer").show("slow");
+		$(".hide_comments").hide("slow"); 	
+    });
+
+	$(".view-poll-result").click(function() {	
+		$(".poll-answer").hide("slow");
+		$(".fb-comments-cnt").hide("slow"); 
+		$(".view-poll-result").hide("slow");
+		$(".poll-result").show("slow");
+		$(".close-poll-result").show("slow");
+		$(".view_comments").show("slow");   
+		$(".hide_comments").hide("slow"); 	
+    });
+
+    $(".close-poll-result").click(function() {			
+		$(".poll-result").hide("slow");
+		$(".close-poll-result").hide("slow");
+		$(".poll-answer").show("slow");
+		$(".view-poll-result").show("slow");
+    });
+
+    $("input, textarea, select").on({
+	    mouseenter: function(){
+	        $(this).css("background-color", "#F9F6F6");
+	    }, 
+	    mouseleave: function(){
+	        $(this).css("background-color", "#FFF");
+	    }, 
+	    click: function(){
+	        $(this).css("background-color", "#F9F6F6");
+	    } 
+	});
+
+});  	
 
 
+//Ranking
 $(document).ready(function() {	
 	Sortable.create(h_ranking, {group: 'shared'});
 	var iframe = document.createElement('iframe');
@@ -521,4 +555,23 @@ $(document).ready(function() {
 
 		Sortable.create(list, {group: 'shared'});
 	};
+
+    $(".submit-rank-btn").click(function() {			
+		$(".poll-answer").hide("slow");
+		$(".fb-comments-cnt").hide("slow"); 
+		$(".view-poll-result").hide("slow");
+		$(".poll-result").show("slow");
+		$(".close-poll-result").show("slow");
+    });
+
 });
+
+//Facebook Comments
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=523169924525740";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+

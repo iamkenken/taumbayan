@@ -1,8 +1,8 @@
-@extends('layouts.default')
+@extends('layouts.fullpage')
 
 @section('content')
 <div class="section container">            
-	<div class="row" style="margin-top:1%;">
+	<div class="row">
 		<div id="cat-name">Current Events</div>
 		<div class="banner">
 			<section id="dg-container" class="dg-container">

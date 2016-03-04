@@ -30,9 +30,9 @@ Route::get('logout', array('uses' => 'HomeController@doLogout'));
 Route::get('login/fb', 'LoginFbController@login');
 Route::get('login/fb/callback', 'LoginFbController@callback');
 
-//Social Auth Routes
+//Social Auth Routes - Auto login
 
-Route::get('login/facebook/{process?}',
+/*Route::get('login/facebook/{process?}',
     array('as' => 'hybridauth', 'before' => 'guest', "uses" => 'SocialAuthController@facebookLogin')
 );
 
@@ -42,7 +42,18 @@ Route::get('login/twitter/{process?}',
 
 Route::get('login/gplus/{process?}',
     array('as' => 'hybridauth', 'before' => 'guest', "uses" => 'SocialAuthController@gplusLogin')
+);*/
+
+//Get Social email and redirect to SignUp Form
+Route::get('login/facebook/{process?}',
+    array('as' => 'hybridauth', 'before' => 'guest', "uses" => 'SocialGetEmailController@getFbEmail')
 );
+
+Route::get('login/gplus/{process?}',
+    array('as' => 'hybridauth', 'before' => 'guest', "uses" => 'SocialGetEmailController@getGplusEmail')
+);
+
+//Email Verification Route
 
 Route::get('register/verify/{confirmationCode}', [
     'as' => 'confirmation_path',
@@ -64,4 +75,4 @@ Route::get('category/{id}', array('as'=>'category', 'uses' => 'CategoriesControl
 Route::get('polls-types', array('uses' => 'PollsController@polls_types'));
 Route::get('trending-polls', array('uses' => 'PollsController@trending_polls'));
 Route::get('new-polls', array('uses' => 'PollsController@new_polls'));
-Route::get('answered-polls', array('uses' => 'PollsController@answered_polls'));
+Route::get('sponsored-polls', array('uses' => 'PollsController@sponsored_polls'));

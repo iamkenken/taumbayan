@@ -49,14 +49,14 @@ class PollsController extends BaseController{
 		}
 	}
 	
-	public function answered_polls()
+	public function sponsored_polls()
 	{
 		if(Auth::check()){
 			$user = User::with('profile')->find(Auth::user()->id); //Show authenticated user own profile details.
 			$profile = $user->profile;
-			return View::make('pages.answered-polls')->with('profile', $profile)->with('user',$user);
+			return View::make('pages.sponsored-polls')->with('profile', $profile)->with('user',$user);
 		}else{
-			return View::make('pages.answered-polls');
+			return View::make('pages.sponsored-polls');
 		}
 	}
 		

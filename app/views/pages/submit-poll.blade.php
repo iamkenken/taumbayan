@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.fullpage')
 
 @section('content')
 <div class="section container">            

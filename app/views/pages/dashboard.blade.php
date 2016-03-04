@@ -1,7 +1,7 @@
-@extends('layouts.default')
+@extends('layouts.fullpage')
 
 @section('content')
-<div class="section container">
+<div class="section container dsh-page">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <h1>User Dashboard</h1><hr class="hr-dsh">

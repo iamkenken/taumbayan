@@ -575,6 +575,7 @@
             //Scrolling horizontally when clicking on the slider controls.
             $(SECTION_SEL).on('click touchstart', SLIDES_ARROW_SEL, slideArrowHandler);
 
+
             /**
             * Applying normalScroll elements.
             * Ignoring the scrolls over the specified selectors.
@@ -1596,6 +1597,15 @@
         */
         function hashChangeHandler(){
             if(!isScrolling && !options.lockAnchors){
+
+                $(".poll-answer").show("slow");
+                $(".fb-comments-cnt").hide("slow");                
+                $(".poll-result").hide("slow");
+                $(".view_comments").show("slow");   
+                $(".hide_comments").hide("slow");   
+                $(".view-poll-result").show("slow");
+                $(".close-poll-result").hide("slow");
+
                 var value =  window.location.hash.replace('#', '').split('/');
                 var section = value[0];
                 var slide = value[1];
@@ -1638,7 +1648,9 @@
                 keydownId = setTimeout(function(){
                     onkeydown(e);
                 },150);
+                  
             }
+
         }
 
         function tooltipTextHandler(){
