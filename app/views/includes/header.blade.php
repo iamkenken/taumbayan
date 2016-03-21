@@ -20,9 +20,9 @@
                 <li><a class="pointer m-signup" title="Sign up" href="#">Sign up</a></li>
                 <li><a class="pointer m-login" title="Log in" href="#">Log in</a></li>
             @else  
-                <li><a href="#" title="">Hi! {{ $profile->firstname }} 
+                <li><a href="{{ url('/dashboard') }}" title="">Hi! {{ $profile->firstname }} 
                 @if ($profile->photo)
-                <img src="{{ $profile->photo }}" class="img-circle" width="20" />
+                {{ HTML::image($profile->photo, 'Avatar', array('class' => 'img-circle') ) }}
                 @else
                 <span class="genericon genericon-user icon-user"></span>
                 @endif

@@ -1,5 +1,5 @@
 <!-- Modal Login -->
-<div class="modal fade" id="modLogin" role="dialog" aria-labelledby="modalLogin" aria-hidden="true">
+<div class="modal fade" id="modLogin" role="dialog" aria-labelledby="modalLogin" aria-hidden="true" >
 		<div class="modal-dialog m-login-dialog">    
 		  <!-- Modal content-->
 		  <div class="modal-content m-login-custom">
@@ -19,22 +19,22 @@
 			  <form role="form" id="loginForm" data-toggle="validator">
 			  <div class="login-error"></div>
 				<div class="form-group">					  
-				  <input type="email" class="form-control" id="login_email" name="email" placeholder="Email" required>
+				  <input type="email" class="form-control" id="login_email" name="email" placeholder="Email *" required>
 				  <div class="help-block with-errors"></div>
 				</div>
 				<div class="form-group">					  
-				  <input type="password" class="form-control" id="login_pw" name="password" placeholder="Password" required>
+				  <input type="password" class="form-control" id="login_pw" name="password" placeholder="Password *" required>
 				</div>
 				<div class="checkbox">
 				  <label><input type="checkbox" name="remember" value="" >Remember me</label>
-				  <a href="{{ url('/password/reset') }}" class="pull-right">Forgot password?</a>
+				  <a href="{{ url('password/forgot') }}" class="pull-right">Forgot password?</a>
 				</div>
 				  <button type="submit" id="loginbtn" class="btn btn-primary btn-block">SIGN IN</button>
 			  </form>				
 			  <div class="social-login-icons">                
-	            <a href="{{ url('login/gplus/') }}">{{ HTML::image('img/g-plus-icon.png') }}</a>
+	            <!-- a href="{{ url('login/gplus/') }}">{{ HTML::image('img/g-plus-icon.png') }}</a>
 	            <a href="{{ url('login/facebook/') }}">{{ HTML::image('img/fb-icon.png') }}</a>
-	            <!-- <a href="{{ url('login/twitter/') }}">{{ HTML::image('img/tw-icon.png') }}</a> -->             
+	            <a href="{{ url('login/twitter/') }}">{{ HTML::image('img/tw-icon.png') }}</a> -->             
 	            </div> 			
 			</div>			
 		  </div>
@@ -80,10 +80,10 @@
 			  <input type="password" class="form-control" data-match="#signup_pw" name="password_confirmation" id="signup_cpw" placeholder="Confirm Password *" required>
 			  <div class="help-block with-errors"></div>
 			</div>				
-			<!-- <div class="row" style="margin-bottom: 12px;">
+			<div class="row" style="margin-bottom: 12px;">
 				<div class="col-xs-5 col-sm-4 col-lg-4" style="padding-right:0;">						
-					<select class="form-control" name="gender" id="sex" required>
-						<option value="" selected disabled style="display: none">Sex</option>
+					<select class="sel-cs" name="gender" id="sex" required >
+						<option value="" selected disabled style="display: none; ">Sex *</option>
 						<option value="M">Male</option>
 						<option value="F">Female</option>							
 					</select>	
@@ -91,14 +91,14 @@
 				</div>							
 				<div class="col-xs-7 col-sm-8 col-lg-8">
 					<div class="input-group date" data-provide="datepicker" style="z-index:1151 !important;">
-						<input type="text" class="form-control" name="birthday" placeholder="Birthday" id="birthday">
+						<input type="text" class="form-control dp" name="birthday" placeholder="Birthday *" id="birthday">
 						<div class="input-group-addon">
 							<span class="glyphicon glyphicon-calendar"></span>
 						</div>
 					</div>
 					<div class="help-block with-errors"></div>
 				</div>
-			</div>	 -->
+			</div>
 
 			<div class="row" style="margin-bottom: 12px;">
                 <div class="col-md-12 text-center">
@@ -110,11 +110,11 @@
 
 			 <button type="submit" id="signupButton" class="btn btn-primary btn-block">SIGN UP</button>
 		  </form>				
-		  	<div class="social-login-icons">                
+		  	<!-- <div class="social-login-icons">                
             <a href="{{ url('login/gplus/') }}">{{ HTML::image('img/g-plus-icon.png') }}</a>
             <a href="{{ url('login/facebook/') }}">{{ HTML::image('img/fb-icon.png') }}</a>
-            <!-- <a href="{{ url('login/twitter/') }}">{{ HTML::image('img/tw-icon.png') }}</a>   -->           
-            </div>  			
+            <a href="{{ url('login/twitter/') }}">{{ HTML::image('img/tw-icon.png') }}</a>          
+            </div>  			 -->   
 		</div>			
 	  </div>
 	  
@@ -132,8 +132,9 @@
 					<a href="#"><img src="img/fb-icon.png" /></a>
 					<a href="#"><img src="img/tw-icon.png" /></a>				
 				</div-->
+
 				<div class="row">
-					<div class="col-md-4 text-center">
+					<!--div class="col-md-4 text-center">
 						<a href="#"><img src="img/g-plus-icon.png" class="img-responsive"/></a>
 					</div>
 					<div class="col-md-4 text-center">
@@ -141,7 +142,14 @@
 					</div>
 					<div class="col-md-4 text-center">
 					<a href="#"><img src="img/tw-icon.png" class="img-responsive"/></a>	
-					</div>	
+					</div-->	
+					<div class="col-md-12 text-center social-share">
+						{{ Shareable::facebook($options = array('url'=>'sample.com','type'=>'button')) }}
+						
+						{{ Shareable::twitter($options = array('')) }}
+
+						{{ Shareable::googlePlus($options = array('url'=>'', 'width'=>'52', 'annotation'=>'none')) }}
+					</div>
 					<div class="m-share-back"  data-dismiss="modal">
 						Back
 					</div>
@@ -150,4 +158,4 @@
 			</div>
 		</div>
 	</div>
-</div> 
+</div>  

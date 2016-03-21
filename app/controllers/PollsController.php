@@ -59,6 +59,43 @@ class PollsController extends BaseController{
 			return View::make('pages.sponsored-polls');
 		}
 	}
+
+	public function single_poll($id, $title){
+		$poll = Polls::with('pollchoices')->find($id);
+		$choices = $poll->pollchoices;
+		$ans = PollAnswers::get();
+		if(!empty($poll)){
+			if(Auth::check()){
+				$user = User::with('profile')->find(Auth::user()->id); //Show authenticated user own profile details.
+				$profile = $user->profile;
+				return View::make('pages.single-poll')->with('profile', $profile)->with('user',$user)->with('poll', $poll)->with('choices', $choices)->with('answers', $ans);
+			}else{
+				return View::make('pages.single-poll')->with('poll', $poll)->with('choices', $choices)->with('answers', $ans);
+			}
+		}else{
+			return Redirect::to('/');
+		}
+	}
 		
+	public function upick(){
+		/*$poll = Polls::with('pollchoices')->where("type","upick")->first();
+		$choices = $poll->pollchoices;
+		$ans = PollAnswers::get();
+		$poll = new Polls;
+		$polls = $poll->upick;*/
+		$polls = Polls::with('pollchoices', 'pollanswers')->where("type","upick")->get();
+
+		if(!empty($polls)){
+			if(Auth::check()){
+				$user = User::with('profile')->find(Auth::user()->id); //Show authenticated user own profile details.
+				$profile = $user->profile;
+				return View::make('pages.home-new')->with('profile', $profile)->with('user',$user)->with('polls', $polls);
+			}else{
+				return View::make('pages.home-new')->with('polls', $polls);
+			}
+		}else{
+			return Redirect::to('/');
+		}
+	}
 
 }

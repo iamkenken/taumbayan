@@ -23,17 +23,12 @@ $(document).ready(function() {
 
 	$('.drawer').drawer();				
 	            
-	$('#birthday').datepicker({
-		format: "yyyy-mm-dd",
+	$('#birthday, #bod, #inputbirthday').datepicker({
+		format: "yyyy-mm-dd",		
+		changeDecade:true,
 		changeMonth: true,
       	changeYear: true
-	});  
-
-	$('#bod').datepicker({
-		format: "yyyy-mm-dd",
-		changeMonth: true,
-      	changeYear: true
-	}); 
+	});
 
 	if($(window).width() > 990 ){
 	$('.prev_page').clone().prependTo('body').addClass('prev_big').html('&lsaquo;');
@@ -67,7 +62,7 @@ $(document).ready(function() {
 	            data : {"email": email, "pass": pw},
 	            success : function(data){
 	                if(data['status'] == "success"){
-	                	window.location.href = baseUrl + '/dashboard';
+	                	location.reload();
 	                }else{
 	                	$('.login-error').append('<div class="alert alert-danger signup-error">Email and/or password invalid</div>').hide().fadeIn();
 	                	$('.signinspin').remove();
@@ -101,7 +96,7 @@ $(document).ready(function() {
 				url: baseUrl+"/auth/register",
 				success: function(e){
 					if(e['status'] == 'success'){
-						window.location.href = baseUrl + '/dashboard';
+						window.location.href = baseUrl + '/';
 					}else if(e['status'] == 'failed'){
 						window.location.href = baseUrl + '/login';
 					}else{
@@ -400,12 +395,231 @@ $(document).ready(function() {
 		}
 	});
 
+	/*Multiple Choice*/
+ 	var upickChoice = $('#upick_numchoice');
+	upickChoice.selectpicker({
+	 noneSelectedText: 'Select Number of Choices'
+	});
+
+	upickChoice.on('changed.bs.select', function(e){
+	$('.upick_choices').html('');
+	var num = upickChoice.val();
+	if(num != 0){
+	var choices = '';
+	for(var x = 1; x <= num; x++){
+		choices += '<div class="form-group"><input type="text" class="form-control choicevalue" placeholder="Type choice here" name="choices[]" value="" ></div>';
+	}
+	$('.upick_choices').append(choices).hide().fadeIn();
+	}
+	});
+
+	upickChoice.on('refreshed.bs.select', function (e) {
+	  $('.upick_choices').html('');
+	});
+
+	$('#submitupick').click(function(){
+		var type = $('#upick_type').val();
+		var cats = $('#upick_cat').val();
+		var title = $('#upick_title').val();
+		var question = $('#upick_question').val();
+		var number = $('#upick_numchoice').val();
+		var choices = $("input[name='choices[]']")
+		.map(function(){
+			if($(this).val() != ''){
+			return $(this).val();
+			}
+		}).get();
+		$('#submitupick').append(' <i class="signupspin fa fa-circle-o-notch fa-spin"></i> ');
+		$('.upick-error .alert').remove();
+		if (cats == null){		
+			$('.upick-error').append('<div class="alert alert-danger">Please select category</div>').hide().fadeIn();
+			$('.signupspin').remove();
+		}else if(title == ''){
+			$('.upick-error').append('<div class="alert alert-danger">Please add a title</div>').hide().fadeIn();
+			$('.signupspin').remove();
+		}else if(question == ''){
+			$('.upick-error').append('<div class="alert alert-danger">Please add a question</div>').hide().fadeIn();
+			$('.signupspin').remove();
+		}else if(number == ''){
+			$('.upick-error').append('<div class="alert alert-danger">Please add choices</div>').hide().fadeIn();
+			$('.signupspin').remove();
+		}else if(choices.length < 2){
+			$('.upick-error').append('<div class="alert alert-danger">Please add more than 1 choices</div>').hide().fadeIn();
+			$('.signupspin').remove();
+		}else{
+			$.ajax({
+				url: baseUrl+'/poll/add/upick',
+				data: {"type": type, "cats": cats, "title": title, "question": question, "number": number, "choices": choices},
+				type: "POST",
+				dataType: "JSON",
+				success: function(e){
+					if(e['status'] == 'success'){
+					$('.upick-error').append('<div class="alert alert-success">Congratulations!You&#39ve successfully submitted a poll question. A notification will be sent to your email once  your poll is published</div>').hide().fadeIn();
+					$('.signupspin').remove();
+					$('form#upick_form').find("input[type=text], textarea").val("");
+					$('#upick_cat').val('').selectpicker('refresh');
+					$('#upick_numchoice').val('').selectpicker('refresh');
+					}else if(e['status'] == 'not verified'){
+					$('.upick-error').append('<div class="alert alert-danger">Please verified your email address</div>').hide().fadeIn();
+					$('.signupspin').remove();
+					}else{
+					$('.upick-error').append('<div class="alert alert-danger">Something went wrong. Please try again</div>').hide().fadeIn();
+					$('.signupspin').remove();
+					}
+				}
+			})
+		}
+	});
+
+	/**Submitting Vote**/
+	$('.upickimg').click(function(){
+		var msg = $('.'+$(this).data('msg'));
+		msg.html("");
+		var pollid = $(this).data('pollid');
+		var choiceid = $(this).data('choiceid');
+		var userStatus = checkUser(baseUrl);
+		if(userStatus == 'notallowed'){
+			$("#modLogin").modal();	
+		}else if(userStatus == 'notverified'){
+		msg.html("<div class='alert alert-success alert-dismissible fade in'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Your email address is not yet verified. Please check your email. <a href='resend-verification'>Resend?</a></div>");
+		}else{
+		msg.html("<div class='alert alert-info alert-dismissible fade in'>Please Confirm your vote <button class='btn btn-default yesbtn'>Yes</button> <button class='btn btn-default nobtn'>No</button></div>");
+		$('.yesbtn').click(function(){ 
+			msg.html(""); 
+			$.ajax({
+				url: baseUrl+'/poll/vote/upick',
+				data: {'pollid': pollid, 'choiceid': choiceid },
+				dataType: 'JSON',
+				type: 'POST',
+				success: function(e){
+					if(e['status'] == 'success'){
+					msg.html("<div class='alert alert-success alert-dismissible fade in'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Thank you for voting. Your vote will be verify. We will notify your registered email when your vote is approved.</div>");
+					}else if(e['status'] == 'exist'){
+					msg.html("<div class='alert alert-warning alert-dismissible fade in'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>You have already voted.</div>");
+					}else{
+					msg.html("<div class='alert alert-danger alert-dismissible fade in'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Failed. Please try again.</div>");
+					}
+				}
+			});
+		});
+		$('.nobtn').click(function(){ msg.html(""); });
+		}
+	});
+
+	/*$(document).on ('click', '.verify', function(){
+		var id = $(this).data('id');
+		var status = $(this).html();
+		console.log(status);
+		if(status == 'Verify'){
+			$(this).append(' <i class="verifyspin fa fa-circle-o-notch fa-spin"></i> ');
+			var url = baseUrl+'/verify-vote';
+			console.log('xxxx');
+			$.ajax({
+				context: this,
+				url: url,
+				data: {'id': id},
+				dataType: 'JSON',
+				success: function(e){
+					if(e['status'] == 'success'){
+					$(this).html('UnVerify');
+					$('.verifyspin').remove();
+					}else{
+					$('.verifyspin').remove();
+					alert('Something went wrong. Try again');
+					}
+				}
+			});
+		}else{
+			var url = baseUrl+'/unverify-vote';
+			$(this).append(' <i class="verifyspin fa fa-circle-o-notch fa-spin"></i> ');
+			console.log('dasdsa');
+			$.ajax({
+				context: this,
+				url: url,
+				data: {'id': id},
+				dataType: 'JSON',
+				success: function(e){
+					if(e['status'] == 'success'){
+					$(this).html('Verify');
+					$('.verifyspin').remove();
+					}else{
+					$('.verifyspin').remove();
+					alert('Something went wrong. Try again');
+					}
+				}
+			});
+		}	
+	});*/
+
+	$(document).on ('click', '.verify', function(){
+		var id = $(this).data('id');
+		var status = $(this).html();
+		if(status == 'Verify'){
+			$(this).append(' <i class="verifyspin fa fa-circle-o-notch fa-spin"></i> ');
+			var url = baseUrl+'/verify-vote';
+			$.ajax({
+				context: this,
+				url: url,
+				data: {'id': id},
+				dataType: 'JSON',
+				success: function(e){
+					if(e['status'] == 'success'){
+					$(this).html('UnVerify');
+					$('.verifyspin').remove();
+					}else{
+					$('.verifyspin').remove();
+					alert('Something went wrong. Try again');
+					}
+				}
+			});
+		}else{
+			var url = baseUrl+'/unverify-vote';
+			$(this).append(' <i class="verifyspin fa fa-circle-o-notch fa-spin"></i> ');
+			$.ajax({
+				context: this,
+				url: url,
+				data: {'id': id},
+				dataType: 'JSON',
+				success: function(e){
+					if(e['status'] == 'success'){
+					$(this).html('Verify');
+					$('.verifyspin').remove();
+					}else{
+					$('.verifyspin').remove();
+					alert('Something went wrong. Try again');
+					}
+				}
+			});
+		}	
+	});
+
 });
+
+function checkUser(baseUrl){
+	var status = "false";
+	$.ajax({
+		url: baseUrl+'/auth/check',
+		async: false,
+		success: function(e){
+			if(e['status'] == 'notallowed'){
+			status = "notallowed";
+			}
+
+			if(e['status'] == 'allowed'){
+			status = "allowed";
+			}
+
+			if(e['status'] == 'notverified'){
+			status = "notverified";
+			}
+		}
+	})
+	return status;
+}
 
 
 
 /*Val's scripts*/
-
 $(document).ready(function() {	
 	'use strict';
 	
@@ -458,23 +672,23 @@ $(document).ready(function() {
 			fileType: "any",
 	        previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
 		});
-		$("#file-4").fileinput({
+		$("#prof-pic").fileinput({
 			uploadExtraData: {kvId: '10'}
 	});
 
 	 $(".btn-warning").on('click', function() {
-	    if ($('#file-4').attr('disabled')) {
-	        $('#file-4').fileinput('enable');
+	    if ($('#prof-pic').attr('disabled')) {
+	        $('#prof-pic').fileinput('enable');
 	    } else {
-	        $('#file-4').fileinput('disable');
+	        $('#prof-pic').fileinput('disable');
 	    }
 	});    
 
 	$(".btn-info").on('click', function() {
-	    $('#file-4').fileinput('refresh', {previewClass:'bg-info'});
+	    $('#prof-pic').fileinput('refresh', {previewClass:'bg-info'});
 	});
 
-	$(".thumbs, .submit-choice-btn, ul.h-mood li, .h-upick .thumbnail a img").click(function () {
+	$(".thumbs, .submit-choice-btn, ul.h-mood li").click(function () {
         $(".poll-answer").hide("slow");
 		$(".fb-comments-cnt").hide("slow"); 
 		$(".view-poll-result").hide("slow");
@@ -539,6 +753,128 @@ $(document).ready(function() {
 	        $(this).css("background-color", "#F9F6F6");
 	    } 
 	});
+
+	$(".sel-cs").change(function() {
+	 	$(".sel-cs").css("color", "#555");
+	 	$(".sel-cs").css("font-style", "normal");
+	});
+
+	$('.dp').on('change', function(){
+        $('.datepicker').hide();
+    });
+
+    /* Dashboard - Profile */
+    $("#inputfname").prop('disabled', true);
+    $("#inputmname").prop('disabled', true);
+    $("#inputlname").prop('disabled', true);
+    $("#inputsex").prop('disabled', true);
+    $("#inputbirthday").prop('disabled', true);
+    $("#saveprofile").prop('disabled', true);
+    
+    $("#inputuname").prop('disabled', true);
+    $("#inputsex").prop('disabled', true);
+
+	$("#edit-frm-profile").click(function() {
+		$("#edit-frm-profile").prop('disabled', true);
+	    $("#inputfname").prop('disabled', false);
+	    $("#inputmname").prop('disabled', false);
+	    $("#inputlname").prop('disabled', false);
+	    $("#inputsex").prop('disabled', false);
+	    $("#inputbirthday").prop('disabled', false);
+	    $("#saveprofile").prop('disabled', false);
+	    return false;
+    });
+
+    $("#a-tab-pro, #a-tab-acc, #a-tab-set").click(function(){
+    	$("#inputfname").prop('disabled', true);
+    	$("#inputmname").prop('disabled', true);
+	    $("#inputlname").prop('disabled', true);
+	    $("#inputsex").prop('disabled', true);
+	    $("#inputbirthday").prop('disabled', true);
+	    $("#edit-frm-profile").prop('disabled', false);
+	    $("#saveprofile").prop('disabled', true);
+	    $("#cr-new-pw").show();
+	    $(".pw-grp").hide(0);
+    });
+
+    $("#saveprofile").click(function(){
+    	if($("#inputfname").val()== "" ||  $("#inputlname").val() == ""){
+    		alert('Fill up field/s with *');
+    		return false;
+    	}else{
+    		if($('#inputfname').val().length <= 1 || $('#inputlname').val().length <= 1){
+    			alert('Required fields must be atleast 2 characters');
+				return false;
+    		}else{
+    			return true
+	    		$("#inputfname").prop('disabled', true);
+		    	$("#inputmname").prop('disabled', true);
+			    $("#inputlname").prop('disabled', true);
+			    $("#inputsex").prop('disabled', true);
+			    $("#inputbirthday").prop('disabled', true);
+			    $("#edit-frm-profile").prop('disabled', false);
+			    $("#saveprofile").prop('disabled', true);
+			    $("#cr-new-pw").show();
+			    $(".pw-grp").hide(0);
+    		}	
+    	}
+    });
+
+    $(".pw-grp").hide();
+
+    $("#cr-new-pw").click(function() {
+    	$("#cr-new-pw").hide();
+    	$(".pw-grp").show();
+    });
+
+    $("#saveacc").click(function() {
+    	if($('#inputpw').val() == "" || $('#inputcpw').val() == ""){
+    		alert('Fill up field/s');
+    		return false;
+    	}else{
+
+    		if($('#inputpw').val().length <= 6){
+    			alert('Password must be atleast 7 characters');
+				return false;
+    		}else{
+    			if ($('#inputpw').val() == $('#inputcpw').val()) {
+					alert('Password successfully updated');
+					return true;
+				}else{
+					alert('Passwords do not match');
+					return false;
+				}
+    		}
+    	}
+    	
+    });
+
+
+	// New Homepage
+	$(".h-upick .thumbnail a img").click(function() {			
+		
+	});
+
+	$(".view_comments-2").click(function() {
+		$(".fb-comments-cnt").toggle("slow"); 
+		$(".view_comments-2").hide("slow");    
+		$(".poll-answer").hide("slow");  
+		$(".poll-result-upick").show("slow");  	
+		$(".poll-result-upick").css("display","table");  	
+		$(".hide_comments-2").show("slow");  
+	});
+
+	$(".hide_comments-2").click(function() {	  
+		$(".view_comments-2").show("slow");     
+		$(".fb-comments-cnt").hide("slow"); 
+		$(".poll-result-upick").hide("slow");  		
+		$(".poll-answer").show("slow");
+		$(".hide_comments-2").hide("slow"); 	
+	});
+
+	 $('#tbl-allUsers').DataTable({	 
+	 });
+
 
 });  	
 

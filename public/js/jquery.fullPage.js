@@ -1606,6 +1606,13 @@
                 $(".view-poll-result").show("slow");
                 $(".close-poll-result").hide("slow");
 
+
+                $(".view_comments-2").show("slow");     
+                $(".fb-comments-cnt").hide("slow"); 
+                $(".poll-result-upick").hide("slow");       
+                $(".poll-answer").show("slow");
+                $(".hide_comments-2").hide("slow");     
+
                 var value =  window.location.hash.replace('#', '').split('/');
                 var section = value[0];
                 var slide = value[1];

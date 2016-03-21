@@ -21,9 +21,9 @@ class HomeController extends BaseController {
 		if(Auth::check()){
 			$user = User::with('profile')->find(Auth::user()->id); //Show authenticated user own profile details.
 			$profile = $user->profile;
-			return View::make('pages.home')->with('profile', $profile)->with('user',$user);
+			return View::make('pages.home-new')->with('profile', $profile)->with('user',$user);
 		}else{
-			return View::make('pages.home');
+			return View::make('pages.home-new');
 		}
 	}
 
@@ -59,7 +59,7 @@ class HomeController extends BaseController {
 
 	    // attempt to do the login
 	    if (Auth::attempt($userdata)) {
-	        return Redirect::intended('dashboard');
+	        return Redirect::intended('/');
 
 	    } else {        
 	    	 $validator = new MessageBag(['invalid' => ['Email and/or password invalid.']]);
@@ -88,12 +88,13 @@ class HomeController extends BaseController {
 
 		$rules = array(
 			'firstname' => 'required',
+			'middlename' => 'required',
 			'lastname' => 'required',
 			'email' => 'required|email|unique:users',     // required and must be unique in the ducks table
 	        'password' => 'required',
 	        'password_confirmation' => 'required|same:password',
-	        //'gender' => 'required' ,
-	        //'birthday' => 'required'   
+	        'gender' => 'required',
+	        'birthday' => 'required',
 	        'g-recaptcha-response' => 'required' 
 		);
 
@@ -119,9 +120,10 @@ class HomeController extends BaseController {
 
 		$profile = new Profile([
 			'firstname' => Input::get('firstname'),
+			'middlename' => Input::get('middlename'),
 			'lastname' => Input::get('lastname'),
-			//'gender' => Input::get('gender'),
-			//'birthday' => Input::get('birthday'),
+			'gender' => Input::get('gender'),
+			'birthday' => Input::get('birthday'),
             'verificationkey' => $confirmation_code
 		]);
 
@@ -146,7 +148,7 @@ class HomeController extends BaseController {
 
 		if (Auth::attempt($credentials))
 		{
-		    return Redirect::intended('dashboard');
+		    return Redirect::intended('/');
 		}else{
 			return Redirect::to('login');
 		}
@@ -168,19 +170,20 @@ class HomeController extends BaseController {
             throw new InvalidConfirmationCodeException;
         }
 
+        $user = User::whereId($profile->user_id)->first();
+        $email = $user->email;
+        $subject = 'Verified';
+        $fname = $profile->firstname;
+        $data = array("firstname" => $fname);
+        Mail::send('emails.verified', $data, function($message) use ($fname, $email, $subject)
+		{
+		    $message->to($email, $fname)->subject($subject);
+		});
+
         $profile->isverified = 1;
         $profile->save();
 
         return Redirect::to('login');
     }
-
-	public function dashboard()
-	{
-		$user = User::with('profile')->find(Auth::user()->id); //Show authenticated user own profile details.
-		$profile = $user->profile;
-
-    	return View::make('pages.dashboard')->with('profile', $profile)->with('user',$user);
-	}
-
 
 }

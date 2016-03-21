@@ -11,7 +11,8 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+//Route::get('/', 'HomeController@index');
+Route::get('/', 'PollsController@upick');
 
 //Traditional PHP Reg/Login
 Route::get('/register', array('uses' => 'HomeController@showRegister'));
@@ -21,7 +22,7 @@ Route::post('login', array('uses' => 'HomeController@doLogin'));
 
 //Restricted Routes
 Route::group(['before' => 'auth'], function(){
-	Route::get('/dashboard', 'HomeController@dashboard');
+	Route::get('/dashboard', 'DashboardController@dashboard');
 	Route::get('/submit-poll', 'PollsController@submit_poll');
 });
 
@@ -29,6 +30,11 @@ Route::get('logout', array('uses' => 'HomeController@doLogout'));
 
 Route::get('login/fb', 'LoginFbController@login');
 Route::get('login/fb/callback', 'LoginFbController@callback');
+
+Route::get('password/forgot', 'RemindersController@getRemind');
+Route::post('password/forgot', 'RemindersController@postRemind');
+Route::get('password/reset/{token}', 'RemindersController@getReset');
+Route::post('password/reset/{token}', 'RemindersController@postReset');
 
 //Social Auth Routes - Auto login
 
@@ -60,13 +66,26 @@ Route::get('register/verify/{confirmationCode}', [
     'uses' => 'HomeController@confirm'
 ]);
 
+Route::get('resend-verification', 'EmailController@resendVerification');
+
 /*AJAX ROutes*/
 Route::post('auth/login', array('before'=>'csrf', 'uses' => 'AjaxController@doLogin'));
-Route::post('auth/register', array('beore' => 'csrf', 'uses' => 'AjaxController@doRegister'));
+Route::post('auth/register', array('before' => 'csrf', 'uses' => 'AjaxController@doRegister'));
+Route::get('auth/check', array('uses' => 'AjaxController@checkUser'));
 
 Route::post('poll/add/mc', array('before' => 'auth', 'uses' => 'AjaxPollController@addPollMc'));
 Route::post('poll/add/thumbs', array('before' => 'auth', 'uses' => 'AjaxPollController@addPollThumb'));
 Route::post('poll/add/mood', array('before' => 'auth', 'uses' => 'AjaxPollController@addPollMood'));
+Route::post('poll/add/upick', array('before' => 'auth', 'uses' => 'AjaxPollController@addPollUpick'));
+Route::post('poll/vote/upick', array('before' => 'auth', 'uses' => 'AjaxPollController@votePollUpick'));
+
+Route::get('single-poll/{id}/{title}', array('uses' => 'PollsController@single_poll'));
+
+
+Route::get('view-votes/{pollid}', array('before' => 'auth', 'uses' => 'AdminController@viewVotes'));
+Route::get('view-users', array('before' => 'auth', 'uses' => 'AdminController@viewUsers'));
+Route::get('verify-vote', 'AdminController@verifyVote');
+Route::get('unverify-vote', 'AdminController@unverifyVote');
 
 /*Val Routes*/
 Route::get('categories', array('uses' => 'CategoriesController@viewCategories'));
@@ -76,3 +95,9 @@ Route::get('polls-types', array('uses' => 'PollsController@polls_types'));
 Route::get('trending-polls', array('uses' => 'PollsController@trending_polls'));
 Route::get('new-polls', array('uses' => 'PollsController@new_polls'));
 Route::get('sponsored-polls', array('uses' => 'PollsController@sponsored_polls'));
+
+
+/* Dashboard Updates */
+Route::post('dashboard/update-profile', array('uses' => 'DashboardController@updateProfile'));
+Route::post('dashboard/update-account', array('uses' => 'DashboardController@updateAccount'));
+Route::post('dashboard/update-avatar', array('uses' => 'DashboardController@updateAvatar'));

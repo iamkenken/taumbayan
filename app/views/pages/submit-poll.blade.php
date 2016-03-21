@@ -181,29 +181,38 @@
 		</div>
 
 		<div id="sectionF" class="tab-pane fade">
-            <form action="#">
-				<div class="form-group">	
-					<select id="upickcat" class="selectpicker form-control" multiple data-done-button="true" data-max-options="3">
-				    @foreach($categories as $cat)
-				    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
-				    @endforeach
-				 	</select>
-				</div>	
-				<div class="text-left">
-					<p>Enter Picture to Rate</p>
-				</div>																					
+            <form id="upick_form" action="#">
+            <div class="upick-error"></div>
+			<div class="form-group">	
+				<select id="upick_cat" class="selectpicker form-control" multiple data-done-button="true" data-max-options="3" >
+			    @foreach($categories as $cat)
+			    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+			    @endforeach
+			 	</select>
+			</div>				
+			<div class="form-group">				
+			  <input type="text" class="form-control" id="upick_title" placeholder="Enter Title">
+			  <div class="help-block with-errors"></div>
+			</div>	
+			<div class="form-group">
+			  <textarea class="form-control" rows="5" maxlength="200" id="upick_question" placeholder="Enter Poll Question"></textarea>
+			</div>
+			<div class="form-group">	
+				<select id="upick_numchoice" class="form-control">
+				<option value=''></option>
+				@for($x = 2; $x <= 10; $x++)
+			    <option value="{{ $x }}">{{ $x }}</option>
+			    @endfor
+			 	</select>
+			</div>	
+			<div class="upick_choices">
 				
-					<div class="col-md-6 text-center">		
-						<a href=""><img src="{{ asset("img/upload.png") }}" class="img-responsive"/></a>
-					</div>
-					<div class="col-md-6 text-center">		
-						<a href=""><img src="{{ asset("img/upload.png") }}" class="img-responsive"/></a>
-					</div>
-				
-				<div class="text-right">											
-					<a class="submit-poll-content-btn btn pointer">Preview Poll</a> <a class="submit-poll-content-btn btn pointer">Submit Poll</a>	
-				</div>
-			</form>	
+			</div>
+			<div class="text-right" style="clear:both;">
+				<input type="hidden" id="upick_type" name="type" value="upick">
+				<a class="submit-poll-content-btn btn pointer">Preview Poll</a> <a class="submit-poll-content-btn btn pointer" id="submitupick">Submit Poll</a>	
+			</div>
+			</form>		
 	    </div>	
 	    </div>
 		</div>

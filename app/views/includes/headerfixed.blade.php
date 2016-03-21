@@ -22,7 +22,7 @@
             @else  
                 <li><a href="{{ url('/dashboard') }}" title="">Hi! {{ $profile->firstname }} 
                 @if ($profile->photo)
-                <img src="{{ $profile->photo }}" class="img-circle" width="20" />
+                {{ HTML::image($profile->photo, 'Avatar', array('class' => 'img-circle', 'width' => 20) ) }}
                 @else
                 <span class="genericon genericon-user icon-user"></span>
                 @endif

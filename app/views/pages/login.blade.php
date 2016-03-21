@@ -16,7 +16,7 @@
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             {{ Form::label('email', 'Email Address', array('class' => 'col-md-4 control-label')) }}
                             <div class="col-md-6">
-                            {{ Form::text('email', Input::old('email'), array('class' => 'form-control')) }}
+                            {{ Form::text('email', Input::old('email'), array('class' => 'form-control', 'placeholder' => 'Email *')) }}
 
                             @if ($errors->has('email'))
                                 <span class="help-block">
@@ -30,7 +30,7 @@
                              {{ Form::label('password', 'Password', array('class' => 'col-md-4 control-label')) }}
 
                             <div class="col-md-6">
-                                {{ Form::password('password', array('class' => 'form-control')) }}
+                                {{ Form::password('password', array('class' => 'form-control', 'placeholder' => 'Password *')) }}
                                 @if ($errors->has('password'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('password') }}</strong>
@@ -55,15 +55,15 @@
                                     <i class="fa fa-btn fa-sign-in"></i> Login
                                 </button>
 
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
+                                <a class="btn btn-link" href="{{ url('/password/forgot') }}">Forgot Your Password?</a>
                             </div>
                         </div>
                     {{ Form::close() }}
-                    <div class="social-login-icons">                
+                    <!--<div class="social-login-icons">                
                     <a href="{{ url('login/gplus/') }}">{{ HTML::image('img/g-plus-icon.png') }}</a>
                     <a href="{{ url('login/facebook/') }}">{{ HTML::image('img/fb-icon.png') }}</a>
-                    <!-- <a href="{{ url('login/twitter/') }}">{{ HTML::image('img/tw-icon.png') }}</a> -->             
-                    </div>        
+                     <a href="{{ url('login/twitter/') }}">{{ HTML::image('img/tw-icon.png') }}</a>             
+                    </div>        --> 
                 </div>
             </div>
         </div>

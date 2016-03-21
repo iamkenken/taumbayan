@@ -26,13 +26,14 @@ class AjaxController extends \BaseController {
 		if(Request::ajax()){
 			$rules = array(
 			'firstname' => 'required',
+			'middlename' => 'required',
 			'lastname' => 'required',
 			'email' => 'required|email|unique:users',     // required and must be unique in the ducks table
 	        'password' => 'required',
 	        'password_confirmation' => 'required|same:password',
-	        //'gender' => 'required',
-	        'g-recaptcha-response' => 'required|captcha' 
-	        //'birthday' => 'required'   
+	        'gender' => 'required',
+	        'g-recaptcha-response' => 'required|captcha', 
+	        'birthday' => 'required'   
 			);
 
 			$validator = Validator::make(Input::all(), $rules);
@@ -52,9 +53,10 @@ class AjaxController extends \BaseController {
 
 				$profile = new Profile([
 					'firstname' => Input::get('firstname'),
+					'middlename' => Input::get('middlename'),
 					'lastname' => Input::get('lastname'),
-					//'gender' => Input::get('gender'),
-					//'birthday' => Input::get('birthday'),
+					'gender' => Input::get('gender'),
+					'birthday' => Input::get('birthday'),
 		            'verificationkey' => $confirmation_code
 				]);
 
@@ -86,5 +88,23 @@ class AjaxController extends \BaseController {
 	    	}
 		}
 	}
+
+	public function checkUser(){
+		$status = 'notallowed';
+
+		if(Auth::check())
+		{
+			$status = "allowed";
+			$user = User::with('profile')->find(Auth::user()->id);
+			$profile = $user->profile;
+			if($profile->isverified == 0)
+			{
+				$status = "notverified";
+			}
+		}
+
+		return Response::json(array("status" => $status));
+	}
+
 
 }

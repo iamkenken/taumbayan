@@ -3,7 +3,7 @@
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-      <title>Taumbayan Verification Email Template</title>
+      <title>Taumbayan Verified Email Template</title>
    </head>
    <body>
       <!-- Start of seperator -->
@@ -46,7 +46,7 @@
                                              <tbody>
                                                 <tr>
                                                    <td width="200" height="50" align="center">
-                                                    <a href="http://taumbayan.com">
+                                                    <a href="http://taumbayan.com" >
                                                       <img src="img/TLogo32.png" border="0" width="32" height="32" style="display:block; border:none; outline:none; text-decoration:none; margin-right:-8px;">
                                                     </a>
                                                    </td>
@@ -70,7 +70,7 @@
                                              <tbody>
                                                 <tr>
                                                    <td align="center" style="font-family: Helvetica, arial, sans-serif; font-size: 16px;color: #ffffff" st-content="phone"  height="50">
-                                                      Verify your Account
+                                                      Verified Account
                                                    </td>
                                                 </tr>
                                              </tbody>
@@ -95,7 +95,7 @@
       </table>
       <!-- End of Header -->
       <!-- article -->
-      <table width="100%" bgcolor="#eee" cellpadding="0" cellspacing="0" border="0" id="backgroundTable">
+      <table width="100%" bgcolor="#eee" cellpadding="0" cellspacing="0" border="0" id="backgroundTable" >
          <tbody>
             <tr>
                <td>
@@ -120,8 +120,8 @@
                                                          <tbody>
                                                             <!-- title -->
                                                             <tr>
-                                                               <td style="font-family: Helvetica, arial, sans-serif; font-size: 18px; color: #262626; text-align:left; line-height: 18px;">
-                                                                  Hi {{ $firstname }}!
+                                                               <td style="font-family: Helvetica, arial, sans-serif; font-size: 18px; color: #262626; text-align:left; line-height: 18px">
+                                                                	Hi {{ $firstname }}!
                                                                </td>
                                                             </tr>
                                                             <!-- end of title -->
@@ -132,11 +132,10 @@
                                                             <!-- Spacing -->
                                                             <!-- content -->
                                                             <tr>
-                                                               <td style="font-family: Helvetica, arial, sans-serif; font-size: 14px; color: #4f5458; text-align:left; line-height: 14px;">
-                                                                  <p style="color:#4f5458">Welcome to the Taumbayan Polls.</p>
-                                                                  <p style="color:#4f5458">Please click the link below to verify your account and be able to VOTE and submit your own poll.</p>
-                                                                  <a href="{{ URL::to('register/verify/'. $confirmation_code) }}">{{ URL::to('register/verify/'. $confirmation_code) }}</a>
-                                                               </td>
+                                                              	<td style="font-family: Helvetica, arial, sans-serif; font-size: 14px; color: #4f5458; text-align:left; line-height: 14px">
+                                                                  <p style="color:#4f5458">Thank you.</p>
+                                                                  <p style="color:#4f5458">Your account is now verified. <strong>Start voting now!</strong> <a href="http://taumbayan.com" style="text-decoration:none;"> Go to Taumbayan Site</a> </p>
+                                                                </td>
                                                             </tr>
                                                             <!-- end of content -->
                                                          </tbody>
@@ -187,7 +186,7 @@
       </table>
       <!-- End of seperator -->   
       <!-- footer -->
-      <table width="100%" bgcolor="#0e0e0e" cellpadding="0" cellspacing="0" border="0" id="backgroundTable">
+      <table width="100%" bgcolor="#0e0e0e" cellpadding="0" cellspacing="0" border="0" id="backgroundTable" st-sortable="footer">
          <tbody>
             <tr>
                <td>
@@ -293,6 +292,6 @@
             </tr>
          </tbody>
       </table>
-      <!-- End of seperator --> 
+      <!-- End of seperator -->   
    </body>
 </html>

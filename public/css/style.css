@@ -5,15 +5,57 @@ body, li {
   /* The html and body elements cannot have any padding or margin. */
 }
 
-h1{
-	font-family:  "Oswald Regular", Helvetica, Arial, sans-serif;
-	font-size: 30px;
-	display: inline-block;
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -40px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
 }
+
+/* Set the fixed height of the footer here */
+#footer {
+  height: 40px;
+}
+
+
 
 /* Custom CSS
 -------------------------------------------------- */
-a, a:hover, a:active, a:visited{
+h1, h2, h3, h4, h5, h6{
+	font-family:  "Oswald Regular", Helvetica, Arial, sans-serif;
+	display: inline-block;
+	margin: 0;
+
+}
+
+h1{
+	font-size: 30px;
+}
+
+h2{
+	font-size: 28px;
+}
+
+h3{
+	font-size: 26px;
+}
+
+h4{
+	font-size: 24px;
+}
+
+h5{
+	font-size: 22px;
+}
+
+h6{
+	font-size: 20px;
+}
+
+a, a:hover, a:active, a:visited, a:focus{
 	text-decoration: none !important;
 }
 
@@ -52,10 +94,21 @@ p.footer-menu a{
 	margin-bottom: 10px;
 }
 
+.mg-top-30{
+	margin-top: 30px;
+}
+
+.mg-btm-30{
+	margin-bottom: 30px;
+}
 
 .drawer-toggle:hover, .drawer-toggle:visited, .drawer-toggle:focus{
 	border:none !important;
 	background: none !important;
+}
+
+.drawer-menu{
+	margin-top: 55px !important; 
 }
 
 .icon-bar{
@@ -80,14 +133,16 @@ p.footer-menu a{
 	height: 100%;
 	padding: 10px; /* firefox bug fix */
 	width: auto;
-	margin-right: -5px;
 }
 
 .navbar-toggle{
 	border: none;
 	margin-top: 0;
 	padding-top: 15px;
-	
+}
+
+.navbar-right li:focus{
+	color: #fff;
 }
 
 #header, #footer{
@@ -118,6 +173,12 @@ p.footer-menu a{
 	border-top: 4px solid #ddd;
 }
 
+.img-circle{
+	height: 20px;
+	margin-left: 8px !important;
+    margin-right: -18px !important;
+}
+
 a.drawer-toggle label{
 	display: none;
 }
@@ -132,6 +193,9 @@ a.drawer-toggle label{
     background: #fff;
     color: #848080;
 	font-size: 18px !important;
+	height: 20px;
+	margin-left: 8px !important;
+    margin-right: -18px !important;
 }
 
 .pointer{
@@ -139,7 +203,7 @@ a.drawer-toggle label{
 }
 
 .m-login-dialog{
-	margin-top: 70px;
+	margin-top: 190px;
 }
 
 .m-login-header{
@@ -197,11 +261,37 @@ a.drawer-toggle label{
 	margin-top: 70px;
 }
 
-.form-control::-webkit-input-placeholder { color: #555; }
-.form-control:-moz-placeholder { color: #555; }
-.form-control::-moz-placeholder { color: #555; }
-.form-control:-ms-input-placeholder { color: #555; }
+.form-control::-webkit-input-placeholder {  font-style: italic;}
+.form-control:-moz-placeholder { font-style: italic;}
+.form-control::-moz-placeholder { font-style: italic; }
+.form-control:-ms-input-placeholder { font-style: italic; }
 
+.sel-cs
+{
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #9A9A9A;
+    font-style: italic;
+ 	background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.sel-cs option
+{
+    color: #555 !important;
+    font-style: normal;
+}
 
 /* Poll */
 .poll-question p{
@@ -225,8 +315,9 @@ a.drawer-toggle label{
 }
 
 
-.cat-count{
-	font-size: 16px; 
+.cat-count, .poll-subtitle{
+	font-size: 14px; 
+	font-weight: 400;
 	font-family: "Open Sans", Helvetica, Arial, sans-serif;
 	vertical-align: middle;
 }
@@ -236,14 +327,34 @@ a.drawer-toggle label{
 	margin: 40px 0 0 0;
 }
 
+.poll-ans-count-2{
+	margin-top:2px;
+}
+
+.sp-divider{
+	margin:0 10px;
+}
+
 .share-this{	
 	font-family: "Open Sans", Helvetica, Arial, sans-serif;
-    background: #3579dc;	
-	color: #FFF;
-	font-size: 14px;
-	padding: 8px 14px;  
-    vertical-align: top;
-    border: 0;	
+	font-weight: 600;
+   	font-size: 12px;
+    background: #3579dc;
+    color: #FFF;
+    border:0;  
+    padding: 5px 12px;
+}
+
+.share-this-2{	
+	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+	font-weight: 600;
+   	font-size: 12px;
+    background: #3579dc;
+    color: #FFF;
+    border:0;  
+    padding: 5px 12px;
+    float:right;
+    margin-top: -5px;
 }
 
 .share-this:hover{
@@ -259,6 +370,7 @@ a.drawer-toggle label{
 }
 
 .m-share-back{
+	font-size: 12px;
 	position: absolute;
 	bottom: 7px;
 	left: 7px;
@@ -367,7 +479,7 @@ hr.cmt{
 	display: inline-block;
 	text-shadow: 0px 6px 6px #ddd;
 }
-
+/* End of Thumbs */
 
 /* Rating */
 .rating-container{
@@ -407,6 +519,10 @@ div.rating-container>.caption{
 	margin: 0;
 }
 
+/* End of Rating */
+
+
+
 /* Multiple Choice */
 .submit-choice-btn{		
     border-radius: 0;
@@ -415,6 +531,9 @@ div.rating-container>.caption{
 .mc-cnt{
 	padding-right: 5px;
 }
+/* End of Multiple Choice */
+
+
 
 /*general styles for all CSS Checkboxes*/
 label {
@@ -506,6 +625,7 @@ span.percentage{
 	clear:both;
 }
 
+
 /* uPick */
 .caption, .thumbnail{
 	padding:0;
@@ -526,6 +646,17 @@ span.percentage{
 	width: 200px;
 	margin: 5px;
 }
+
+.col-md-3-cs{
+	width: 20%;
+}
+
+.h-upick{
+	height: 250px;
+	display:table;
+}
+
+/* End of uPick */
 
 
 /* Submit Poll */
@@ -573,6 +704,8 @@ a.submit-poll-content-btn:hover{
 	padding: 15px;
 }
 
+/* End of Submit Poll */
+
 
 /* Mood */
 img.mood{
@@ -606,28 +739,6 @@ ul.h-mood li a img:hover{
     opacity: 1.0;  
     z-index:2;
 }
-
-/*
-ul.h-mood{
-	padding-left:20px;
-}
-
-ul.h-mood li {    
-	display: inline-block;
-    text-decoration: none;
-}
-
-ul.h-mood li a img{   
-	opacity: 0.4;	
-	height: 70px;
-	margin-left:-20px;
-	z-index: 1;
-}
-
-ul.h-mood li a img:hover {
-    opacity: 1.0;  
-    z-index:2;
-}*/
 
 .mm-cnt{
 	display: table;
@@ -725,6 +836,7 @@ ul.h-mood li a img:hover {
 	width: 80px !important;
 }
 
+/* End of Mood */
 
 
 /* Ranking */
@@ -761,6 +873,9 @@ ul.h_ranking li p, ul.h_ranking-r li p{
 .submit-rank-btn{		
     border-radius: 0;
 }
+
+/* End of Ranking */
+
 
 /* 3d Carousel */
 .banner {
@@ -872,6 +987,7 @@ ul.h_ranking li p, ul.h_ranking-r li p{
   z-index:0;
   background-color: rgba(80, 131, 206,0.8);
 }
+/* End of 3d Carousel */
 
 
 /* Categories */
@@ -993,9 +1109,7 @@ ul.h_ranking li p, ul.h_ranking-r li p{
 	border-left:2px solid #5083CE;
 }
 
-.frm-search-poll{
-	margin-top: 20px;
-}
+/* End of Categories */
 
 
 /* Dashboard */
@@ -1010,9 +1124,49 @@ ul.h_ranking li p, ul.h_ranking-r li p{
 	text-align: left;
 }
 
+.dsh-tab{
+	margin-top: 8px;
+}
+
+.dsh-tab a{
+	margin: 2px;
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{
+	background-color: #eee !important;
+}
+
+.datepicker td, .datepicker th{
+	font-size: 11px;
+}
+
+#avatar-cnt{
+	height: 160px;
+	width: auto;	
+}
+
+.avatar{
+	max-height: 200px;
+	border: 1px dotted #0e0e0e;
+}
+
+
+table#tbl-allUsers th, tr, td{
+	vertical-align: middle !important;
+}
+
+.input-sm{
+	padding: 0  10px;
+}
+
+#btn-ver-cs{
+
+}
+
+/* End of Dashboard */
+
 
 /* FB Comments */
-
 .fb-comments-cnt{
 	display:none;		
 	overflow-y: scroll;
@@ -1020,18 +1174,21 @@ ul.h_ranking li p, ul.h_ranking-r li p{
 	height: 250px;
 }
 
-.hide_comments{
+.hide_comments, .hide_comments-2{
 	display: none;
 }
 
-.view_comments, .hide_comments{
+.view_comments, .hide_comments, .view_comments-2, .hide_comments-2{
 	color:#444;
 	cursor:pointer;
+	font-size: 12px;
 }
 
-.view_comments:hover, .hide_comments:hover{
+.view_comments:hover, .hide_comments:hover, .view_comments-2:hover, .hide_comments-2:hover{
 	color:#333;
 }
+
+/* End of FB Comments */
 
 
 /* Scroll bar */
@@ -1060,25 +1217,8 @@ ul.h_ranking li p, ul.h_ranking-r li p{
 	background-color: #3579dc;
 }
 
-/* Date picker */
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
-	border-top:none;
-	padding: 6px;
-}
+/* End of Scroll Bar */
 
-.table span.year, .table span.decade, .table span.century{
-	font-size: 12px;
-}
-
-th.dow{
-	border-bottom: none !important;
-}
-
-h1.h1-pt{
-	font-size: 40px;
-	font-weight: 900;
-	margin-top:0;
-}
 
 /* Poll Results */
 .poll-result{
@@ -1098,11 +1238,135 @@ h1.h1-pt{
 	color:#333;
 }
 
+.poll-result-upick{
+	display:none;	
+	height: 250px;		
+}
+
+.upick-r li {
+    position:relative;
+    display: inline-block;
+}
+
+.upick-r li img{
+    width:100%;
+    vertical-align:middle;
+}
+
+.upick-r li:after, .upick-r li:before {
+    position:absolute;
+    opacity: 0;
+    transition: all 0.25s;
+    -webkit-transition: all 0.5s;
+}
+
+.upick-r li:after {
+    content: '\A';
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    bottom:0;
+    right:0;
+    background: rgb(53,121,220);  
+}
+
+.upick-r li:before {
+    content: attr(data-content);
+    width:100%;
+    color: #FFF;
+    z-index:1;  
+    text-align:center;
+    margin-top: 40%;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.upick-r li:hover:after, .upick-r li:hover:before {
+    opacity:1;
+}
+
+/* End of Poll Results */
+
+
+/* Social Share */
+.fb_iframe_widget iframe{
+	margin-top:-5px;
+}
+
+.social-share iframe {
+	width:60px !important;
+	margin-left: -5px;
+}
+/* End of Social Share */
+
+
+/* Email Template */
+/* Client-specific Styles */
+#outlook a {padding:0;} /* Force Outlook to provide a "view in browser" menu link. */
+body{width:100% !important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; margin:0; padding:0;}
+/* Prevent Webkit and Windows Mobile platforms from changing default font sizes, while not breaking desktop design. */
+.ExternalClass {width:100%;} /* Force Hotmail to display emails at full width */
+.ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;} /* Force Hotmail to display normal line spacing.  */
+#backgroundTable {margin:0; padding:0; width:100% !important; line-height: 100% !important;}
+img {outline:none; text-decoration:none;border:none; -ms-interpolation-mode: bicubic;}
+a img {border:none;}
+.image_fix {display:block;}
+p {margin: 0px 0px !important;}
+table td {border-collapse: collapse;}
+table { border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; }
+
+/*STYLES*/
+table[class=full] { width: 100%; clear: both; }
+/*IPAD STYLES*/
+@media only screen and (max-width: 640px) {
+a[href^="tel"], a[href^="sms"] {
+text-decoration: none;
+color: #33b9ff; /* or whatever your want */
+pointer-events: none;
+cursor: default;
+}
+.mobile_link a[href^="tel"], .mobile_link a[href^="sms"] {
+text-decoration: default;
+color: #33b9ff !important;
+pointer-events: auto;
+cursor: default;
+}
+table[class=devicewidth] {width: 440px!important;text-align:center!important;}
+table[class=devicewidthinner] {width: 420px!important;text-align:center!important;}
+img[class=banner] {width: 440px!important;height:220px!important;}
+img[class=colimg2] {width: 440px!important;height:220px!important;}
+
+
+}
+/*IPHONE STYLES*/
+@media only screen and (max-width: 480px) {
+a[href^="tel"], a[href^="sms"] {
+text-decoration: none;
+color: #ffffff; /* or whatever your want */
+pointer-events: none;
+cursor: default;
+}
+.mobile_link a[href^="tel"], .mobile_link a[href^="sms"] {
+text-decoration: default;
+color: #ffffff !important; 
+pointer-events: auto;
+cursor: default;
+}
+table[class=devicewidth] {width: 280px!important;text-align:center!important;}
+table[class=devicewidthinner] {width: 260px!important;text-align:center!important;}
+img[class=banner] {width: 280px!important;height:140px!important;}
+img[class=colimg2] {width: 280px!important;height:140px!important;}
+td[class="padding-top15"]{padding-top:15px!important;}
+}
+/* End of Email Template */
+
+
 /* Additional Responsive */
 @media screen and (max-width: 499px){
 	.section{
 		padding: 10px;
-		margin:	45px 0 50px 0;		
+		margin:	60px 0 50px 0;		
 	}
 
    #footer{
@@ -1122,7 +1386,7 @@ h1.h1-pt{
 	}
 	
 	.m-share-back{
-		font-size: 10px;
+		font-size: 9px;
 	}
 
 	.poll-question{
@@ -1134,9 +1398,43 @@ h1.h1-pt{
 		line-height:1.5;
 		text-align: center;	
 	}
+
+	.poll-subtitle{
+		font-size: 12px;
+		display: block;
+		margin: 5px 0;
+	}
+
+	.mg-btm-30{
+		margin-bottom: 10px;
+	}
+
+	.mg-top-30{
+		margin-top: 10px;
+	}
 	
 	h1{
-		font-size: 16px;		
+		font-size: 24px;
+	}
+
+	h2{
+		font-size: 22px;
+	}
+
+	h3{
+		font-size: 20px;
+	}
+
+	h4{
+		font-size: 18px;
+	}
+
+	h5{
+		font-size: 16px;
+	}
+
+	h6{
+		font-size: 14px;
 	}
 
 	h1.h1-pt{
@@ -1147,6 +1445,10 @@ h1.h1-pt{
 
 	p, label{
 		font-size: 12px;
+	}
+
+	.sp-divider{
+		display: none;
 	}
 
 	.cat-count{
@@ -1161,6 +1463,11 @@ h1.h1-pt{
 	.poll-ans-count{
 		margin-top: 15px;
 		display: block;
+	}
+
+	.poll-ans-count-2{
+		margin-top: 5px;
+		font-size: 10px;
 	}
 
 	.grid-sizer, .grid-item {
@@ -1216,8 +1523,15 @@ h1.h1-pt{
 		font-size: 9px;
 	}
 
-	.comments-section a, .results-btn a{
+	.share-this-2{
+		padding:4px 5px;
 		font-size: 9px;
+		float: left;
+		margin-top: 5px;
+	}
+
+	.comments-section a, .results-btn a{
+		font-size: 10px;
 	}
 
 	.rating-xl{
@@ -1265,10 +1579,6 @@ h1.h1-pt{
 		margin-top: 32%;
 	}
 
-	h4{
-		font-size: 14px;
-	}
-
 	.up-img{
 		height: 100px;
 		width: 100px;
@@ -1287,7 +1597,7 @@ h1.h1-pt{
 		margin-top: 0px;
 	}
 
-	.cat-page,  .dsh-page{
+	.cat-page{
 		margin-top: 40px;
 		margin-bottom: 50px;
 	}
@@ -1302,7 +1612,7 @@ h1.h1-pt{
 	}
 
 	.fb-comments-cnt{
-		height: 200px;
+		height: 250px;
 	}
 
 	a.submit-poll-btn {
@@ -1322,11 +1632,40 @@ h1.h1-pt{
 		height: auto;
 	}
 
+	.dsh-page{
+		margin-top: 0;
+	}
+
+	.dsh-tab{
+		margin-top: 4px;
+	}
+
+	.lbl-emblem{
+		margin-top: 10px;
+	}
+
+	.col-md-3-cs, .col-md-2-cs{
+		width: 33.33%;
+	}
+
+	.drawer-menu-item{
+		font-size: 12px !important;
+		padding: 10px !important;
+	}
+
+	.poll-result-upick{
+		display: none !important;
+	}
+
+	.table-responsive{
+		border: 0;
+	}
+
 }
 
 @media (max-width: 768px) and (min-width: 500px){
 	.m-login-dialog, .m-signup-dialog{
-		width: 450px;
+		width: 400px;
 		margin: 70px auto;
 	}	
 	
@@ -1349,7 +1688,27 @@ h1.h1-pt{
 	}
 	
 	h1{
+		font-size: 26px;
+	}
+
+	h2{
 		font-size: 24px;
+	}
+
+	h3{
+		font-size: 22px;
+	}
+
+	h4{
+		font-size: 20px;
+	}
+
+	h5{
+		font-size: 18px;
+	}
+
+	h6{
+		font-size: 16px;
 	}
 	
 	.cat-page{
@@ -1365,19 +1724,14 @@ h1.h1-pt{
 		font-size: 12px;
 	}
 		
-	.share-this{
-		font-size: 12px;
-		padding: 5px;  
+	.share-this-2{
+		float: left;
+		margin-top: 5px;
 	}
 		
 	.grid-sizer,
 	.grid-item {
 	  width: 49.50%;
-	}
-
-	.dsh-page{
-		margin-top: 50px;
-		margin-bottom: 50px;
 	}
 
 	.rt-cnt{
@@ -1391,7 +1745,45 @@ h1.h1-pt{
 	.rating-xl{
 		font-size: 3.3em !important;
 	}
-	
+
+	.lbl-emblem{
+		margin-top: 10px;
+	}
+
+	.col-md-3-cs{
+		width: 20%;
+	}
+
+	.poll-result-upick{
+		display: none !important;
+	}
+
+	.mg-btm-30{
+		margin-bottom: 10px;
+	}
+
+	.mg-top-30{
+		margin-top: 10px;
+	}
+
+	.h-upick{
+		height: auto;
+	}
+
+	.table-responsive{
+		border: 0;
+	}
+
+	.m-login-dialog{
+		width: 450px;
+		margin: 180px auto;
+	}
+}
+
+@media (min-width: 768px){
+	.modal-dialog {
+	    width: 400px;
+	}
 }
 
 @media (max-width: 990px) and (min-width: 768px){
@@ -1405,7 +1797,12 @@ h1.h1-pt{
 		margin-bottom: 50px;
 	}
 
-	.m-login-dialog, .m-signup-dialog{
+	.m-login-dialog{
+		width: 450px;
+		margin: 180px auto;
+	}
+
+	.m-signup-dialog{
 		width: 450px;
 		margin: 70px auto;
 	}
@@ -1416,8 +1813,23 @@ h1.h1-pt{
 	}
 
 	.dsh-page{
-		margin-top: 50px;
 		margin-bottom: 50px;
+	}
+
+	.lbl-emblem{
+		margin-top: 10px;
+	}
+
+	.poll-result-upick{
+		display: none !important;
+	}
+
+	.h-upick{
+		height: auto;
+	}
+
+	.table-responsive{
+		border: 0;
 	}
 
 }
@@ -1437,5 +1849,5 @@ h1.h1-pt{
 	}
 }
 
-
+/* End Additional Responsive */
 

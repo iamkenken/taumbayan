@@ -20,8 +20,6 @@ class TaumbayanPollChoices extends Migration
             $table->text('image');
             $table->string('order');
             $table->timestamps();
-
-            $table->foreign('polls_id')->references('id')->on('polls');
         });
     }
 
