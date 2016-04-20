@@ -182,7 +182,7 @@
 
             if(options.autoScrolling && !options.scrollBar){
                 $htmlBody.css({
-                    'overflow' : 'hidden',
+                    'overflow' : 'visible',
                     'height' : '100%'
                 });
 
@@ -1599,7 +1599,7 @@
             if(!isScrolling && !options.lockAnchors){
 
                 $(".poll-answer").show("slow");
-                $(".fb-comments-cnt").hide("slow");                
+               // $(".fb-comments-cnt").hide("slow");                
                 $(".poll-result").hide("slow");
                 $(".view_comments").show("slow");   
                 $(".hide_comments").hide("slow");   
@@ -1608,7 +1608,7 @@
 
 
                 $(".view_comments-2").show("slow");     
-                $(".fb-comments-cnt").hide("slow"); 
+               // $(".fb-comments-cnt").hide("slow"); 
                 $(".poll-result-upick").hide("slow");       
                 $(".poll-answer").show("slow");
                 $(".hide_comments-2").hide("slow");     
@@ -2095,8 +2095,9 @@
         }
 
         function addTableClass(element){
+            //element.addClass(TABLE).wrapInner('<div class="' + TABLE_CELL + '" style="height:' + getTableHeight(element) + 'px;" />');
             element.addClass(TABLE).wrapInner('<div class="' + TABLE_CELL + '" style="height:' + getTableHeight(element) + 'px;" />');
-        }
+       }
 
         function getTableHeight(element){
             var sectionHeight = windowsHeight;

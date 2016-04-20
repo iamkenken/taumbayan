@@ -12,7 +12,7 @@
 */
 
 //Route::get('/', 'HomeController@index');
-Route::get('/', 'PollsController@upick');
+Route::get('/', 'HomeController@index');
 
 //Traditional PHP Reg/Login
 Route::get('/register', array('uses' => 'HomeController@showRegister'));
@@ -38,26 +38,26 @@ Route::post('password/reset/{token}', 'RemindersController@postReset');
 
 //Social Auth Routes - Auto login
 
-/*Route::get('login/facebook/{process?}',
+Route::get('login/facebook/{process?}',
     array('as' => 'hybridauth', 'before' => 'guest', "uses" => 'SocialAuthController@facebookLogin')
 );
 
-Route::get('login/twitter/{process?}',
+/*Route::get('login/twitter/{process?}',
     array('as' => 'hybridauth', 'before' => 'guest', "uses" => 'SocialAuthController@twitterLogin')
-);
+);*/
 
 Route::get('login/gplus/{process?}',
     array('as' => 'hybridauth', 'before' => 'guest', "uses" => 'SocialAuthController@gplusLogin')
-);*/
+);
 
-//Get Social email and redirect to SignUp Form
+/**Get Social email and redirect to SignUp Form
 Route::get('login/facebook/{process?}',
     array('as' => 'hybridauth', 'before' => 'guest', "uses" => 'SocialGetEmailController@getFbEmail')
 );
 
 Route::get('login/gplus/{process?}',
     array('as' => 'hybridauth', 'before' => 'guest', "uses" => 'SocialGetEmailController@getGplusEmail')
-);
+);**/
 
 //Email Verification Route
 
@@ -74,6 +74,8 @@ Route::post('auth/register', array('before' => 'csrf', 'uses' => 'AjaxController
 Route::get('auth/check', array('uses' => 'AjaxController@checkUser'));
 
 Route::post('poll/add/mc', array('before' => 'auth', 'uses' => 'AjaxPollController@addPollMc'));
+Route::post('poll/add/ranking', array('before' => 'auth', 'uses' => 'AjaxPollController@addPollRank'));
+Route::post('poll/add/rating', array('before' => 'auth', 'uses' => 'AjaxPollController@addPollRating'));
 Route::post('poll/add/thumbs', array('before' => 'auth', 'uses' => 'AjaxPollController@addPollThumb'));
 Route::post('poll/add/mood', array('before' => 'auth', 'uses' => 'AjaxPollController@addPollMood'));
 Route::post('poll/add/upick', array('before' => 'auth', 'uses' => 'AjaxPollController@addPollUpick'));
@@ -101,3 +103,17 @@ Route::get('sponsored-polls', array('uses' => 'PollsController@sponsored_polls')
 Route::post('dashboard/update-profile', array('uses' => 'DashboardController@updateProfile'));
 Route::post('dashboard/update-account', array('uses' => 'DashboardController@updateAccount'));
 Route::post('dashboard/update-avatar', array('uses' => 'DashboardController@updateAvatar'));
+
+/* CMS */
+Route::get('admin', array('uses' => 'CMSController@showLogin'));
+Route::post('admin', array('uses' => 'CMSController@doLogin'));
+Route::get('admin/index', array('before' => 'auth', 'uses' => 'CMSController@showIndex'));
+Route::get('admin/profile', array('before' => 'auth', 'uses' => 'CMSController@showProfile'));
+Route::get('admin/users/view', array('before' => 'auth', 'uses' => 'CMSController@showViewUsers'));
+Route::get('admin/users/create', array('before' => 'auth', 'uses' => 'CMSController@showCreateUser'));
+Route::get('admin/polls/view', array('before' => 'auth', 'uses' => 'CMSController@showViewPolls'));
+Route::get('admin/polls/create', array('before' => 'auth', 'uses' => 'CMSController@showCreatePolls'));
+Route::get('admin/logout', array('uses' => 'CMSController@doLogout'));
+
+Route::post('admin/users/create', array('before' => 'auth', 'uses' => 'CMSController@doCreateUser'));
+Route::post('admin/user/delete', array('before' => 'auth', 'uses' => 'CMSAjaxController@deleteUser'));

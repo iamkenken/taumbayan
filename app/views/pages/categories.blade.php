@@ -1,7 +1,7 @@
-@extends('layouts.fullpage')
+@extends('layouts.default')
 
 @section('content')
-<div class="section container">            
+<div class="section container cat-mg">            
 	<div class="row">
 		<div id="cat-name">Current Events</div>
 		<div class="banner">

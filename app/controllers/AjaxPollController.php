@@ -59,7 +59,18 @@ class AjaxPollController extends \BaseController {
 					'submittedbyid' => $by,
 					'categoryid' => $cats,
 				]);
-				if($poll->save()){
+
+				$c[] = new PollChoices([
+					'polls_id' => $poll->id,
+					'choice' => 'up',
+				]);
+
+				$c[] = new PollChoices([
+					'polls_id' => $poll->id,
+					'choice' => 'down',
+				]);
+
+				if($poll->pollchoices()->saveMany($c)){
 					return Response::json(array("status" => "success"));
 				}else{
 					return Response::json(array("status" => "failed"));
@@ -95,6 +106,81 @@ class AjaxPollController extends \BaseController {
 					'choice' => $value,
 				]);
 				}
+				if($poll->pollchoices()->saveMany($c)){
+					return Response::json(array("status" => "success"));
+				}else{
+					return Response::json(array("status" => "failed"));
+				}
+			}
+		}
+	}
+
+	public function addPollRank(){
+		if(Request::ajax()){
+			$title = Input::get('title');
+			$question = Input::get('question');
+			$type = Input::get('type');
+			$by = Auth::user()->id;
+			$status = 'pending';
+			$cats = json_encode(Input::get('cats'), true);
+			$choices = Input::get('choices');
+			$verified = Profile::whereUserId($by)->whereIsverified(1)->first();
+			if(empty($verified)){
+				return Response::json(array("status" => "not verified"));
+			}else{
+				$poll = Polls::create([
+					'title' => $title,
+					'question' => $question,
+					'type' => $type,
+					'status' => $status,
+					'submittedbyid' => $by,
+					'categoryid' => $cats,
+				]);
+				foreach ($choices as $value) {
+				$c[] = new PollChoices([
+					'polls_id' => $poll->id,
+					'choice' => $value,
+				]);
+				}
+
+				if($poll->pollchoices()->saveMany($c)){
+					return Response::json(array("status" => "success"));
+				}else{
+					return Response::json(array("status" => "failed"));
+				}
+			}
+		}
+	}
+
+	public function addPollRating(){
+		if(Request::ajax()){
+			$title = Input::get('title');
+			$question = Input::get('question');
+			$type = Input::get('type');
+			$by = Auth::user()->id;
+			$status = 'pending';
+			$cats = json_encode(Input::get('cats'), true);
+			$ratingnumber = Input::get('ratingnumber');
+			$choices = Input::get('choices');
+			$verified = Profile::whereUserId($by)->whereIsverified(1)->first();
+			if(empty($verified)){
+				return Response::json(array("status" => "not verified"));
+			}else{
+				$poll = Polls::create([
+					'title' => $title,
+					'question' => $question,
+					'type' => $type,
+					'status' => $status,
+					'submittedbyid' => $by,
+					'categoryid' => $cats,
+				]);
+				foreach ($choices as $value) {
+				$c[] = new PollChoices([
+					'polls_id' => $poll->id,
+					'choice' => $value,
+				]);
+				}
+
 				if($poll->pollchoices()->saveMany($c)){
 					return Response::json(array("status" => "success"));
 				}else{

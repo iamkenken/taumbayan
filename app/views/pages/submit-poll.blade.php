@@ -1,4 +1,4 @@
-@extends('layouts.fullpage')
+@extends('layouts.default')
 
 @section('content')
 <div class="section container">            
@@ -129,14 +129,14 @@
 			<div class="form-group">
 			  <textarea class="form-control" rows="5" maxlength="200" id="rank_question" placeholder="Enter Poll Question"></textarea>
 			</div>
-			<div class="form-group">	
+			<!-- <div class="form-group">	
 				<select id="ranknumber" class="form-control">
 				<option value=''></option>
 				@for($x = 2; $x <= 10; $x++)
 			    <option value="{{ $x }}">{{ $x }}</option>
 			    @endfor
 			 	</select>
-			</div>	
+			</div>	 -->
 			<div class="form-group">	
 				<select id="rankchoice" class="form-control">
 				<option value=''></option>
@@ -155,33 +155,48 @@
 		</div>
 
 		<div id="sectionE" class="tab-pane fade">
-            <form action="#">
-				<div class="form-group">	
-					<select id="ratingcat" class="selectpicker form-control" multiple data-done-button="true" data-max-options="3">
-				    @foreach($categories as $cat)
-				    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
-				    @endforeach
-				 	</select>
-				</div>	
-				<div class="text-left">
-					<p>Enter Picture to Rate</p>
-				</div>																					
-				
-					<div class="col-md-6 text-center">		
-						<a href=""><img src="{{ asset("img/upload.png") }}" class="img-responsive"/></a>
-					</div>
-					<div class="col-md-6 text-center">		
-						<a href=""><img src="{{ asset("img/upload.png") }}" class="img-responsive"/></a>
-					</div>
-				
-				<div class="text-right">											
-					<a class="submit-poll-content-btn btn pointer">Preview Poll</a> <a class="submit-poll-content-btn btn pointer">Submit Poll</a>
-				</div>
-			</form>
+             <form id="rating_form" action="#">
+            <div class="rating-error"></div>
+			<div class="form-group">	
+				<select id="rating_cat" class="selectpicker form-control" multiple data-done-button="true" data-max-options="3" >
+			    @foreach($categories as $cat)
+			    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+			    @endforeach
+			 	</select>
+			</div>				
+			<div class="form-group">				
+			  <input type="text" class="form-control" id="rating_title" placeholder="Enter Title">
+			</div>	
+			<div class="form-group">
+			  <textarea class="form-control" rows="5" maxlength="200" id="rating_question" placeholder="Enter Poll Question"></textarea>
+			</div>
+			<div class="form-group">	
+				<select id="ratingnumber" class="form-control">
+				<option value=''></option>
+				@for($x = 2; $x <= 10; $x++)
+			    <option value="{{ $x }}">{{ $x }}</option>
+			    @endfor
+			 	</select>
+			</div>
+			<div class="form-group">	
+				<select id="ratingchoice" class="form-control">
+				<option value=''></option>
+				@for($x = 2; $x <= 10; $x++)
+			    <option value="{{ $x }}">{{ $x }}</option>
+			    @endfor
+			 	</select>
+			</div>	
+			<div class="rating_choices">
+			</div>
+			<div class="text-right" style="clear:both;">
+				<input type="hidden" id="rating_type" name="type" value="rating">
+				<a class="submit-poll-content-btn btn pointer">Preview Poll</a> <a class="submit-poll-content-btn btn pointer" id="submitrating">Submit Poll</a>	
+			</div>
+			</form>	
 		</div>
 
 		<div id="sectionF" class="tab-pane fade">
-            <form id="upick_form" action="#">
+            <form id="upick_form" action="#" enctype="multipart/form-data">
             <div class="upick-error"></div>
 			<div class="form-group">	
 				<select id="upick_cat" class="selectpicker form-control" multiple data-done-button="true" data-max-options="3" >

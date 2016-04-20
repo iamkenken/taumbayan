@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default header-custom" role="navigation">
+<nav class="navbar navbar-default navbar-static-top header-custom" role="navigation">
     <div class="container">               
           <div class="navbar-header">
             <!-- Hidden nav -->
@@ -8,7 +8,7 @@
                   <span class="icon-bar"></span>
             </button>
             <!-- Site Logo and name -->
-            <a class="navbar-brand" href="{{ url('/') }}" title="Taumbayan">{{ HTML::image('img/TLogo32.png') }}Taumbayan</a>
+            <a class="navbar-brand" href="{{ url('/') }}" title="Taumbayan">{{ HTML::image('img/TLogo.png', 'Taumbayan Logo', array( 'width' => 24 )) }} Taumbayan</a>
           </div>                  
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse">            
@@ -21,10 +21,10 @@
                 <li><a class="pointer m-login" title="Log in" href="#">Log in</a></li>
             @else  
                 <li><a href="{{ url('/dashboard') }}" title="">Hi! {{ $profile->firstname }} 
-                @if ($profile->photo)
-                {{ HTML::image($profile->photo, 'Avatar', array('class' => 'img-circle') ) }}
+                @if ($profile->photo)           
+                  {{ HTML::image($profile->photo, 'Avatar', array('class' => 'img-circle') ) }}
                 @else
-                <span class="genericon genericon-user icon-user"></span>
+                  <span class="genericon genericon-user icon-user"></span>
                 @endif
                 </a></li> 
             @endif 

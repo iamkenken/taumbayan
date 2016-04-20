@@ -15,6 +15,7 @@ class TaumbayanUsers extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('user_role');
+            $table->string('username');
             $table->string('email')->unique();
             $table->string('fb_id');
             $table->string('twitter_id');

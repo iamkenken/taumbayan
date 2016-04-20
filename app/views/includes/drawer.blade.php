@@ -10,9 +10,6 @@
 		
 		@if (!Auth::guest())
 		<li><a id="dr-dashboard" class="drawer-menu-item" href="{{ url('/dashboard') }}" title="Dashboard">Dashboard</a></li>
-		@if(Auth::user()->user_role == 'admin')
-		<li><a id="dr-users" class="drawer-menu-item" href="{{ url('/view-users') }}" title="View Users">View Users</a></li>
-		@endif
 		<li><a id="dr-logout" class="drawer-menu-item" href="{{ url('/logout') }}" title="Log out">Log out</a></li>
 		@endif 
 	   </ul>

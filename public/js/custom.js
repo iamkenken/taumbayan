@@ -10,15 +10,15 @@ $("#modSignup").on('shown.bs.modal', function(){
 	
 $(document).ready(function() {
 	$(".m-login").click(function(){
-	$("#modLogin").modal();		
+		$("#modLogin").modal('toggle');
 	});
 			
 	$(".m-signup").click(function(){
-		$("#modSignup").modal();
+		$("#modSignup").modal('toggle');
 	});		
 
 	$(".m-share").click(function(){
-		$("#modShare").modal();
+		$("#modShare").modal('toggle');
 	});		
 
 	$('.drawer').drawer();				
@@ -260,7 +260,7 @@ $(document).ready(function() {
 		}
 		console.log(mood);
 	});
-
+	
 	$('#submitmood').click(function(){
 		var type = $('#mm_type').val();
 		var cats = $('#mm_cat').val();
@@ -311,7 +311,7 @@ $(document).ready(function() {
 	/*Ranking*/
 	var rankChoice = $('#rankchoice');
 	rankChoice.selectpicker({
-	 noneSelectedText: 'Select Number of Choices'
+	 noneSelectedText: 'Select Number of Ranks'
 	});
 
 	rankChoice.on('changed.bs.select', function(e){
@@ -330,10 +330,10 @@ $(document).ready(function() {
 	  $('.rank_choices').html('');
 	});
 
-	var rankNum = $('#ranknumber');
+	/*var rankNum = $('#ranknumber');
 	rankNum.selectpicker({
 	 noneSelectedText: 'Select Number of Ranks'
-	});
+	});*/
 
 
 	$('#submitrank').click(function(){
@@ -360,19 +360,16 @@ $(document).ready(function() {
 		}else if(question == ''){
 			$('.rank-error').append('<div class="alert alert-danger">Please add a question</div>').hide().fadeIn();
 			$('.signupspin').remove();
-		}else if(ranknumber == ''){
-			$('.rank-error').append('<div class="alert alert-danger">Please add ranking number</div>').hide().fadeIn();
-			$('.signupspin').remove();
 		}else if(number == ''){
-			$('.rank-error').append('<div class="alert alert-danger">Please add choices</div>').hide().fadeIn();
+			$('.rank-error').append('<div class="alert alert-danger">Please add items to rank</div>').hide().fadeIn();
 			$('.signupspin').remove();
 		}else if(rankchoices.length < 2){
 			$('.rank-error').append('<div class="alert alert-danger">Please add more than 1 choices</div>').hide().fadeIn();
 			$('.signupspin').remove();
 		}else{
-			/*$.ajax({
+			$.ajax({
 				url: baseUrl+'/poll/add/ranking',
-				data: {"type": type, "cats": cats, "title": title, "question": question, "number": number, "choices": choices},
+				data: {"type": type, "cats": cats, "title": title, "question": question, "number": number, "choices": rankchoices},
 				type: "POST",
 				dataType: "JSON",
 				success: function(e){
@@ -382,7 +379,6 @@ $(document).ready(function() {
 					$('form#rank_form').find("input[type=text], textarea").val("");
 					$('#rank_cat').val('').selectpicker('refresh');
 					$('#rankchoice').val('').selectpicker('refresh');
-					$('#ranknumber').val('').selectpicker('refresh');
 					}else if(e['status'] == 'not verified'){
 					$('.rank-error').append('<div class="alert alert-danger">Please verified your email address</div>').hide().fadeIn();
 					$('.signupspin').remove();
@@ -391,11 +387,97 @@ $(document).ready(function() {
 					$('.signupspin').remove();
 					}
 				}
-			})*/
+			})
 		}
 	});
 
-	/*Multiple Choice*/
+	/*Rating*/
+	var ratingChoice = $('#ratingchoice');
+	ratingChoice.selectpicker({
+	 noneSelectedText: 'Select Number of Items'
+	});
+
+	ratingChoice.on('changed.bs.select', function(e){
+	$('.rating_choices').html('');
+	var num = ratingChoice.val();
+	if(num != 0){
+	var choices = '';
+	for(var x = 1; x <= num; x++){
+		choices += '<div class="form-group"><input type="text" class="form-control choicevalue" placeholder="Type Rating Name here" name="ratingchoices[]" value="" ></div>';
+	}
+	$('.rating_choices').append(choices).hide().fadeIn();
+	}
+	});
+
+	ratingChoice.on('refreshed.bs.select', function (e) {
+	  $('.rating_choices').html('');
+	});
+
+	var ratingNum = $('#ratingnumber');
+	ratingNum.selectpicker({
+	 noneSelectedText: 'Select Number of Rating'
+	});
+
+
+	$('#submitrating').click(function(){
+		var type = $('#rating_type').val();
+		var cats = $('#rating_cat').val();
+		var title = $('#rating_title').val();
+		var question = $('#rating_question').val();
+		var ratingnumber = $('#ratingnumber').val();
+		var number = $('#ratingchoice').val();
+		var ratingchoices = $("input[name='ratingchoices[]']")
+		.map(function(){
+			if($(this).val() != ''){
+			return $(this).val();
+			}
+		}).get();
+		$('#submitrating').append(' <i class="signupspin fa fa-circle-o-notch fa-spin"></i> ');
+		$('.rating-error .alert').remove();
+		if (cats == null){		
+			$('.rating-error').append('<div class="alert alert-danger">Please select category</div>').hide().fadeIn();
+			$('.signupspin').remove();
+		}else if(title == ''){
+			$('.rating-error').append('<div class="alert alert-danger">Please add a title</div>').hide().fadeIn();
+			$('.signupspin').remove();
+		}else if(question == ''){
+			$('.rating-error').append('<div class="alert alert-danger">Please add a question</div>').hide().fadeIn();
+			$('.signupspin').remove();
+		}else if(ratingnumber == ''){
+			$('.rating-error').append('<div class="alert alert-danger">Please add number of rating</div>').hide().fadeIn();
+			$('.signupspin').remove();
+		}else if(number == ''){
+			$('.rating-error').append('<div class="alert alert-danger">Please add number of items to rate</div>').hide().fadeIn();
+			$('.signupspin').remove();
+		}else if(ratingchoices.length < 2){
+			$('.rating-error').append('<div class="alert alert-danger">Please add more than 1 choices</div>').hide().fadeIn();
+			$('.signupspin').remove();
+		}else{
+			$.ajax({
+				url: baseUrl+'/poll/add/rating',
+				data: {"type": type, "cats": cats, "title": title, "question": question, "ratingnumber": ratingnumber, "choices": ratingchoices},
+				type: "POST",
+				dataType: "JSON",
+				success: function(e){
+					if(e['status'] == 'success'){
+					$('.rating-error').append('<div class="alert alert-success">Congratulations!You&#39ve successfully submitted a poll question. A notification will be sent to your email once  your poll is published</div>').hide().fadeIn();
+					$('.signupspin').remove();
+					$('form#rating_form').find("input[type=text], textarea").val("");
+					$('#rating_cat').val('').selectpicker('refresh');
+					$('#ratingchoice').val('').selectpicker('refresh');
+					}else if(e['status'] == 'not verified'){
+					$('.rating-error').append('<div class="alert alert-danger">Please verified your email address</div>').hide().fadeIn();
+					$('.signupspin').remove();
+					}else{
+					$('.rating-error').append('<div class="alert alert-danger">Something went wrong. Please try again</div>').hide().fadeIn();
+					$('.signupspin').remove();
+					}
+				}
+			})
+		}
+	});
+
+	/*Upick Choice*/
  	var upickChoice = $('#upick_numchoice');
 	upickChoice.selectpicker({
 	 noneSelectedText: 'Select Number of Choices'
@@ -407,7 +489,7 @@ $(document).ready(function() {
 	if(num != 0){
 	var choices = '';
 	for(var x = 1; x <= num; x++){
-		choices += '<div class="form-group"><input type="text" class="form-control choicevalue" placeholder="Type choice here" name="choices[]" value="" ></div>';
+		choices += '<div class="form-group"><input type="text" class="form-control choicevalue" placeholder="Type name here" name="choices[]" value="" ></div>';
 	}
 	$('.upick_choices').append(choices).hide().fadeIn();
 	}
@@ -469,6 +551,7 @@ $(document).ready(function() {
 				}
 			})
 		}
+
 	});
 
 	/**Submitting Vote**/
@@ -623,10 +706,8 @@ function checkUser(baseUrl){
 $(document).ready(function() {	
 	'use strict';
 	
-	$('#fullpage').fullpage({
-		anchors: ['poll'],
-		css3: true
-	});
+	
+	
    
 	$( "#regForm" ).submit(function( event ) {    
 	event.preventDefault();
@@ -658,11 +739,9 @@ $(document).ready(function() {
 		interval: 5000		
 	});	
 
-	$('.grid').masonry({
-	  itemSelector: '.grid-item',
-	  columnWidth: '.grid-sizer',
-	  percentPosition: true,
-	  gutter: 5
+	$('.wall').jaliswall({  
+	  item : '.wall-item',
+	  columnClass : '.wall-column'	  
 	});
 
 	$("#file-3").fileinput({
@@ -689,8 +768,7 @@ $(document).ready(function() {
 	});
 
 	$(".thumbs, .submit-choice-btn, ul.h-mood li").click(function () {
-        $(".poll-answer").hide("slow");
-		$(".fb-comments-cnt").hide("slow"); 
+        $(".poll-answer").hide("slow");		
 		$(".view-poll-result").hide("slow");
 		$(".poll-result").show("slow");
 		$(".close-poll-result").show("slow");
@@ -701,15 +779,13 @@ $(document).ready(function() {
         var x = $(this).val();       
         $('.rating-answer').rating('update', x);       
         $('.rating-world').rating('update', x);
-        $(".poll-answer").hide("slow");
-		$(".fb-comments-cnt").hide("slow"); 
+        $(".poll-answer").hide("slow");		
 		$(".view-poll-result").hide("slow");
 		$(".poll-result").show("slow");
 		$(".close-poll-result").show("slow");
     });
 		
-	$(".view_comments").click(function() {
-		$(".fb-comments-cnt").toggle("slow"); 
+	$(".view_comments").click(function() {		
 		$(".view_comments").hide("slow");    
 		$(".poll-answer").hide("slow");  
 		$(".poll-result").hide("slow");  		
@@ -720,14 +796,12 @@ $(document).ready(function() {
 
 	$(".hide_comments").click(function() {	  
 		$(".view_comments").show("slow");     
-		$(".fb-comments-cnt").hide("slow"); 
 		$(".poll-answer").show("slow");
 		$(".hide_comments").hide("slow"); 	
     });
 
 	$(".view-poll-result").click(function() {	
-		$(".poll-answer").hide("slow");
-		$(".fb-comments-cnt").hide("slow"); 
+		$(".poll-answer").hide("slow");		
 		$(".view-poll-result").hide("slow");
 		$(".poll-result").show("slow");
 		$(".close-poll-result").show("slow");
@@ -741,6 +815,7 @@ $(document).ready(function() {
 		$(".poll-answer").show("slow");
 		$(".view-poll-result").show("slow");
     });
+	
 
     $("input, textarea, select").on({
 	    mouseenter: function(){
@@ -762,6 +837,7 @@ $(document).ready(function() {
 	$('.dp').on('change', function(){
         $('.datepicker').hide();
     });
+
 
     /* Dashboard - Profile */
     $("#inputfname").prop('disabled', true);
@@ -855,8 +931,7 @@ $(document).ready(function() {
 		
 	});
 
-	$(".view_comments-2").click(function() {
-		$(".fb-comments-cnt").toggle("slow"); 
+	$(".view_comments-2").click(function() {		
 		$(".view_comments-2").hide("slow");    
 		$(".poll-answer").hide("slow");  
 		$(".poll-result-upick").show("slow");  	
@@ -865,16 +940,20 @@ $(document).ready(function() {
 	});
 
 	$(".hide_comments-2").click(function() {	  
-		$(".view_comments-2").show("slow");     
-		$(".fb-comments-cnt").hide("slow"); 
+		$(".view_comments-2").show("slow");    
 		$(".poll-result-upick").hide("slow");  		
 		$(".poll-answer").show("slow");
 		$(".hide_comments-2").hide("slow"); 	
 	});
 
 	 $('#tbl-allUsers').DataTable({	 
+	 	
 	 });
 
+
+	$('#fullpage').fullpage({
+		anchors: ['poll']		
+	});
 
 });  	
 
@@ -894,7 +973,6 @@ $(document).ready(function() {
 
     $(".submit-rank-btn").click(function() {			
 		$(".poll-answer").hide("slow");
-		$(".fb-comments-cnt").hide("slow"); 
 		$(".view-poll-result").hide("slow");
 		$(".poll-result").show("slow");
 		$(".close-poll-result").show("slow");
@@ -902,7 +980,7 @@ $(document).ready(function() {
 
 });
 
-//Facebook Comments
+//Facebook
 (function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
@@ -910,4 +988,9 @@ $(document).ready(function() {
   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=523169924525740";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+
+//Twitter
+(function(d,s,id){
+	var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}
+}(document, 'script', 'twitter-wjs'));
 

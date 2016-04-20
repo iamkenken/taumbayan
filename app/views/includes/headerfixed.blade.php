@@ -8,7 +8,7 @@
                   <span class="icon-bar"></span>
             </button>
             <!-- Site Logo and name -->
-            <a class="navbar-brand" href="{{ url('/') }}" title="Taumbayan">{{ HTML::image('img/TLogo32.png') }}Taumbayan</a>
+            <a class="navbar-brand" href="{{ url('/') }}" title="Taumbayan">{{ HTML::image('img/TLogo.png', 'Taumbayan Logo', array( 'width' => 24 )) }}Taumbayan</a>
           </div>                  
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse">            
@@ -22,9 +22,9 @@
             @else  
                 <li><a href="{{ url('/dashboard') }}" title="">Hi! {{ $profile->firstname }} 
                 @if ($profile->photo)
-                {{ HTML::image($profile->photo, 'Avatar', array('class' => 'img-circle', 'width' => 20) ) }}
+                  {{ HTML::image($profile->photo, 'Avatar', array('class' => 'img-circle', 'width' => 20) ) }}
                 @else
-                <span class="genericon genericon-user icon-user"></span>
+                  <span class="genericon genericon-user icon-user"></span>
                 @endif
                 </a></li> 
             @endif 

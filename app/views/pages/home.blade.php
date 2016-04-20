@@ -6,7 +6,7 @@
 			<div class="container">			
 				<div class="row">
 					<div class="col-xs-6 col-sm-6 col-md-6">
-						<h1>Trending <span class="genericon genericon-expand"></span> | <span class="cat-count">4579 POLLS</span></h1>
+						<h1>Trending <span class="genericon genericon-expand"></span> | <span class="cat-count">4579 POLLS</span></h1>	
 					</div>	
 					<div class="col-xs-6 col-sm-6 col-md-6">					
 						<h1>Thumbs Up or Down <button class="share-this m-share" title="Share this Poll">SHARE THIS</button></h1>
@@ -15,7 +15,7 @@
 				<div class="row mg-btm-10 mg-top-10">
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="poll-question">
-							<p>Nararapat bang humarap si VP Binay sa Senado at harapin ang mga kasong ipinaratang sa kanya?</p>
+							<p>Nararapat bang humarap si VP Binay sa Senado at harapin ang mga kasong ipinaratang sa kanya? </p>
 						</div>
 					</div>	
 					<div class="col-xs-12 col-sm-6 col-md-6">

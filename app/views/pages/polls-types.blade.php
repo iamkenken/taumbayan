@@ -1,7 +1,7 @@
-@extends('layouts.fullpage')
+@extends('layouts.default')
 
 @section('content')
-<div class="section container">            
+<div class="section container pt-mg">            
 	<div class="row  text-center">
 		<h1 class="h1-pt" >Types of Polls</h1>
 		<p>Filter polls based on your choice.</p>
