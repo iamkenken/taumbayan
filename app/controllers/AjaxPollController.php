@@ -241,7 +241,7 @@ class AjaxPollController extends \BaseController {
 			$vote->userid = Auth::user()->id;
 			$vote->pollid = $pollid;
 			$vote->choiceid = $choiceid;
-			$vote->status = 0;
+			$vote->status = 1;
 
 			if($vote->save()){
 			return Response::json(array('status'=> 'success'));

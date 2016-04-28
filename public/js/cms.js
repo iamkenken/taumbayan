@@ -570,4 +570,50 @@ $('#user_role').change(function(){
 });
 /**End - User Action**/
 
+/**Poll approval**/
+    $(document).on ('click', '.approve', function(){
+        var id = $(this).data('id');
+        var status = $(this).html();
+        if(status == 'Approve'){
+            $(this).append(' <i class="verifyspin fa fa-circle-o-notch fa-spin"></i> ');
+            var url = baseUrl+'/admin/polls/approve';
+            $.ajax({
+                context: this,
+                url: url,
+                data: {'id': id},
+                type: 'POST',
+                dataType: 'JSON',
+                success: function(e){
+                    if(e['status'] == 'success'){
+                    $(this).html('Unapproved');
+                    $('.verifyspin').remove();
+                    }else{
+                    $('.verifyspin').remove();
+                    alert('Something went wrong. Try again');
+                    }
+                }
+            });
+        }else{
+            var url = baseUrl+'/admin/polls/unapproved';
+            $(this).append(' <i class="verifyspin fa fa-circle-o-notch fa-spin"></i> ');
+            $.ajax({
+                context: this,
+                url: url,
+                data: {'id': id},
+                type: 'POST',
+                dataType: 'JSON',
+                success: function(e){
+                    if(e['status'] == 'success'){
+                    $(this).html('Approve');
+                    $('.verifyspin').remove();
+                    }else{
+                    $('.verifyspin').remove();
+                    alert('Something went wrong. Try again');
+                    }
+                }
+            });
+        }   
+        return false;
+    });
+/**END - Poll approval**/
 });

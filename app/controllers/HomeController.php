@@ -89,7 +89,6 @@ class HomeController extends BaseController {
 
 		$rules = array(
 			'firstname' => 'required',
-			'middlename' => 'required',
 			'lastname' => 'required',
 			'email' => 'required|email|unique:users',     // required and must be unique in the ducks table
 	        'password' => 'required',
@@ -121,7 +120,6 @@ class HomeController extends BaseController {
 
 		$profile = new Profile([
 			'firstname' => Input::get('firstname'),
-			'middlename' => Input::get('middlename'),
 			'lastname' => Input::get('lastname'),
 			'gender' => Input::get('gender'),
 			'birthday' => Input::get('birthday'),

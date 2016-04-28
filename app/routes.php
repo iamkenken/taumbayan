@@ -117,3 +117,6 @@ Route::get('admin/logout', array('uses' => 'CMSController@doLogout'));
 
 Route::post('admin/users/create', array('before' => 'auth', 'uses' => 'CMSController@doCreateUser'));
 Route::post('admin/user/delete', array('before' => 'auth', 'uses' => 'CMSAjaxController@deleteUser'));
+
+Route::post('admin/polls/approve', array('before' => 'auth', 'uses' => 'CMSAjaxController@approvePoll'));
+Route::post('admin/polls/unapproved', array('before' => 'auth', 'uses' => 'CMSAjaxController@unapprovedPoll'));

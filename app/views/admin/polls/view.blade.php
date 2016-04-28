@@ -47,10 +47,10 @@
                             <td>{{ $p->question }}</td>
                             <td>{{ $p->type }}</td>
                             @if($p->status == 'pending')
-	                        <td><a href="" class="btn btn-success">Approve</a></td>    
+	                        <td><a href="" class="btn btn-success approve" data-id="{{ $p->id }}">Approve</a></td>    
                             @endif 
                             @if($p->status == 'published')
-                            <td><a href="" class="btn btn-success">Unapproved</a></td>    
+                            <td><a href="" class="btn btn-success approve" data-id="{{ $p->id }}">Unapproved</a></td>    
                             @endif                        
 	                    </tr>  
                         @endforeach

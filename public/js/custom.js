@@ -554,8 +554,8 @@ $(document).ready(function() {
 
 	});
 
-	/**Submitting Vote**/
-	$('.upickimg').click(function(){
+	/**Answer Upick**/
+	$('.upickimg, ul.h-mood li a').click(function(){
 		var msg = $('.'+$(this).data('msg'));
 		msg.html("");
 		var pollid = $(this).data('pollid');
@@ -576,7 +576,7 @@ $(document).ready(function() {
 				type: 'POST',
 				success: function(e){
 					if(e['status'] == 'success'){
-					msg.html("<div class='alert alert-success alert-dismissible fade in'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Thank you for voting. Your vote will be verify. We will notify your registered email when your vote is approved.</div>");
+					msg.html("<div class='alert alert-success alert-dismissible fade in'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Thank you for participating the poll.</div>");
 					}else if(e['status'] == 'exist'){
 					msg.html("<div class='alert alert-warning alert-dismissible fade in'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>You have already voted.</div>");
 					}else{
@@ -589,50 +589,8 @@ $(document).ready(function() {
 		}
 	});
 
-	/*$(document).on ('click', '.verify', function(){
-		var id = $(this).data('id');
-		var status = $(this).html();
-		console.log(status);
-		if(status == 'Verify'){
-			$(this).append(' <i class="verifyspin fa fa-circle-o-notch fa-spin"></i> ');
-			var url = baseUrl+'/verify-vote';
-			console.log('xxxx');
-			$.ajax({
-				context: this,
-				url: url,
-				data: {'id': id},
-				dataType: 'JSON',
-				success: function(e){
-					if(e['status'] == 'success'){
-					$(this).html('UnVerify');
-					$('.verifyspin').remove();
-					}else{
-					$('.verifyspin').remove();
-					alert('Something went wrong. Try again');
-					}
-				}
-			});
-		}else{
-			var url = baseUrl+'/unverify-vote';
-			$(this).append(' <i class="verifyspin fa fa-circle-o-notch fa-spin"></i> ');
-			console.log('dasdsa');
-			$.ajax({
-				context: this,
-				url: url,
-				data: {'id': id},
-				dataType: 'JSON',
-				success: function(e){
-					if(e['status'] == 'success'){
-					$(this).html('Verify');
-					$('.verifyspin').remove();
-					}else{
-					$('.verifyspin').remove();
-					alert('Something went wrong. Try again');
-					}
-				}
-			});
-		}	
-	});*/
+		
+
 
 	$(document).on ('click', '.verify', function(){
 		var id = $(this).data('id');
@@ -706,9 +664,27 @@ function checkUser(baseUrl){
 $(document).ready(function() {	
 	'use strict';
 	
-	
-	
+	$('body').prepend('<a href="#" class="back-to-top">Back to Top</a>');	
+
+	var amountScrolled = 300;
+
+	$(window).scroll(function() {
+		if ( $(window).scrollTop() > amountScrolled ) {
+			$('a.back-to-top').fadeIn('slow');
+		} else {
+			$('a.back-to-top').fadeOut('slow');
+		}
+	});
    
+	$('a.back-to-top').click(function() {
+		$('html, body').animate({
+			scrollTop: 0
+		}, 700);
+		return false;
+	});
+
+
+
 	$( "#regForm" ).submit(function( event ) {    
 	event.preventDefault();
 	var $form = $( this ),
@@ -767,15 +743,29 @@ $(document).ready(function() {
 	    $('#prof-pic').fileinput('refresh', {previewClass:'bg-info'});
 	});
 
-	$(".thumbs, .submit-choice-btn, ul.h-mood li").click(function () {
+	$(".thumbs, .submit-choice-btn").click(function () {
         $(".poll-answer").hide("slow");		
 		$(".view-poll-result").hide("slow");
 		$(".poll-result").show("slow");
 		$(".close-poll-result").show("slow");
     });
 
-	$('.rating-answer, .rating-world').rating('refresh', {disabled: true,  showCaption: false});
+	/*$('.rating-answer, .rating-world').rating('refresh', {disabled: true,  showCaption: false});
 	$('.rating').on('change', function () {     
+        var x = $(this).val();       
+        $('.rating-answer').rating('update', x);       
+        $('.rating-world').rating('update', x);
+        $(".poll-answer").hide("slow");		
+		$(".view-poll-result").hide("slow");
+		$(".poll-result").show("slow");
+		$(".close-poll-result").show("slow");
+    });*/
+
+	$('.rating-answer, .rating-world').rating('refresh', {disabled: true,  showCaption: false, stars:3});
+
+	//$('.rating-set').rating({ stars: 3 });
+
+	$('.rating-set').rating({ }).on('change', function () {     
         var x = $(this).val();       
         $('.rating-answer').rating('update', x);       
         $('.rating-world').rating('update', x);
@@ -825,7 +815,7 @@ $(document).ready(function() {
 	        $(this).css("background-color", "#FFF");
 	    }, 
 	    click: function(){
-	        $(this).css("background-color", "#F9F6F6");
+	        $(this).css("background-color", "#ff0000");
 	    } 
 	});
 

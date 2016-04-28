@@ -19,6 +19,7 @@ class TaumbayanPoll extends Migration
             $table->string('question');
             $table->string('type');
             $table->string('categoryid');
+            $table->integer('no_rate');
             $table->dateTime('startdate');
             $table->dateTime('end_date');
             $table->string('status');
