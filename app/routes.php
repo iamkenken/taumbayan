@@ -81,6 +81,9 @@ Route::post('poll/add/mood', array('before' => 'auth', 'uses' => 'AjaxPollContro
 Route::post('poll/add/upick', array('before' => 'auth', 'uses' => 'AjaxPollController@addPollUpick'));
 Route::post('poll/vote/upick', array('before' => 'auth', 'uses' => 'AjaxPollController@votePollUpick'));
 
+Route::post('poll/vote/rate', array('before' => 'auth', 'uses' => 'AjaxPollController@votePollRate'));
+Route::post('poll/vote/mc', array('before' => 'auth', 'uses' => 'AjaxPollController@votePollMc'));
+
 Route::get('single-poll/{id}/{title}', array('uses' => 'PollsController@single_poll'));
 
 
@@ -94,9 +97,11 @@ Route::get('categories', array('uses' => 'CategoriesController@viewCategories'))
 Route::get('category/{id}', array('as'=>'category', 'uses' => 'CategoriesController@viewCategory'));
 
 Route::get('polls-types', array('uses' => 'PollsController@polls_types'));
+Route::get('poll-types/{type}', array('uses' => 'PollsController@single_type'));
 Route::get('trending-polls', array('uses' => 'PollsController@trending_polls'));
 Route::get('new-polls', array('uses' => 'PollsController@new_polls'));
 Route::get('sponsored-polls', array('uses' => 'PollsController@sponsored_polls'));
+Route::get('preview', array('uses' => 'PollsController@preview'));
 
 
 /* Dashboard Updates */

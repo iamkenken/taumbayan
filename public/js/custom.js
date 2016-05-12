@@ -245,6 +245,28 @@ $(document).ready(function() {
 		}
 	});
 
+	$('#previewth').click(function(){
+		var type = $('#th_type').val();
+		var cats = $('#th_cat').val();
+		var title = $('#th_title').val();
+		var question = $('#th_question').val();
+
+		$('#previewth').append(' <i class="signupspin fa fa-circle-o-notch fa-spin"></i> ');
+		$('.th-error .alert').remove();
+		if (cats == null){		
+			$('.th-error').append('<div class="alert alert-danger">Please select category</div>').hide().fadeIn();
+			$('.signupspin').remove();
+		}else if(title == ''){
+			$('.th-error').append('<div class="alert alert-danger">Please add a title</div>').hide().fadeIn();
+			$('.signupspin').remove();
+		}else if(question == ''){
+			$('.th-error').append('<div class="alert alert-danger">Please add a question</div>').hide().fadeIn();
+			$('.signupspin').remove();
+		}else{
+			window.location = baseUrl+'/preview?t='+type+'&q'+question;
+		}
+	});
+
 	/*Mood Meter*/
 	/*store mood in array*/
 	var mood = [];
@@ -392,7 +414,7 @@ $(document).ready(function() {
 	});
 
 	/*Rating*/
-	var ratingChoice = $('#ratingchoice');
+	/*var ratingChoice = $('#ratingchoice');
 	ratingChoice.selectpicker({
 	 noneSelectedText: 'Select Number of Items'
 	});
@@ -407,11 +429,11 @@ $(document).ready(function() {
 	}
 	$('.rating_choices').append(choices).hide().fadeIn();
 	}
-	});
+	});*/
 
-	ratingChoice.on('refreshed.bs.select', function (e) {
+	/*ratingChoice.on('refreshed.bs.select', function (e) {
 	  $('.rating_choices').html('');
-	});
+	});*/
 
 	var ratingNum = $('#ratingnumber');
 	ratingNum.selectpicker({
@@ -446,13 +468,13 @@ $(document).ready(function() {
 		}else if(ratingnumber == ''){
 			$('.rating-error').append('<div class="alert alert-danger">Please add number of rating</div>').hide().fadeIn();
 			$('.signupspin').remove();
-		}else if(number == ''){
+		}/*else if(number == ''){
 			$('.rating-error').append('<div class="alert alert-danger">Please add number of items to rate</div>').hide().fadeIn();
 			$('.signupspin').remove();
 		}else if(ratingchoices.length < 2){
 			$('.rating-error').append('<div class="alert alert-danger">Please add more than 1 choices</div>').hide().fadeIn();
 			$('.signupspin').remove();
-		}else{
+		}*/else{
 			$.ajax({
 				url: baseUrl+'/poll/add/rating',
 				data: {"type": type, "cats": cats, "title": title, "question": question, "ratingnumber": ratingnumber, "choices": ratingchoices},
@@ -555,7 +577,7 @@ $(document).ready(function() {
 	});
 
 	/**Answer Upick**/
-	$('.upickimg, ul.h-mood li a').click(function(){
+	$('.upickimg, ul.h-mood li a, .thumbs').click(function(){
 		var msg = $('.'+$(this).data('msg'));
 		msg.html("");
 		var pollid = $(this).data('pollid');
@@ -578,7 +600,7 @@ $(document).ready(function() {
 					if(e['status'] == 'success'){
 					msg.html("<div class='alert alert-success alert-dismissible fade in'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Thank you for participating the poll.</div>");
 					}else if(e['status'] == 'exist'){
-					msg.html("<div class='alert alert-warning alert-dismissible fade in'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>You have already voted.</div>");
+					msg.html("<div class='alert alert-warning alert-dismissible fade in'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>You have already participated.</div>");
 					}else{
 					msg.html("<div class='alert alert-danger alert-dismissible fade in'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Failed. Please try again.</div>");
 					}
@@ -587,9 +609,7 @@ $(document).ready(function() {
 		});
 		$('.nobtn').click(function(){ msg.html(""); });
 		}
-	});
-
-		
+	});	
 
 
 	$(document).on ('click', '.verify', function(){
@@ -633,7 +653,52 @@ $(document).ready(function() {
 			});
 		}	
 	});
+	var chks = [];
+	$('.chk').click(function(){
+		var i = chks.indexOf($(this).data('id'));
+		if(i != -1) {
+			chks.splice(i, 1);
+		}else{
+			chks.push($(this).data('id'));
+		}
+		console.log(chks);
+	});
 
+	$('.submit-choice-btn').click(function(){
+		var msg = $('.'+$(this).data('msg'));
+		msg.html("");
+		var pollid = $(this).data('pollid');
+		//var choiceid = $(this).data('choiceid');
+		var userStatus = checkUser(baseUrl);
+		if(chks.length == 0){
+			msg.html("<div class='alert alert-success alert-dismissible fade in'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Please select your choice.</div>");
+		}else if(userStatus == 'notallowed'){
+			$("#modLogin").modal();	
+		}else if(userStatus == 'notverified'){
+		msg.html("<div class='alert alert-success alert-dismissible fade in'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Your email address is not yet verified. Please check your email. <a href='resend-verification'>Resend?</a></div>");
+		}else{
+		msg.html("<div class='alert alert-info alert-dismissible fade in'>Please Confirm your vote <button class='btn btn-default yesbtn'>Yes</button> <button class='btn btn-default nobtn'>No</button></div>");
+		$('.yesbtn').click(function(){ 
+			msg.html(""); 
+			$.ajax({
+				url: baseUrl+'/poll/vote/mc',
+				data: {'pollid': pollid, 'choiceid': chks },
+				dataType: 'JSON',
+				type: 'POST',
+				success: function(e){
+					if(e['status'] == 'success'){
+					msg.html("<div class='alert alert-success alert-dismissible fade in'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Thank you for participating the poll.</div>");
+					}else if(e['status'] == 'exist'){
+					msg.html("<div class='alert alert-warning alert-dismissible fade in'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>You have already participated.</div>");
+					}else{
+					msg.html("<div class='alert alert-danger alert-dismissible fade in'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Failed. Please try again.</div>");
+					}
+				}
+			});
+		});
+		$('.nobtn').click(function(){ msg.html(""); });
+		}
+	});
 });
 
 function checkUser(baseUrl){
@@ -657,6 +722,7 @@ function checkUser(baseUrl){
 	})
 	return status;
 }
+
 
 
 
@@ -743,12 +809,12 @@ $(document).ready(function() {
 	    $('#prof-pic').fileinput('refresh', {previewClass:'bg-info'});
 	});
 
-	$(".thumbs, .submit-choice-btn").click(function () {
+	/*$(".thumbs, .submit-choice-btn").click(function () {
         $(".poll-answer").hide("slow");		
 		$(".view-poll-result").hide("slow");
 		$(".poll-result").show("slow");
 		$(".close-poll-result").show("slow");
-    });
+    });*/
 
 	/*$('.rating-answer, .rating-world').rating('refresh', {disabled: true,  showCaption: false});
 	$('.rating').on('change', function () {     

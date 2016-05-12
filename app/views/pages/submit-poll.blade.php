@@ -36,7 +36,7 @@
 				</div>
 				<div class="text-right">
 					<input type="hidden" id="th_type" name="type" value="thumbs">
-					<a class="submit-poll-content-btn btn pointer">Preview Poll</a> <a id="submitth" class="submit-poll-content-btn btn pointer">Submit Poll</a>	
+					<a id="previewth" class="submit-poll-content-btn btn pointer">Preview Poll</a> <a id="submitth" class="submit-poll-content-btn btn pointer">Submit Poll</a>	
 				</div>
 			</form>	
         </div>
@@ -71,7 +71,7 @@
 			</div>
 			<div class="text-right" style="clear:both;">
 				<input type="hidden" id="mc_type" name="type" value="multiplechoice">
-				<a class="submit-poll-content-btn btn pointer">Preview Poll</a> <a class="submit-poll-content-btn btn pointer" id="submitmc">Submit Poll</a>	
+				<a id="previewmc" class="submit-poll-content-btn btn pointer">Preview Poll</a> <a class="submit-poll-content-btn btn pointer" id="submitmc">Submit Poll</a>	
 			</div>
 			</form>	
         </div>
@@ -108,7 +108,7 @@
 			</div>												
 			<div class="text-right">
 				<input type="hidden" id="mm_type" name="type" value="mood">
-				<a class="submit-poll-content-btn btn pointer">Preview Poll</a> <a id="submitmood" class="submit-poll-content-btn btn pointer">Submit Poll</a>	
+				<a id="previewmood" class="submit-poll-content-btn btn pointer">Preview Poll</a> <a id="submitmood" class="submit-poll-content-btn btn pointer">Submit Poll</a>	
 			</div>
 			</form>	
 		</div>
@@ -178,7 +178,7 @@
 			    @endfor
 			 	</select>
 			</div>
-			<div class="form-group">	
+			<!-- <div class="form-group">	
 				<select id="ratingchoice" class="form-control">
 				<option value=''></option>
 				@for($x = 2; $x <= 10; $x++)
@@ -187,10 +187,10 @@
 			 	</select>
 			</div>	
 			<div class="rating_choices">
-			</div>
+			</div> -->
 			<div class="text-right" style="clear:both;">
 				<input type="hidden" id="rating_type" name="type" value="rating">
-				<a class="submit-poll-content-btn btn pointer">Preview Poll</a> <a class="submit-poll-content-btn btn pointer" id="submitrating">Submit Poll</a>	
+				<a id="previewrating" class="submit-poll-content-btn btn pointer">Preview Poll</a> <a class="submit-poll-content-btn btn pointer" id="submitrating">Submit Poll</a>	
 			</div>
 			</form>	
 		</div>
@@ -225,14 +225,13 @@
 			</div>
 			<div class="text-right" style="clear:both;">
 				<input type="hidden" id="upick_type" name="type" value="upick">
-				<a class="submit-poll-content-btn btn pointer">Preview Poll</a> <a class="submit-poll-content-btn btn pointer" id="submitupick">Submit Poll</a>	
+				<a class="submit-poll-content-btn btn pointer" id="previewupick">Preview Poll</a> <a class="submit-poll-content-btn btn pointer" id="submitupick">Submit Poll</a>	
 			</div>
 			</form>		
 	    </div>	
-	    </div>
-		</div>
-		</div>
     </div>
+	</div>
+	</div>
 </div>
 </div>
 @endsection

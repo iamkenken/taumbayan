@@ -98,4 +98,30 @@ class PollsController extends BaseController{
 		}
 	}
 
+	public function single_type($type)
+	{
+		$where = ["type" => $type, "status" => 'published'];
+		$polls = Polls::with('pollchoices', 'pollanswers')->where($where)->get();
+		if(Auth::check())
+		{
+			$user = User::with('profile')->find(Auth::user()->id);
+			$profile = $user->profile;
+			return View::make('pages.single-type')->with('profile', $profile)->with('user', $user)->with('type', $type)->with('polls', $polls);
+		}
+		else
+		{
+			return View::make('pages.single-type')->with('type', $type)->with('polls', $polls);
+		}
+	}
+
+	public function preview()
+	{
+		if(Auth::check())
+		{
+			$user = User::with('profile')->find(Auth::user()->id);
+			$profile = $user->profile;
+			return View::make('pages.preview')->with('profile', $profile)->with('user', $user);
+		}
+	}
+
 }

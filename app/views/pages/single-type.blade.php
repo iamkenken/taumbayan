@@ -1,6 +1,16 @@
+
 @extends('layouts.default-ver')
 
 @section('content')
+@if(count($polls) == 0)
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+<div class="alert alert-warning"> No Poll Found. </div>
+</div>
+</div>
+</div>
+@else
 	<div id="fullpage">	
 		<?php $x = 0 ?>
 		<div class="section" id="section0" >
@@ -165,4 +175,5 @@
 		@endforeach
 			</div>	
 	</div>
+@endif
 @stop

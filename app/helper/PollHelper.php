@@ -78,24 +78,73 @@ class PollHelper
 		}
 	}
 
-	public static function getPollRate($id){
+	public static function getPollRate($id)
+	{
 		$poll = Polls::whereId($id)->first();
 		return $poll->no_rate;
 	}
 
-	public static function getMcChoices($id){
+	public static function getMcChoices($id)
+	{
 		$poll = Pollchoices::wherePollsId($id)->get();
 		return $poll;
 	}
 
-	public static function getUpickChoices($id){
+	public static function getRateChoices($id)
+	{
+		$poll = Pollchoices::wherePollsId($id)->first();
+		return $poll;
+	}
+
+
+	public static function getUpickChoices($id)
+	{
 		$poll = Pollchoices::wherePollsId($id)->get();
 		return $poll;
 	}
 
-	public static function getChoices($id){
+	public static function getChoices($id)
+	{
 		$poll = Pollchoices::wherePollsId($id)->get();
 		return $poll;
 	}
+
+	public static function getUserRate($id)
+	{
+		if(Auth::check())
+		{
+			$where = ['pollid' => $id, 'userid' => Auth::user()->id];
+			$pollanswer = PollAnswers::where($where)->first();
+			if($pollanswer)
+			{
+			return $pollanswer->rate;
+			}
+		}
+	}
+
+	public static function getTotalRating($id)
+	{
+		//(252*5 + 124*4 + 40*3 + 29*2 + 33*1) / (252 + 124 + 40 + 29 + 33)
+		$poll = Polls::whereId($id)->first();
+		$stars = $poll->no_rate;
+		$pollanswers = PollAnswers::wherePollid($id)->get();
+		if($pollanswers)
+		{
+			foreach($pollanswers as $a)
+			{
+					$rates[] = $a->rate;
+			}
+			$ratings = array_count_values($rates);
+			$totalStars = 0;
+			$voters = array_sum($ratings);
+			foreach ($ratings as $stars => $votes) 
+			{
+			    $totalStars += $stars * $votes;
+			}
+			return $totalStars/$voters;
+		}
+	}
+
+	
 }
 

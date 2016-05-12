@@ -161,7 +161,8 @@ class AjaxPollController extends \BaseController {
 			$status = 'pending';
 			$cats = json_encode(Input::get('cats'), true);
 			$ratingnumber = Input::get('ratingnumber');
-			$choices = Input::get('choices');
+			//$choices = Input::get('choices');
+			$choices = array(Input::get('question'));
 			$verified = Profile::whereUserId($by)->whereIsverified(1)->first();
 			if(empty($verified)){
 				return Response::json(array("status" => "not verified"));
@@ -173,6 +174,7 @@ class AjaxPollController extends \BaseController {
 					'status' => $status,
 					'submittedbyid' => $by,
 					'categoryid' => $cats,
+					'no_rate' => $ratingnumber,
 				]);
 				foreach ($choices as $value) {
 				$c[] = new PollChoices([
@@ -248,6 +250,55 @@ class AjaxPollController extends \BaseController {
 			}else{
 			return Response::json(array('status'=> 'failed'));	
 			}
+			
+		}
+	}
+
+	public function votePollRate(){
+		$pollid = Input::get('pollid');
+		$choiceid = Input::get('choiceid');
+		$rate = Input::get('rate');
+		$checkVote = PollAnswers::whereUserid(Auth::user()->id)->wherePollid($pollid)->first();
+		if($checkVote){
+			return Response::json(array('status'=> 'exist'));
+		}else{
+
+			$vote = new PollAnswers;
+			$vote->userid = Auth::user()->id;
+			$vote->pollid = $pollid;
+			$vote->choiceid = $choiceid;
+			$vote->rate = $rate;
+			$vote->status = 1;
+
+			if($vote->save()){
+			return Response::json(array('status'=> 'success'));
+			}else{
+			return Response::json(array('status'=> 'failed'));	
+			}
+			
+		}
+	}
+
+	public function votePollMc()
+	{
+		$pollid = Input::get('pollid');
+		$choiceid = Input::get('choiceid');
+		$checkVote = PollAnswers::whereUserid(Auth::user()->id)->wherePollid($pollid)->first();
+		if($checkVote){
+			return Response::json(array('status'=> 'exist'));
+		}else{
+			foreach($choiceid as $c)
+			{
+				$vote = new PollAnswers;
+				$vote->userid = Auth::user()->id;
+				$vote->pollid = $pollid;
+				$vote->choiceid = $c;
+				$vote->status = 1;
+				$vote->save();
+			}
+
+			return Response::json(array('status'=> 'success'));
+			
 			
 		}
 	}
